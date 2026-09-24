@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="it"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MedRicerca</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#0b5d6b">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<style>
+:root{--bg:#eef7f6;--card:#fff;--ink:#0e2a33;--mut:#5b7780;--pri:#0b5d6b;--acc:#22c2a0;--line:#d5e7e5;--warn:#9a4a1c;--sh:0 6px 20px rgba(11,93,107,.10)}
+[data-theme=dark]{--bg:#0a1a1f;--card:#12292f;--ink:#e4f3f1;--mut:#8fb0b5;--pri:#3fc9b0;--acc:#22c2a0;--line:#1f3d44;--warn:#f0a06a;--sh:0 6px 20px rgba(0,0,0,.35)}
+*{box-sizing:border-box;margin:0}
+html{height:100%}
+body{min-height:100%;background:var(--bg);color:var(--ink);font:16px/1.5 ui-rounded,"Avenir Next","Segoe UI",system-ui,sans-serif;padding-top:env(safe-area-inset-top,0px);padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+header{background:linear-gradient(135deg,#0b5d6b,#0f8f86);color:#fff;padding:18px 18px 64px;position:relative}
+header h1{font-size:1.6rem;letter-spacing:-.01em;font-weight:800}
+header p{opacity:.85;font-size:.9rem}
+#theme{position:absolute;right:14px;top:14px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:1.1rem}
+.ecg{position:absolute;left:0;right:0;bottom:36px;height:34px;width:100%;opacity:.55}
+.ecg path{fill:none;stroke:#b8fff0;stroke-width:2;stroke-dasharray:600;stroke-dashoffset:600;animation:draw 2.2s ease-out .2s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+main{max-width:760px;margin:-46px auto 0;padding:0 14px;position:relative}
+.view{display:none}.view.on{display:block}
+.box{background:var(--card);border-radius:20px;box-shadow:var(--sh);padding:14px}
+.sbar{display:flex;gap:8px}
+#q{flex:1;min-width:0;border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:12px 18px;font-size:1.05rem}
+#q:focus{border-color:var(--acc);outline:0}
+.go{background:var(--pri);color:#fff;border-radius:999px;padding:0 20px;font-weight:700}
+[data-theme=dark] .go{color:#06211d}
+.seg{display:flex;gap:6px;margin:10px 0 4px}
+.seg button,.chip{border:1.5px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.9rem;color:var(--mut)}
+.seg button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+[data-theme=dark] .seg button.on{color:#06211d}
+.en{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--mut);margin-top:8px}
+.en input{flex:1;min-width:0;border:1.5px dashed var(--line);background:transparent;border-radius:10px;padding:5px 10px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;font-size:.85rem}
+.filters select{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:5px 10px}
+.filters label{display:flex;gap:6px;align-items:center}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 8px;scrollbar-width:none}
+.tabs button{white-space:nowrap;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:.9rem}
+.tabs button.on{background:var(--pri);border-color:var(--pri);color:#fff}
+[data-theme=dark] .tabs button.on{color:#06211d}
+.tabs b{margin-left:6px;opacity:.75}
+.card{background:var(--card);border-radius:16px;box-shadow:var(--sh);padding:14px 16px;margin:10px 0;display:block;width:100%;text-align:left}
+.card h3{font-size:1rem;line-height:1.35;margin-bottom:4px}
+.meta{font-size:.82rem;color:var(--mut)}
+.badge{display:inline-block;background:var(--acc);color:#04231d;border-radius:6px;padding:0 7px;font-size:.72rem;font-weight:700;margin-left:6px}
+.sk{height:74px;border-radius:16px;margin:10px 0;background:linear-gradient(90deg,var(--line) 25%,var(--card) 50%,var(--line) 75%);background-size:200% 100%;animation:sh 1.2s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+.msg{text-align:center;color:var(--mut);padding:26px 10px}
+.msg.err{color:var(--warn)}
+.also{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.also a{border:1.5px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.85rem;color:var(--pri);text-decoration:none;background:var(--card)}
+.disc{font-size:.8rem;color:var(--mut);text-align:center;margin:16px 4px}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:5}
+nav button{flex:1;padding:10px 0 8px;font-size:.75rem;color:var(--mut)}
+nav button.on{color:var(--pri);font-weight:700}
+nav span{display:block;font-size:1.25rem}
+dialog{border:0;border-radius:24px 24px 0 0;padding:0;width:100%;max-width:760px;margin:auto auto 0;background:var(--card);color:var(--ink);max-height:88vh}
+dialog::backdrop{background:rgba(5,25,30,.55)}
+.dl{padding:18px 18px calc(24px + env(safe-area-inset-bottom,0px));overflow:auto;max-height:88vh}
+.dl h2{font-size:1.15rem;line-height:1.3;margin-bottom:6px}
+.dl .abs{margin:14px 0;white-space:pre-wrap;font-size:.95rem;max-width:70ch}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.acts button,.acts a{border:1.5px solid var(--pri);color:var(--pri);border-radius:999px;padding:7px 14px;font-size:.88rem;text-decoration:none}
+.acts .fill{background:var(--pri);color:#fff}
+[data-theme=dark] .acts .fill{color:#06211d}
+.note{font-size:.78rem;color:var(--warn);margin-top:6px}
+h2.t{font-size:1.1rem;margin:4px 0 8px}
+.row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+@media (prefers-reduced-motion:reduce){.ecg path{animation:none;stroke-dashoffset:0}.sk{animation:none}}
+</style></head>
+<body>
+<header>
+  <h1>MedRicerca</h1>
+  <p>Farmaci e malattie nella letteratura medica</p>
+  <button id="theme" aria-label="Cambia tema">◐</button>
+  <svg class="ecg" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 H90 L102 20 L110 4 L122 32 L132 12 L140 20 H230 L242 20 L250 6 L262 30 L272 14 L280 20 H400"/></svg>
+</header>
+<main>
+  <section id="v-search" class="view on">
+    <div class="box">
+      <div class="sbar"><input id="q" type="search" placeholder="Es. aspirina, ipertensione…" enterkeyhint="search" autocomplete="off"><button class="go" id="go">Cerca</button></div>
+      <div class="seg" id="mode"><button data-m="tutto" class="on">Tutto</button><button data-m="farmaco">Farmaco</button><button data-m="malattia">Malattia</button></div>
+      <div class="en">Cerco come <input id="en" placeholder="termine inglese (modificabile)" aria-label="Termine inglese"></div>
+      <div class="filters">
+        <select id="fy" aria-label="Anno"><option value="">Ogni anno</option><option value="2025">Dal 2025</option><option value="2022">Dal 2022</option><option value="2016">Dal 2016</option></select>
+        <select id="ft" aria-label="Tipo di studio"><option value="">Ogni tipo</option><option value="review">Review</option><option value="rct">RCT</option><option value="meta">Meta-analisi</option></select>
+        <select id="fs" aria-label="Ordine"><option value="rel">Rilevanza</option><option value="date">Data</option></select>
+        <label><input type="checkbox" id="fo"> Solo open access</label>
+      </div>
+    </div>
+    <div class="tabs" id="tabs"></div>
+    <div id="res"><p class="msg">Scrivi un farmaco o una malattia, anche in italiano: la ricerca parte sulle banche dati in inglese.</p></div>
+    <div class="also" id="also"></div>
+  </section>
+  <section id="v-fav" class="view"><h2 class="t">Preferiti</h2><div id="favs"></div></section>
+  <section id="v-hist" class="view"><h2 class="t">Cronologia</h2><div id="hist"></div></section>
+  <section id="v-info" class="view">
+    <div class="box">
+      <h2 class="t">Info</h2>
+      <div class="row"><span>Versione</span><b id="app-version">1.1</b></div>
+      <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
+      <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
+      <p class="disc" style="text-align:left;color:var(--ink)"><b>Solo a scopo informativo, non sostituisce il parere del medico.</b></p>
+      <div class="acts"><button id="exp">Esporta dati</button><button id="imp">Importa dati</button><input type="file" id="file" accept="application/json" hidden></div>
+    </div>
+  </section>
+  <p class="disc">Solo a scopo informativo, non sostituisce il parere del medico.</p>
+</main>
+<nav>
+  <button data-v="search" class="on"><span>🔎</span>Cerca</button>
+  <button data-v="fav"><span>★</span>Preferiti</button>
+  <button data-v="hist"><span>🕘</span>Cronologia</button>
+  <button data-v="info"><span>ⓘ</span>Info</button>
+</nav>
+<dialog id="dlg"><div class="dl" id="dl"></div></dialog>
+
+<script>
+"use strict";
+/* ============ Utilità ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const strip=h=>String(h||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const enc=encodeURIComponent;
+const jget=async(u)=>{const r=await fetch(u);if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
+const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const withTimeout=(p,ms=20000)=>Promise.race([p,new Promise((_,j)=>setTimeout(()=>j(new Error('Tempo scaduto')),ms))]);
+
+/* ============ Cache traduzioni (IndexedDB) ============ */
+const idb=new Promise(res=>{try{const r=indexedDB.open('medricerca',1);r.onupgradeneeded=()=>r.result.createObjectStore('tr');r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);}catch{res(null)}});
+const idbGet=async k=>{const d=await idb;if(!d)return;return new Promise(r=>{const q=d.transaction('tr').objectStore('tr').get(k);q.onsuccess=()=>r(q.result);q.onerror=()=>r();});};
+const idbSet=async(k,v)=>{const d=await idb;if(d)d.transaction('tr','readwrite').objectStore('tr').put(v,k);};
+const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return (h>>>0).toString(36)+s.length;};
+
+/* ============ Traduzione ============ */
+const nat={};
+async function nativeTr(t,s,g){
+  if(!('Translator' in self))throw 0;
+  const k=s+g;
+  if(!nat[k]){const a=await Translator.availability({sourceLanguage:s,targetLanguage:g});if(a==='unavailable')throw 0;nat[k]=await Translator.create({sourceLanguage:s,targetLanguage:g});}
+  return nat[k].translate(t);
+}
+async function myMemory(t,s,g){
+  const parts=t.match(/[^.!?]+[.!?]*\s*/g)||[t];const ch=[];let cur='';
+  for(const p of parts){
+    if((cur+p).length>450){if(cur)ch.push(cur);cur=p;while(cur.length>450){ch.push(cur.slice(0,450));cur=cur.slice(450);}}
+    else cur+=p;
+  }
+  if(cur)ch.push(cur);
+  const out=[];
+  for(const c of ch){
+    const r=await jget(`https://api.mymemory.translated.net/get?q=${enc(c)}&langpair=${s}|${g}`);
+    if(r.responseStatus!==200)throw new Error(String(r.responseDetails||'Quota di traduzione esaurita'));
+    out.push(r.responseData.translatedText);await sleep(250);
+  }
+  return out.join(' ');
+}
+async function translate(t,s,g){
+  if(!t)return '';
+  const k=s+g+hash(t),c=await idbGet(k);if(c)return c;
+  let o;try{o=await nativeTr(t,s,g);}catch{o=await myMemory(t,s,g);}
+  idbSet(k,o);return o;
+}
+
+/* ============ Fonti (stessa interfaccia: search(q,f,mode)) ============ */
+const EU='https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
+let ncbiQ=Promise.resolve();                       // max ~3 richieste/sec
+const ncbi=u=>{const p=ncbiQ.then(()=>sleep(350)).then(()=>jget(u));ncbiQ=p.catch(()=>{});return p;};
+const T_PM={review:'"review"[pt]',rct:'"randomized controlled trial"[pt]',meta:'"meta-analysis"[pt]'};
+const T_EP={review:'PUB_TYPE:"Review"',rct:'PUB_TYPE:"Randomized Controlled Trial"',meta:'PUB_TYPE:"Meta-Analysis"'};
+
+const SOURCES=[
+{id:'pubmed',name:'PubMed',async search(q,f){
+  let t=`(${q})`;if(f.type)t+=' AND '+T_PM[f.type];if(f.oa)t+=' AND free full text[sb]';
+  let u=`${EU}esearch.fcgi?db=pubmed&retmode=json&retmax=20&sort=${f.sort==='date'?'pub_date':'relevance'}&term=${enc(t)}`;
+  if(f.year)u+=`&datetype=pdat&mindate=${f.year}&maxdate=3000`;
+  const ids=(await ncbi(u)).esearchresult.idlist;if(!ids.length)return[];
+  const s=await ncbi(`${EU}esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`);
+  return ids.map(id=>{const r=s.result[id];const doi=(r.articleids||[]).find(a=>a.idtype==='doi');
+    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:(r.pubdate||'').slice(0,4),doi:doi?doi.value:'',oa:false,abstract:'',url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
+}},
+{id:'epmc',name:'Europe PMC',async search(q,f){
+  let t=q;if(f.year)t+=` AND PUB_YEAR:[${f.year} TO 3000]`;if(f.oa)t+=' AND OPEN_ACCESS:y';if(f.type)t+=' AND '+T_EP[f.type];
+  const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=20&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`);
+  return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:a.pubYear||'',doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
+}},
+{id:'openalex',name:'OpenAlex',async search(q,f){
+  const fl=[];if(f.year)fl.push('from_publication_date:'+f.year+'-01-01');if(f.oa)fl.push('is_oa:true');if(f.type==='review')fl.push('type:review');
+  const r=await jget(`https://api.openalex.org/works?search=${enc(q)}&per-page=20${fl.length?'&filter='+fl.join(','):''}${f.sort==='date'?'&sort=publication_date:desc':''}`);
+  return (r.results||[]).map(w=>{let ab='';if(w.abstract_inverted_index){const a=[];for(const[k,v]of Object.entries(w.abstract_inverted_index))v.forEach(i=>a[i]=k);ab=a.join(' ');}
+    return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:String(w.publication_year||''),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),url:w.doi||w.id};});
+}},
+{id:'ctgov',name:'Studi clinici',async search(q){
+  const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=20&format=json`);
+  return (r.studies||[]).map(s=>{const p=s.protocolSection,i=p.identificationModule;
+    return{key:'ct:'+i.nctId,src:'ClinicalTrials.gov',title:i.briefTitle,authors:(p.sponsorCollaboratorsModule&&p.sponsorCollaboratorsModule.leadSponsor&&p.sponsorCollaboratorsModule.leadSponsor.name)||'',journal:(i.nctId+' · '+((p.statusModule&&p.statusModule.overallStatus)||'')),year:((p.statusModule&&p.statusModule.startDateStruct&&p.statusModule.startDateStruct.date)||'').slice(0,4),doi:'',oa:true,abstract:strip(p.descriptionModule&&p.descriptionModule.briefSummary),url:'https://clinicaltrials.gov/study/'+i.nctId};});
+}},
+{id:'fda',name:'Schede FDA',drugOnly:true,async search(q){
+  const x=enc('"'+q+'"');
+  let r;try{r=await jget(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:${x}+openfda.brand_name:${x}&limit=10`);}catch(e){if(/404/.test(e.message))return[];throw e;}
+  return (r.results||[]).map(l=>{const o=l.openfda||{};const n=(o.brand_name||[])[0]||(o.generic_name||[])[0]||q;
+    return{key:'fda:'+l.id,src:'openFDA',title:n+((o.generic_name||[])[0]&&o.generic_name[0]!==n?' ('+o.generic_name[0]+')':''),authors:(o.manufacturer_name||[])[0]||'',journal:'Scheda FDA',year:(l.effective_time||'').slice(0,4),doi:'',oa:true,abstract:strip((l.indications_and_usage||l.purpose||[''])[0]),url:'https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query='+enc(q)};});
+}}
+];
+
+/* ============ Stato ============ */
+const st={mode:'tutto',tab:null,res:{},items:{},enManual:false,q:''};
+const favs=()=>ls.get('mr_fav',[]);
+const isFav=k=>favs().some(f=>f.key===k);
+function toggleFav(it){let a=favs();a=isFav(it.key)?a.filter(f=>f.key!==it.key):[it,...a];ls.set('mr_fav',a);}
+
+/* ============ Ricerca ============ */
+// Marchio o nome italiano → principio attivo (RxNorm). Null se non trovato.
+async function normDrug(n){
+  try{
+    const r=await jget(`https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${enc(n)}&maxEntries=1`);
+    const c=r.approximateGroup&&r.approximateGroup.candidate&&r.approximateGroup.candidate[0];if(!c)return null;
+    const p=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/related.json?tty=IN`);
+    const g=((p.relatedGroup&&p.relatedGroup.conceptGroup)||[]).flatMap(x=>x.conceptProperties||[])[0];
+    return g?g.name.toLowerCase():null;
+  }catch{return null;}
+}
+async function doSearch(){
+  const raw=$('#q').value.trim();if(!raw)return;
+  let en=$('#en').value.trim();
+  if(!st.enManual||!en){
+    en='';
+    if(st.mode==='farmaco')en=await withTimeout(normDrug(raw),10000).catch(()=>null)||'';
+    if(!en){
+      try{en=await withTimeout(translate(raw,'it','en'),15000);}catch{en=raw;}
+      if(!en||/^\W*$/.test(en))en=raw;
+    }
+    $('#en').value=en;
+  }
+  const f={year:$('#fy').value,type:$('#ft').value,sort:$('#fs').value,oa:$('#fo').checked};
+  st.q=en;
+  const h=ls.get('mr_hist',[]).filter(x=>!(x.q===raw&&x.m===st.mode));h.unshift({q:raw,m:st.mode,t:Date.now()});ls.set('mr_hist',h.slice(0,50));
+  const list=SOURCES.filter(s=>!(s.drugOnly&&st.mode==='malattia'));
+  st.res={};list.forEach(s=>st.res[s.id]={name:s.name,loading:true,items:[]});
+  st.tab=list[0].id;drawAlso(en);drawTabs();drawRes();
+  list.forEach(s=>withTimeout(s.search(en,f)).then(items=>{items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items};}).catch(e=>{st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{drawTabs();drawRes();}));
+}
+function drawTabs(){
+  $('#tabs').innerHTML=Object.entries(st.res).map(([id,r])=>`<button data-t="${id}" class="${id===st.tab?'on':''}">${esc(r.name)}<b>${r.loading?'…':r.err?'!':r.items.length}</b></button>`).join('');
+}
+function card(it){
+  return `<button class="card" data-k="${esc(it.key)}"><h3>${esc(it.title)}${it.oa?'<span class="badge">Open Access</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button>`;
+}
+function drawRes(){
+  const r=st.res[st.tab];if(!r)return;
+  $('#res').innerHTML=r.loading?'<div class="sk"></div><div class="sk"></div><div class="sk"></div>':r.err?`<p class="msg err">${esc(r.name)} non ha risposto (${esc(r.err)}). Riprova tra poco: le altre fonti restano disponibili.</p>`:r.items.length?r.items.map(card).join(''):'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>';
+}
+function drawAlso(en){
+  const q=enc(en);const l=[['Embase','https://www.embase.com/search/quick?query='+q],['Cochrane','https://www.cochranelibrary.com/search?q='+q],['Google Scholar','https://scholar.google.com/scholar?q='+q]];
+  if(st.mode!=='malattia')l.push(['AIFA farmaci','https://medicinali.aifa.gov.it/it/']);
+  $('#also').innerHTML='<span class="meta" style="width:100%">Cerca anche su</span>'+l.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('');
+}
+
+/* ============ Dettaglio ============ */
+let cur=null,showTr=false;
+async function openItem(key){
+  cur=st.items[key]||favs().find(f=>f.key===key);if(!cur)return;
+  showTr=false;paint();$('#dlg').showModal();
+  if(cur.pmid&&!cur.abstract){
+    try{
+      await ncbiQ;await sleep(350);
+      const xml=await (await fetch(`${EU}efetch.fcgi?db=pubmed&retmode=xml&id=${cur.pmid}`)).text();
+      const d=new DOMParser().parseFromString(xml,'text/xml');
+      cur.abstract=[...d.querySelectorAll('AbstractText')].map(n=>(n.getAttribute('Label')?n.getAttribute('Label')+': ':'')+n.textContent).join('\n\n')||'Abstract non disponibile per questo articolo.';
+      st.items[cur.key]=cur;paint();
+    }catch{cur.abstract='';paint();}
+  }
+}
+function paint(){
+  const it=cur;const tr=showTr&&it.tr;
+  $('#dl').innerHTML=`<h2>${esc(tr?tr.title:it.title)}</h2>
+  <div class="meta">${esc([it.src,it.authors,it.journal,it.year].filter(Boolean).join(' · '))}${it.oa?'<span class="badge">Open Access</span>':''}</div>
+  <div class="abs">${esc(tr?tr.abs:(it.abstract||(it.pmid?'Carico l’abstract…':'Abstract non disponibile.')))}</div>
+  ${tr?'<p class="note">Traduzione automatica: verifica i termini medici sul testo originale.</p>':''}
+  ${it.trErr?`<p class="note">${esc(it.trErr)}</p>`:''}
+  <div class="acts">
+    <button class="fill" id="btr">${showTr?'Mostra originale':'Traduci in italiano'}</button>
+    <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
+    <a href="${esc(it.url)}" target="_blank" rel="noopener">Apri fonte</a>
+    ${it.doi?`<a href="https://doi.org/${esc(it.doi)}" target="_blank" rel="noopener">DOI</a>`:''}
+    <button id="bcl">Chiudi</button>
+  </div>`;
+}
+$('#dl').addEventListener('click',async e=>{
+  const id=e.target.id;
+  if(id==='bcl')$('#dlg').close();
+  if(id==='bfav'){toggleFav(cur);paint();drawFavs();}
+  if(id==='btr'){
+    if(showTr){showTr=false;return paint();}
+    if(cur.tr){showTr=true;return paint();}
+    e.target.disabled=true;e.target.textContent='Traduco…';cur.trErr='';
+    try{const t=await translate(cur.title,'en','it');const a=cur.abstract?await translate(cur.abstract,'en','it'):'';cur.tr={title:t,abs:a||'Abstract non disponibile.'};showTr=true;}
+    catch(err){cur.trErr='Traduzione non riuscita ('+err.message+'). Il testo originale resta disponibile.';}
+    paint();
+  }
+});
+$('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')$('#dlg').close();});
+
+/* ============ Preferiti / cronologia / dati ============ */
+function drawFavs(){
+  const a=favs();a.forEach(i=>st.items[i.key]=st.items[i.key]||i);
+  $('#favs').innerHTML=a.length?a.map(card).join(''):'<p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';
+}
+function drawHist(){
+  const h=ls.get('mr_hist',[]);
+  $('#hist').innerHTML=h.length?h.map((x,i)=>`<button class="card" data-h="${i}"><h3>${esc(x.q)}</h3><div class="meta">${esc(x.m)} · ${new Date(x.t).toLocaleString('it-IT')}</div></button>`).join('')+'<div class="acts"><button id="clh">Cancella cronologia</button></div>':'<p class="msg">Le ricerche fatte compariranno qui.</p>';
+}
+$('#exp').onclick=()=>{
+  const b=new Blob([JSON.stringify({v:1,fav:favs(),hist:ls.get('mr_hist',[])},null,1)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='medricerca-dati.json';a.click();
+};
+$('#imp').onclick=()=>$('#file').click();
+$('#file').onchange=async e=>{
+  try{const d=JSON.parse(await e.target.files[0].text());if(Array.isArray(d.fav))ls.set('mr_fav',d.fav);if(Array.isArray(d.hist))ls.set('mr_hist',d.hist);drawFavs();drawHist();alert('Dati importati.');}
+  catch{alert('File non valido: scegli un export di MedRicerca.');}
+};
+
+/* ============ Eventi ============ */
+$('#go').onclick=doSearch;
+$('#q').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+$('#q').addEventListener('input',()=>{st.enManual=false;});
+$('#en').addEventListener('input',()=>{st.enManual=true;});
+$('#en').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+$('#mode').onclick=e=>{const m=e.target.dataset.m;if(!m)return;st.mode=m;[...$('#mode').children].forEach(b=>b.classList.toggle('on',b===e.target));};
+$('#tabs').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;st.tab=b.dataset.t;drawTabs();drawRes();};
+document.addEventListener('click',e=>{
+  const c=e.target.closest('.card[data-k]');if(c)return openItem(c.dataset.k);
+  const h=e.target.closest('[data-h]');if(h){const x=ls.get('mr_hist',[])[+h.dataset.h];$('#q').value=x.q;st.mode=x.m;[...$('#mode').children].forEach(b=>b.classList.toggle('on',b.dataset.m===x.m));st.enManual=false;$('#en').value='';show('search');doSearch();}
+  if(e.target.id==='clh'){ls.set('mr_hist',[]);drawHist();}
+});
+function show(v){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='fav')drawFavs();if(v==='hist')drawHist();scrollTo(0,0);}
+document.querySelector('nav').onclick=e=>{const b=e.target.closest('button');if(b)show(b.dataset.v);};
+
+/* ============ Tema ============ */
+const setTheme=t=>{document.documentElement.dataset.theme=t;const m=document.querySelector('meta[name=theme-color]');if(m)m.content=t==='dark'?'#0a1a1f':'#0b5d6b';};
+setTheme(ls.get('mr_theme',matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));
+$('#theme').onclick=()=>{const t=document.documentElement.dataset.theme==='dark'?'light':'dark';ls.set('mr_theme',t);setTheme(t);};
+
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
