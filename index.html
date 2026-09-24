@@ -103,7 +103,7 @@ h2.t{font-size:1.1rem;margin:4px 0 8px}
   <section id="v-info" class="view">
     <div class="box">
       <h2 class="t">Info</h2>
-      <div class="row"><span>Versione</span><b id="app-version">1.1</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">1.2</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <p class="disc" style="text-align:left;color:var(--ink)"><b>Solo a scopo informativo, non sostituisce il parere del medico.</b></p>
@@ -235,6 +235,9 @@ async function doSearch(){
     if(!en){
       try{en=await withTimeout(translate(raw,'it','en'),15000);}catch{en=raw;}
       if(!en||/^\W*$/.test(en))en=raw;
+      // Guardia: una traduzione molto più lunga dell'originale è quasi sempre un falso match di MyMemory
+      const wc=s=>s.trim().split(/\s+/).length;
+      if(wc(en)>wc(raw)+1||en.length>raw.length*2+5)en=raw;
     }
     $('#en').value=en;
   }
