@@ -114,7 +114,7 @@ details ul{padding-left:20px}
   <h1><button id="home" class="ttl" aria-label="Torna alla home">MedRicerca</button></h1>
   <p>Farmaci e malattie nella letteratura medica</p>
   <button id="menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">⋮</button>
-  <div id="mnu" hidden><button data-go="guide">📖 Guida</button><button data-go="set">⚙️ Impostazioni</button><button data-go="info">ⓘ Info e crediti</button><button id="qt">◐ Cambia tema</button></div>
+  <div id="mnu" hidden><button id="mi" hidden>⬇️ Installa app</button><button data-go="guide">📖 Guida</button><button data-go="set">⚙️ Impostazioni</button><button data-go="info">ⓘ Info e crediti</button><button id="qt">◐ Cambia tema</button></div>
   <svg class="ecg" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 H90 L102 20 L110 4 L122 32 L132 12 L140 20 H230 L242 20 L250 6 L262 30 L272 14 L280 20 H400"/></svg>
 </header>
 <main>
@@ -148,6 +148,15 @@ details ul{padding-left:20px}
     <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p></details>
     <details><summary>Avvertenza</summary><p>Solo a scopo informativo, non sostituisce il parere del medico.</p></details>
   </section>
+  <dialog id="dlg-ios"><div class="dl">
+    <div class="top"><h2 class="t">Installa su iPhone/iPad</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
+    <ol style="padding-left:20px;line-height:1.9">
+      <li>Tocca il pulsante <b>Condividi</b> nella barra di Safari (il quadrato con la freccia verso l'alto).</li>
+      <li>Scorri e tocca <b>Aggiungi a Home</b>.</li>
+      <li>Conferma con <b>Aggiungi</b> in alto a destra.</li>
+    </ol>
+    <p class="meta">Funziona solo da Safari: se stai usando Chrome o un'altra app su iPhone, apri prima questa pagina in Safari.</p>
+  </div></dialog>
   <section id="v-set" class="view"><div class="box">
     <div class="top"><h2 class="t">Impostazioni</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
     <h3 class="sh">Tema</h3>
@@ -162,7 +171,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">1.9</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">2.0</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -439,6 +448,7 @@ $('#dl').addEventListener('click',async e=>{
   }
 });
 $('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')$('#dlg').close();});
+$('#dlg-ios').addEventListener('click',e=>{if(e.target.id==='dlg-ios'||e.target.closest('[data-close]'))$('#dlg-ios').close();});
 // Pinch-to-zoom: il testo del dettaglio si rimpagina sulla larghezza visibile
 function fitZoom(){
   const vv=window.visualViewport,d=$('#dlg'),dl=$('#dl');if(!vv||!d.open)return;
@@ -538,10 +548,28 @@ $('#s-rm').onchange=e=>{cfg.rm=e.target.checked;saveCfg();};
 $('#s-reset').onclick=()=>{cfg={...CFG0};saveCfg();};
 matchMedia('(prefers-color-scheme:dark)').addEventListener('change',()=>{if(cfg.theme==='auto')applyCfg();});
 
+/* ============ Installazione ============ */
+let deferredInstall=null;
+const iOS=/iPad|iPhone|iPod/.test(navigator.userAgent)&&!window.MSStream;
+const standalone=matchMedia('(display-mode:standalone)').matches||navigator.standalone===true;
+function refreshInstallBtn(){$('#mi').hidden=standalone||!(deferredInstall||iOS);}
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;refreshInstallBtn();});
+window.addEventListener('appinstalled',()=>{deferredInstall=null;$('#mi').hidden=true;});
+refreshInstallBtn();
+
 /* ============ Menu ⋮ ============ */
 const mnu=$('#mnu');
 $('#menu').onclick=e=>{e.stopPropagation();mnu.hidden=!mnu.hidden;$('#menu').setAttribute('aria-expanded',String(!mnu.hidden));};
-mnu.onclick=e=>{const b=e.target.closest('button');if(!b)return;mnu.hidden=true;if(b.dataset.go)show(b.dataset.go);if(b.id==='qt'){cfg.theme=isDark()?'light':'dark';saveCfg();}};
+mnu.onclick=async e=>{
+  const b=e.target.closest('button');if(!b)return;mnu.hidden=true;
+  if(b.id==='mi'){
+    if(deferredInstall){deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;refreshInstallBtn();}
+    else if(iOS){$('#dlg-ios').showModal();}
+    return;
+  }
+  if(b.dataset.go)show(b.dataset.go);
+  if(b.id==='qt'){cfg.theme=isDark()?'light':'dark';saveCfg();}
+};
 document.addEventListener('click',()=>{mnu.hidden=true;});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')mnu.hidden=true;});
 applyCfg();
