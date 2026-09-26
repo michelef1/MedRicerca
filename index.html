@@ -39,9 +39,11 @@ main{max-width:760px;margin:-46px auto 0;padding:0 14px;position:relative}
 .en{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--mut);margin-top:8px}
 .en input{flex:1;min-width:0;border:1.5px dashed var(--line);background:transparent;border-radius:10px;padding:5px 10px}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;font-size:.85rem}
-.selrow{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;margin-top:10px}
-.selrow::-webkit-scrollbar{display:none}
-.selrow .csel-btn{white-space:nowrap}
+.selrow{display:flex;gap:6px;margin-top:10px}
+.selrow .csel{flex:1;min-width:0}
+.selrow .csel-btn{width:100%;padding:6px 8px;font-size:.74rem;gap:3px;justify-content:space-between}
+.selrow .csel-btn .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.selrow .csel-btn .car{flex:none}
 .csel{position:relative}
 .csel-btn{border:1.5px solid var(--pri);background-color:color-mix(in srgb, var(--pri) 8%, var(--card));color:var(--pri);font-weight:700;border-radius:999px;padding:6px 12px;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}
 .csel-btn .car{font-size:.7em;transition:transform .15s}
@@ -187,7 +189,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">2.8</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">2.9</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -341,7 +343,7 @@ const FILTER_DEFS={
 const filterVal={fy:'',ft:'',fs:'rel'};
 function renderCSel(id){
   const opts=FILTER_DEFS[id],root=$('#d-'+id),cur=opts.find(o=>o[0]===filterVal[id])||opts[0];
-  root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false">${esc(cur[1])} <span class="car" aria-hidden="true">▾</span></button><div class="csel-menu" role="listbox" hidden>${opts.map(o=>`<button type="button" role="option" data-v="${esc(o[0])}" class="${o[0]===filterVal[id]?'sel':''}">${esc(o[1])}</button>`).join('')}</div>`;
+  root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false"><span class="lbl">${esc(cur[1])}</span><span class="car" aria-hidden="true">▾</span></button><div class="csel-menu" role="listbox" hidden>${opts.map(o=>`<button type="button" role="option" data-v="${esc(o[0])}" class="${o[0]===filterVal[id]?'sel':''}">${esc(o[1])}</button>`).join('')}</div>`;
 }
 function closeAllCSel(){document.querySelectorAll('.csel-menu').forEach(m=>m.hidden=true);document.querySelectorAll('.csel-btn').forEach(b=>b.setAttribute('aria-expanded','false'));}
 Object.keys(FILTER_DEFS).forEach(renderCSel);
