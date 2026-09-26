@@ -30,6 +30,8 @@ main{max-width:760px;margin:-46px auto 0;padding:0 14px;position:relative}
 .sbar{display:flex;gap:8px}
 #q{flex:1;min-width:0;border:2px solid var(--line);background:var(--bg);border-radius:999px;padding:12px 18px;font-size:1.05rem}
 #q:focus{border-color:var(--acc);outline:0}
+@keyframes pulseq{0%,100%{border-color:var(--acc);box-shadow:0 0 0 0 color-mix(in srgb, var(--acc) 45%, transparent)}50%{border-color:var(--acc);box-shadow:0 0 0 6px color-mix(in srgb, var(--acc) 0%, transparent)}}
+#q.hl{animation:pulseq .6s ease-out 2}
 .go{background:var(--pri);color:#fff;border-radius:999px;padding:0 20px;font-weight:700}
 [data-theme=dark] .go{color:#06211d}
 .seg{display:flex;gap:6px;margin:10px 0 4px}
@@ -212,7 +214,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">3.0</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">3.1</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -596,7 +598,14 @@ document.addEventListener('click',e=>{
   if(hid==='clh'&&confirm('Cancellare tutta la cronologia?')){ls.set('mr_hist',[]);hsel=null;drawHist();}
 });
 function show(v){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='fav')drawFavs();if(v==='hist'){hsel=null;drawHist();}scrollTo(0,0);}
-document.querySelector('nav').onclick=e=>{const b=e.target.closest('button');if(b)show(b.dataset.v);};
+document.querySelector('nav').onclick=e=>{
+  const b=e.target.closest('button');if(!b)return;
+  show(b.dataset.v);
+  if(b.dataset.v==='search'){
+    const q=$('#q');q.focus();q.classList.remove('hl');void q.offsetWidth;q.classList.add('hl');
+    setTimeout(()=>q.classList.remove('hl'),1300);
+  }
+};
 
 /* ============ Impostazioni (tema, sfondi, testo) ============ */
 const PRESETS={
