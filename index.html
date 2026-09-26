@@ -161,7 +161,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">1.5</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">1.6</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -286,6 +286,16 @@ async function normDrug(n){
     return g?g.name.toLowerCase():null;
   }catch{return null;}
 }
+function currentFilters(){return {year:$('#fy').value,type:$('#ft').value,sort:$('#fs').value,oa:$('#fo').checked};}
+// Rilancia la ricerca con i filtri correnti, senza ritradurre né toccare la cronologia
+function reSearch(){
+  if(!st.q)return;
+  const my=++st.sid,f=currentFilters();st.f=f;
+  const list=SOURCES.filter(s=>!(s.drugOnly&&st.mode==='malattia'));
+  st.tab=st.tab&&list.some(s=>s.id===st.tab)?st.tab:list[0].id;
+  drawTabs();drawRes();
+  list.forEach(s=>runSrc(s,st.q,f));
+}
 async function doSearch(){
   const raw=$('#q').value.trim();if(!raw)return;
   const my=++st.sid;
@@ -303,7 +313,7 @@ async function doSearch(){
     $('#en').value=en;
   }
   if(my!==st.sid)return;
-  const f={year:$('#fy').value,type:$('#ft').value,sort:$('#fs').value,oa:$('#fo').checked};
+  const f=currentFilters();
   st.q=en;
   const h=ls.get('mr_hist',[]).filter(x=>!(x.q===raw&&x.m===st.mode));h.unshift({q:raw,m:st.mode,t:Date.now()});ls.set('mr_hist',h.slice(0,50));
   const list=SOURCES.filter(s=>!(s.drugOnly&&st.mode==='malattia'));
@@ -433,6 +443,8 @@ $('#file').onchange=async e=>{
 $('#go').onclick=doSearch;
 $('#home').onclick=goHome;
 $('#q').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
+['#fy','#ft','#fs'].forEach(id=>$(id).addEventListener('change',reSearch));
+$('#fo').addEventListener('change',reSearch);
 $('#q').addEventListener('input',()=>{st.enManual=false;});
 $('#en').addEventListener('input',()=>{st.enManual=true;});
 $('#en').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
