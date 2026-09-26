@@ -39,7 +39,15 @@ main{max-width:760px;margin:-46px auto 0;padding:0 14px;position:relative}
 .en{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--mut);margin-top:8px}
 .en input{flex:1;min-width:0;border:1.5px dashed var(--line);background:transparent;border-radius:10px;padding:5px 10px}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;font-size:.85rem}
-.filters select{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:5px 10px}
+.csel{position:relative}
+.csel-btn{border:1.5px solid var(--pri);background-color:color-mix(in srgb, var(--pri) 8%, var(--card));color:var(--pri);font-weight:700;border-radius:999px;padding:6px 12px;font-size:.85rem;display:inline-flex;align-items:center;gap:6px}
+.csel-btn .car{font-size:.7em;transition:transform .15s}
+.csel-btn[aria-expanded=true] .car{transform:rotate(180deg)}
+.csel-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:170px;max-height:280px;overflow:auto;background:var(--card);border:1.5px solid var(--line);border-radius:14px;box-shadow:var(--sh);padding:6px;z-index:30}
+.csel-menu[hidden]{display:none}
+.csel-menu button{display:block;width:100%;text-align:left;border-radius:10px;padding:9px 12px;font-size:.9rem;color:var(--ink)}
+.csel-menu button:hover{background:var(--bg)}
+.csel-menu button.sel{background:color-mix(in srgb, var(--pri) 14%, var(--card));color:var(--pri);font-weight:700}
 .filters label{display:flex;gap:6px;align-items:center}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:14px 2px 8px;scrollbar-width:none}
 .tabs button{white-space:nowrap;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:.9rem}
@@ -124,9 +132,9 @@ details ul{padding-left:20px}
       <div class="seg" id="mode"><button data-m="tutto" class="on">Tutto</button><button data-m="farmaco">Farmaco</button><button data-m="malattia">Malattia</button></div>
       <div class="en">Cerco come <input id="en" placeholder="termine inglese (modificabile)" aria-label="Termine inglese"></div>
       <div class="filters">
-        <select id="fy" aria-label="Anno"><option value="">Ogni anno</option><option value="2025">Dal 2025</option><option value="2022">Dal 2022</option><option value="2016">Dal 2016</option></select>
-        <select id="ft" aria-label="Tipo di studio"><option value="">Ogni tipo</option><option value="review">Review</option><option value="rct">RCT</option><option value="meta">Meta-analisi</option></select>
-        <select id="fs" aria-label="Ordine"><option value="rel">Rilevanza</option><option value="date">Data</option></select>
+        <div class="csel" id="d-fy"></div>
+        <div class="csel" id="d-ft"></div>
+        <div class="csel" id="d-fs"></div>
         <label><input type="checkbox" id="fo"> Solo open access</label>
         <label><input type="checkbox" id="fab"> Solo con abstract</label>
       </div>
@@ -174,7 +182,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">2.3</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">2.4</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -310,7 +318,26 @@ async function normDrug(n){
     return g?g.name.toLowerCase():null;
   }catch{return null;}
 }
-function currentFilters(){return {year:$('#fy').value,type:$('#ft').value,sort:$('#fs').value,oa:$('#fo').checked};}
+const FILTER_DEFS={
+  fy:[['','Ogni anno'],['2025','Dal 2025'],['2022','Dal 2022'],['2016','Dal 2016']],
+  ft:[['','Ogni tipo'],['review','Review'],['rct','RCT'],['meta','Meta-analisi']],
+  fs:[['rel','Rilevanza'],['date','Data']]
+};
+const filterVal={fy:'',ft:'',fs:'rel'};
+function renderCSel(id){
+  const opts=FILTER_DEFS[id],root=$('#d-'+id),cur=opts.find(o=>o[0]===filterVal[id])||opts[0];
+  root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false">${esc(cur[1])} <span class="car" aria-hidden="true">▾</span></button><div class="csel-menu" role="listbox" hidden>${opts.map(o=>`<button type="button" role="option" data-v="${esc(o[0])}" class="${o[0]===filterVal[id]?'sel':''}">${esc(o[1])}</button>`).join('')}</div>`;
+}
+function closeAllCSel(){document.querySelectorAll('.csel-menu').forEach(m=>m.hidden=true);document.querySelectorAll('.csel-btn').forEach(b=>b.setAttribute('aria-expanded','false'));}
+Object.keys(FILTER_DEFS).forEach(renderCSel);
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('.csel-btn');
+  if(btn){e.stopPropagation();const menu=btn.nextElementSibling,willOpen=menu.hidden;closeAllCSel();if(willOpen){menu.hidden=false;btn.setAttribute('aria-expanded','true');}return;}
+  const opt=e.target.closest('.csel-menu [data-v]');
+  if(opt){const root=opt.closest('.csel'),id=root.id.slice(2);filterVal[id]=opt.dataset.v;renderCSel(id);closeAllCSel();reSearch();return;}
+  closeAllCSel();
+});
+function currentFilters(){return {year:filterVal.fy,type:filterVal.ft,sort:filterVal.fs,oa:$('#fo').checked};}
 // Rilancia la ricerca con i filtri correnti, senza ritradurre né toccare la cronologia
 function reSearch(){
   if(!st.q)return;
@@ -492,7 +519,6 @@ $('#file').onchange=async e=>{
 $('#go').onclick=doSearch;
 $('#home').onclick=goHome;
 $('#q').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
-['#fy','#ft','#fs'].forEach(id=>$(id).addEventListener('change',reSearch));
 ['#fo','#fab'].forEach(id=>$(id).addEventListener('change',reSearch));
 $('#q').addEventListener('input',()=>{st.enManual=false;});
 $('#en').addEventListener('input',()=>{st.enManual=true;});
@@ -574,7 +600,7 @@ mnu.onclick=async e=>{
   if(b.id==='qt'){cfg.theme=isDark()?'light':'dark';saveCfg();}
 };
 document.addEventListener('click',()=>{mnu.hidden=true;});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')mnu.hidden=true;});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){mnu.hidden=true;closeAllCSel();}});
 applyCfg();
 
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
