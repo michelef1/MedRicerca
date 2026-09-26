@@ -162,7 +162,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">1.8</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">1.9</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -366,7 +366,7 @@ function drawRes(){
 function drawAlso(en){
   const q=enc(en);const l=[['Embase','https://www.embase.com/search/quick?query='+q],['Cochrane','https://www.cochranelibrary.com/search?q='+q],['Google Scholar','https://scholar.google.com/scholar?q='+q]];
   if(st.mode!=='malattia')l.push(['AIFA farmaci','https://medicinali.aifa.gov.it/it/']);
-  l.push(['SNLG (linee guida IT)','https://www.iss.it/site/lg/ricerca-lg?p_p_id=lineeguida_WAR_lineeguidaportlet&p_p_lifecycle=0&query='+q]);
+  l.push(['SNLG (linee guida IT)','https://www.iss.it/linee-guida1']);
   $('#also').innerHTML='<span class="meta" style="width:100%">Cerca anche su</span>'+l.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('');
 }
 
