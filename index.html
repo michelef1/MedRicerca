@@ -114,7 +114,7 @@ details ul{padding-left:20px}
   <h1><button id="home" class="ttl" aria-label="Torna alla home">MedRicerca</button></h1>
   <p>Farmaci e malattie nella letteratura medica</p>
   <button id="menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">⋮</button>
-  <div id="mnu" hidden><button id="mi" hidden>⬇️ Installa app</button><button data-go="guide">📖 Guida</button><button data-go="set">⚙️ Impostazioni</button><button data-go="info">ⓘ Info e crediti</button><button id="qt">◐ Cambia tema</button></div>
+  <div id="mnu" hidden><button id="mi" hidden>⬇️ Installa app</button><button data-go="guide">📖 Guida</button><button data-go="set">⚙️ Impostazioni</button><button data-go="info">ⓘ Info e crediti</button><button id="qt">◐ <span id="qt-lbl">Tema Scuro</span></button></div>
   <svg class="ecg" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 H90 L102 20 L110 4 L122 32 L132 12 L140 20 H230 L242 20 L250 6 L262 30 L272 14 L280 20 H400"/></svg>
 </header>
 <main>
@@ -173,7 +173,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">2.1</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">2.2</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -533,6 +533,7 @@ function applyCfg(){
   ['bg','bg2','pri','acc'].forEach(k=>r.style.setProperty('--'+k,c[k]));
   r.style.fontSize=cfg.fs+'%';r.classList.toggle('rm',!!cfg.rm);
   const m=document.querySelector('meta[name=theme-color]');if(m)m.content=d?c.bg:P.tc;
+  $('#qt-lbl').textContent=d?'Tema Chiaro':'Tema Scuro';
   drawSettings();
 }
 function drawSettings(){
