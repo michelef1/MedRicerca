@@ -158,7 +158,7 @@ details ul{padding-left:20px}
     <details><summary>Filtri</summary><p>Puoi limitare per anno, tipo di studio (review, RCT, meta-analisi), solo open access, solo con abstract disponibile, e ordinare per rilevanza o data. Cambiando un filtro i risultati si aggiornano da soli, senza dover premere di nuovo Cerca. Non tutte le fonti supportano tutti i filtri: Studi clinici e Schede FDA, per esempio, non risentono del filtro "Solo con abstract" perché hanno sempre un riassunto proprio.</p></details>
     <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo.</p></details>
     <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Salva</b> aggiunge ai Preferiti. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
-    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC, OpenAlex: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Embase, Cochrane, AIFA e SNLG (linee guida italiane) sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
+    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC, OpenAlex: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
     <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p></details>
     <details><summary>Avvertenza</summary><p>Solo a scopo informativo, non sostituisce il parere del medico.</p></details>
   </section>
@@ -187,7 +187,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">2.7</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">2.8</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -215,6 +215,15 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const enc=encodeURIComponent;
 const jget=async(u,n=1)=>{const r=await fetch(u);if((r.status===503||r.status===429)&&n>0){await sleep(1500);return jget(u,n-1);}if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
 const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+function fmtDate(d){
+  if(!d)return'';
+  d=String(d);
+  let m=d.match(/^(\d{4})-(\d{2})-(\d{2})/);if(m)return`${m[3]}/${m[2]}/${m[1]}`;
+  m=d.match(/^(\d{4})(\d{2})(\d{2})$/);if(m)return`${m[3]}/${m[2]}/${m[1]}`;
+  m=d.match(/^(\d{4})\s+([A-Za-z]{3})(?:\s+(\d{1,2}))?/);
+  if(m){const MM={Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'}[m[2]];if(MM)return m[3]?`${m[3].padStart(2,'0')}/${MM}/${m[1]}`:`${MM}/${m[1]}`;}
+  m=d.match(/(\d{4})/);return m?m[1]:'';
+}
 const withTimeout=(p,ms=20000)=>Promise.race([p,new Promise((_,j)=>setTimeout(()=>j(new Error('Tempo scaduto')),ms))]);
 
 /* ============ Cache traduzioni (IndexedDB) ============ */
@@ -280,29 +289,29 @@ const SOURCES=[
     });
   }catch{}
   return ids.map(id=>{const r=s.result[id];const doi=(r.articleids||[]).find(a=>a.idtype==='doi');
-    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:(r.pubdate||'').slice(0,4),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
+    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:fmtDate(r.pubdate),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
 }},
 {id:'epmc',name:'Europe PMC',async search(q,f){
   let t=q;if(f.year)t+=` AND PUB_YEAR:[${f.year} TO 3000]`;if(f.oa)t+=' AND OPEN_ACCESS:y';if(f.type)t+=' AND '+T_EP[f.type];
   const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=20&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`);
-  return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:a.pubYear||'',doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
+  return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:fmtDate(a.firstPublicationDate||a.pubYear),doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
 }},
 {id:'openalex',name:'OpenAlex',async search(q,f){
   const fl=[];if(f.year)fl.push('from_publication_date:'+f.year+'-01-01');if(f.oa)fl.push('is_oa:true');if(f.type==='review')fl.push('type:review');
   const r=await jget(`https://api.openalex.org/works?search=${enc(q)}&per-page=20${fl.length?'&filter='+fl.join(','):''}${f.sort==='date'?'&sort=publication_date:desc':''}`);
   return (r.results||[]).map(w=>{let ab='';if(w.abstract_inverted_index){const a=[];for(const[k,v]of Object.entries(w.abstract_inverted_index))v.forEach(i=>a[i]=k);ab=a.join(' ');}
-    return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:String(w.publication_year||''),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),url:w.doi||w.id};});
+    return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:fmtDate(w.publication_date||w.publication_year),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),url:w.doi||w.id};});
 }},
 {id:'ctgov',name:'Studi clinici',canAbs:false,async search(q){
   const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=20&format=json`);
   return (r.studies||[]).map(s=>{const p=s.protocolSection,i=p.identificationModule;
-    return{key:'ct:'+i.nctId,src:'ClinicalTrials.gov',title:i.briefTitle,authors:(p.sponsorCollaboratorsModule&&p.sponsorCollaboratorsModule.leadSponsor&&p.sponsorCollaboratorsModule.leadSponsor.name)||'',journal:(i.nctId+' · '+((p.statusModule&&p.statusModule.overallStatus)||'')),year:((p.statusModule&&p.statusModule.startDateStruct&&p.statusModule.startDateStruct.date)||'').slice(0,4),doi:'',oa:true,abstract:strip(p.descriptionModule&&p.descriptionModule.briefSummary),url:'https://clinicaltrials.gov/study/'+i.nctId};});
+    return{key:'ct:'+i.nctId,src:'ClinicalTrials.gov',title:i.briefTitle,authors:(p.sponsorCollaboratorsModule&&p.sponsorCollaboratorsModule.leadSponsor&&p.sponsorCollaboratorsModule.leadSponsor.name)||'',journal:(i.nctId+' · '+((p.statusModule&&p.statusModule.overallStatus)||'')),year:fmtDate(p.statusModule&&p.statusModule.startDateStruct&&p.statusModule.startDateStruct.date),doi:'',oa:true,abstract:strip(p.descriptionModule&&p.descriptionModule.briefSummary),url:'https://clinicaltrials.gov/study/'+i.nctId};});
 }},
 {id:'fda',name:'Schede FDA',drugOnly:true,canAbs:false,async search(q){
   const x=enc('"'+q+'"');
-  let r;try{r=await jget(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:${x}+openfda.brand_name:${x}&limit=10`);}catch(e){if(/404/.test(e.message))return[];throw e;}
+  let r;try{r=await jget(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:${x}+OR+openfda.brand_name:${x}&limit=10`);}catch(e){if(/404/.test(e.message))return[];throw e;}
   return (r.results||[]).map(l=>{const o=l.openfda||{};const n=(o.brand_name||[])[0]||(o.generic_name||[])[0]||q;
-    return{key:'fda:'+l.id,src:'openFDA',title:n+((o.generic_name||[])[0]&&o.generic_name[0]!==n?' ('+o.generic_name[0]+')':''),authors:(o.manufacturer_name||[])[0]||'',journal:'Scheda FDA',year:(l.effective_time||'').slice(0,4),doi:'',oa:true,abstract:strip((l.indications_and_usage||l.purpose||[''])[0]),url:'https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query='+enc(q)};});
+    return{key:'fda:'+l.id,src:'openFDA',title:n+((o.generic_name||[])[0]&&o.generic_name[0]!==n?' ('+o.generic_name[0]+')':''),authors:(o.manufacturer_name||[])[0]||'',journal:'Scheda FDA',year:fmtDate(l.effective_time),doi:'',oa:true,abstract:strip((l.indications_and_usage||l.purpose||[''])[0]),url:'https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query='+enc(q)};});
 }}
 ];
 
@@ -421,10 +430,14 @@ function drawRes(){
   $('#res').innerHTML=items.length?items.map(card).join(''):(r.items.length?'<p class="msg">Nessun risultato con abstract disponibile. Prova a togliere il filtro "Solo con abstract".</p>':'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>');
 }
 function drawAlso(en){
-  const q=enc(en);const l=[['Embase','https://www.embase.com/search/quick?query='+q],['Cochrane','https://www.cochranelibrary.com/search?q='+q],['Google Scholar','https://scholar.google.com/scholar?q='+q]];
-  if(st.mode!=='malattia')l.push(['AIFA farmaci','https://medicinali.aifa.gov.it/it/']);
-  l.push(['SNLG (linee guida IT)','https://www.iss.it/linee-guida1']);
-  $('#also').innerHTML='<span class="meta" style="width:100%">Cerca anche su</span>'+l.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('');
+  const q=enc(en);
+  const pub=[];
+  if(st.mode!=='malattia')pub.push(['AIFA farmaci','https://medicinali.aifa.gov.it/it/']);
+  pub.push(['SNLG (linee guida IT)','https://www.iss.it/linee-guida1']);
+  const pag=[['Embase','https://www.embase.com/search/quick?query='+q],['Cochrane','https://www.cochranelibrary.com/search?q='+q],['Google Scholar','https://scholar.google.com/scholar?q='+q]];
+  $('#also').innerHTML=
+    '<span class="meta" style="width:100%">Fonti pubbliche italiane</span>'+pub.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('')+
+    '<span class="meta" style="width:100%;margin-top:6px">Altri motori (a pagamento o con accesso limitato)</span>'+pag.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('');
 }
 
 /* ============ Dettaglio ============ */
