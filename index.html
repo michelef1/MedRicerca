@@ -187,7 +187,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">2.5</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">2.6</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -335,9 +335,22 @@ function renderCSel(id){
 }
 function closeAllCSel(){document.querySelectorAll('.csel-menu').forEach(m=>m.hidden=true);document.querySelectorAll('.csel-btn').forEach(b=>b.setAttribute('aria-expanded','false'));}
 Object.keys(FILTER_DEFS).forEach(renderCSel);
+addEventListener('scroll',closeAllCSel,true);
 document.addEventListener('click',e=>{
   const btn=e.target.closest('.csel-btn');
-  if(btn){e.stopPropagation();const menu=btn.nextElementSibling,willOpen=menu.hidden;closeAllCSel();if(willOpen){menu.hidden=false;btn.setAttribute('aria-expanded','true');}return;}
+  if(btn){
+    e.stopPropagation();const menu=btn.nextElementSibling,willOpen=menu.hidden;closeAllCSel();
+    if(willOpen){
+      const r=btn.getBoundingClientRect();
+      menu.style.position='fixed';menu.style.top=(r.bottom+6)+'px';menu.style.left=r.left+'px';
+      menu.hidden=false;btn.setAttribute('aria-expanded','true');
+      const mw=menu.offsetWidth,maxL=innerWidth-mw-8;
+      menu.style.left=Math.max(8,Math.min(r.left,maxL))+'px';
+      const maxT=innerHeight-menu.offsetHeight-8;
+      if(r.bottom+6>maxT)menu.style.top=Math.max(8,r.top-menu.offsetHeight-6)+'px';
+    }
+    return;
+  }
   const opt=e.target.closest('.csel-menu [data-v]');
   if(opt){const root=opt.closest('.csel'),id=root.id.slice(2);filterVal[id]=opt.dataset.v;renderCSel(id);closeAllCSel();reSearch();return;}
   closeAllCSel();
