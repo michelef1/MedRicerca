@@ -128,6 +128,7 @@ details ul{padding-left:20px}
         <select id="ft" aria-label="Tipo di studio"><option value="">Ogni tipo</option><option value="review">Review</option><option value="rct">RCT</option><option value="meta">Meta-analisi</option></select>
         <select id="fs" aria-label="Ordine"><option value="rel">Rilevanza</option><option value="date">Data</option></select>
         <label><input type="checkbox" id="fo"> Solo open access</label>
+        <label><input type="checkbox" id="fab"> Solo con abstract</label>
       </div>
     </div>
     <div class="tabs" id="tabs"></div>
@@ -140,10 +141,10 @@ details ul{padding-left:20px}
     <div class="top"><h2 class="t">Guida</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
     <details open><summary>Come si cerca</summary><p>Scrivi un farmaco o una malattia, anche in italiano, e premi Cerca. L'app traduce il termine in inglese (lo vedi in “Cerco come”, puoi correggerlo) e interroga più banche dati insieme. Ogni fonte ha la sua scheda con il numero di risultati.</p></details>
     <details><summary>Tutto, Farmaco o Malattia</summary><p><b>Farmaco</b> risale al principio attivo anche partendo da un nome commerciale (es. Mirapexin → pramipexole) e cerca anche nelle schede FDA. <b>Malattia</b> esclude le schede dei farmaci. <b>Tutto</b> cerca il termine così com'è.</p></details>
-    <details><summary>Filtri</summary><p>Puoi limitare per anno, tipo di studio (review, RCT, meta-analisi), solo open access e ordinare per rilevanza o data. Non tutte le fonti supportano tutti i filtri.</p></details>
+    <details><summary>Filtri</summary><p>Puoi limitare per anno, tipo di studio (review, RCT, meta-analisi), solo open access, solo con abstract disponibile, e ordinare per rilevanza o data. Cambiando un filtro i risultati si aggiornano da soli, senza dover premere di nuovo Cerca. Non tutte le fonti supportano tutti i filtri: Studi clinici e Schede FDA, per esempio, non risentono del filtro "Solo con abstract" perché hanno sempre un riassunto proprio.</p></details>
     <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo.</p></details>
-    <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Salva</b> aggiunge ai Preferiti. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
-    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC, OpenAlex: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Embase, Cochrane e AIFA sono a pagamento o senza accesso libero: trovi i link per aprirli sul loro sito.</li></ul></details>
+    <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Salva</b> aggiunge ai Preferiti. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
+    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC, OpenAlex: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Embase, Cochrane, AIFA e SNLG (linee guida italiane) sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
     <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p></details>
     <details><summary>Avvertenza</summary><p>Solo a scopo informativo, non sostituisce il parere del medico.</p></details>
   </section>
@@ -161,7 +162,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">1.6</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">1.7</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -256,12 +257,12 @@ const SOURCES=[
   return (r.results||[]).map(w=>{let ab='';if(w.abstract_inverted_index){const a=[];for(const[k,v]of Object.entries(w.abstract_inverted_index))v.forEach(i=>a[i]=k);ab=a.join(' ');}
     return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:String(w.publication_year||''),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),url:w.doi||w.id};});
 }},
-{id:'ctgov',name:'Studi clinici',async search(q){
+{id:'ctgov',name:'Studi clinici',canAbs:false,async search(q){
   const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=20&format=json`);
   return (r.studies||[]).map(s=>{const p=s.protocolSection,i=p.identificationModule;
     return{key:'ct:'+i.nctId,src:'ClinicalTrials.gov',title:i.briefTitle,authors:(p.sponsorCollaboratorsModule&&p.sponsorCollaboratorsModule.leadSponsor&&p.sponsorCollaboratorsModule.leadSponsor.name)||'',journal:(i.nctId+' · '+((p.statusModule&&p.statusModule.overallStatus)||'')),year:((p.statusModule&&p.statusModule.startDateStruct&&p.statusModule.startDateStruct.date)||'').slice(0,4),doi:'',oa:true,abstract:strip(p.descriptionModule&&p.descriptionModule.briefSummary),url:'https://clinicaltrials.gov/study/'+i.nctId};});
 }},
-{id:'fda',name:'Schede FDA',drugOnly:true,async search(q){
+{id:'fda',name:'Schede FDA',drugOnly:true,canAbs:false,async search(q){
   const x=enc('"'+q+'"');
   let r;try{r=await jget(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:${x}+openfda.brand_name:${x}&limit=10`);}catch(e){if(/404/.test(e.message))return[];throw e;}
   return (r.results||[]).map(l=>{const o=l.openfda||{};const n=(o.brand_name||[])[0]||(o.generic_name||[])[0]||q;
@@ -323,8 +324,8 @@ async function doSearch(){
 }
 function runSrc(s,en,f){
   const sid=st.sid;
-  st.res[s.id]={name:s.name,loading:true,items:[]};drawTabs();drawRes();
-  withTimeout(s.search(en,f)).then(items=>{if(sid!==st.sid)return;items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items};}).catch(e=>{if(sid!==st.sid)return;st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{if(sid===st.sid){drawTabs();drawRes();}});
+  st.res[s.id]={name:s.name,loading:true,items:[],canAbs:s.canAbs!==false};drawTabs();drawRes();
+  withTimeout(s.search(en,f)).then(items=>{if(sid!==st.sid)return;items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items,canAbs:s.canAbs!==false};}).catch(e=>{if(sid!==st.sid)return;st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{if(sid===st.sid){drawTabs();drawRes();}});
 }
 // Home: azzera ricerca, risultati e ricerche ancora in corso
 function goHome(){
@@ -335,23 +336,45 @@ function goHome(){
   show('search');
 }
 function drawTabs(){
-  $('#tabs').innerHTML=Object.entries(st.res).map(([id,r])=>`<button data-t="${id}" class="${id===st.tab?'on':''}">${esc(r.name)}<b>${r.loading?'…':r.err?'!':r.items.length}</b></button>`).join('');
+  const onlyAbs=$('#fab').checked;
+  $('#tabs').innerHTML=Object.entries(st.res).map(([id,r])=>{const n=r.loading||r.err?0:(onlyAbs&&r.canAbs!==false?r.items.filter(i=>i.abstract).length:r.items.length);return `<button data-t="${id}" class="${id===st.tab?'on':''}">${esc(r.name)}<b>${r.loading?'…':r.err?'!':n}</b></button>`;}).join('');
 }
+function passAbs(it){return !$('#fab').checked||!!it.abstract===true||it.abstract===undefined?true:!!it.abstract;}
 function card(it){
   return `<button class="card" data-k="${esc(it.key)}"><h3>${esc(it.title)}${it.oa?'<span class="badge">Open Access</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button>`;
 }
 function drawRes(){
   const r=st.res[st.tab];if(!r)return;
-  $('#res').innerHTML=r.loading?'<div class="sk"></div><div class="sk"></div><div class="sk"></div>':r.err?`<p class="msg err">${esc(r.name)} non ha risposto (${esc(r.err)}). Le altre fonti restano disponibili.</p><p class="msg"><button class="go" style="padding:10px 22px" data-retry="${esc(st.tab)}">Riprova</button></p>`:r.items.length?r.items.map(card).join(''):'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>';
+  if(r.loading){$('#res').innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';return;}
+  if(r.err){$('#res').innerHTML=`<p class="msg err">${esc(r.name)} non ha risposto (${esc(r.err)}). Le altre fonti restano disponibili.</p><p class="msg"><button class="go" style="padding:10px 22px" data-retry="${esc(st.tab)}">Riprova</button></p>`;return;}
+  const onlyAbs=$('#fab').checked&&(r.canAbs!==false);
+  const items=onlyAbs?r.items.filter(i=>i.abstract):r.items;
+  $('#res').innerHTML=items.length?items.map(card).join(''):(r.items.length?'<p class="msg">Nessun risultato con abstract disponibile. Prova a togliere il filtro "Solo con abstract".</p>':'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>');
 }
 function drawAlso(en){
   const q=enc(en);const l=[['Embase','https://www.embase.com/search/quick?query='+q],['Cochrane','https://www.cochranelibrary.com/search?q='+q],['Google Scholar','https://scholar.google.com/scholar?q='+q]];
   if(st.mode!=='malattia')l.push(['AIFA farmaci','https://medicinali.aifa.gov.it/it/']);
+  l.push(['SNLG (linee guida IT)','https://www.iss.it/site/lg/ricerca-lg?p_p_id=lineeguida_WAR_lineeguidaportlet&p_p_lifecycle=0&query='+q]);
   $('#also').innerHTML='<span class="meta" style="width:100%">Cerca anche su</span>'+l.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener">${x[0]}</a>`).join('');
 }
 
 /* ============ Dettaglio ============ */
 let cur=null,showTr=false;
+function exportRis(it){
+  const ty=it.src==='ClinicalTrials.gov'?'CTRG':(it.journal?'JOUR':'GEN');
+  const L=[`TY  - ${ty}`,`TI  - ${it.title||''}`];
+  (it.authors||'').split(',').map(a=>a.trim()).filter(Boolean).forEach(a=>L.push(`AU  - ${a}`));
+  if(it.journal)L.push(`JO  - ${it.journal}`);
+  if(it.year)L.push(`PY  - ${it.year}`);
+  if(it.doi)L.push(`DO  - ${it.doi}`);
+  if(it.url)L.push(`UR  - ${it.url}`);
+  if(it.abstract)L.push(`AB  - ${it.abstract.replace(/\r?\n/g,' ')}`);
+  L.push('ER  - ');
+  const b=new Blob([L.join('\n')],{type:'application/x-research-info-systems'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);
+  a.download=(it.title||'articolo').slice(0,60).replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'.ris';
+  a.click();URL.revokeObjectURL(a.href);
+}
 async function shareItem(btn){
   const it=cur,url=it.url,text=it.title;
   if(navigator.share){try{await navigator.share({title:text,text,url});}catch{}return;}
@@ -382,6 +405,7 @@ function paint(){
     <button class="fill" id="btr">${showTr?'Mostra originale':'Traduci in italiano'}</button>
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
     <button id="bsh">Condividi</button>
+    <button id="bris">Esporta .ris</button>
     <a href="${esc(it.url)}" target="_blank" rel="noopener">Apri fonte</a>
     ${it.doi?`<a href="https://doi.org/${esc(it.doi)}" target="_blank" rel="noopener">DOI</a>`:''}
     <button id="bcl">Chiudi</button>
@@ -391,6 +415,7 @@ $('#dl').addEventListener('click',async e=>{
   const id=e.target.id;
   if(id==='bcl')$('#dlg').close();
   if(id==='bsh')shareItem(e.target);
+  if(id==='bris')exportRis(cur);
   if(id==='bfav'){toggleFav(cur);paint();drawFavs();}
   if(id==='btr'){
     if(showTr){showTr=false;return paint();}
@@ -444,7 +469,7 @@ $('#go').onclick=doSearch;
 $('#home').onclick=goHome;
 $('#q').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
 ['#fy','#ft','#fs'].forEach(id=>$(id).addEventListener('change',reSearch));
-$('#fo').addEventListener('change',reSearch);
+['#fo','#fab'].forEach(id=>$(id).addEventListener('change',reSearch));
 $('#q').addEventListener('input',()=>{st.enManual=false;});
 $('#en').addEventListener('input',()=>{st.enManual=true;});
 $('#en').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
