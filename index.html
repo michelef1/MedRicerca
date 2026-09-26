@@ -187,7 +187,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">2.6</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">2.7</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -323,8 +323,9 @@ async function normDrug(n){
     return g?g.name.toLowerCase():null;
   }catch{return null;}
 }
+const CY=new Date().getFullYear();
 const FILTER_DEFS={
-  fy:[['','Ogni anno'],['2025','Dal 2025'],['2022','Dal 2022'],['2016','Dal 2016']],
+  fy:[['','Ogni anno'],[String(CY-1),'Ultimo anno'],[String(CY-4),'Ultimi 5 anni'],[String(CY-9),'Ultimi 10 anni']],
   ft:[['','Ogni tipo'],['review','Review'],['rct','RCT'],['meta','Meta-analisi']],
   fs:[['rel','Rilevanza'],['date','Data']]
 };
