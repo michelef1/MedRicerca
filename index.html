@@ -162,7 +162,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">1.7</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">1.8</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -243,8 +243,20 @@ const SOURCES=[
   if(f.year)u+=`&datetype=pdat&mindate=${f.year}&maxdate=3000`;
   const ids=(await ncbi(u)).esearchresult.idlist;if(!ids.length)return[];
   const s=await ncbi(`${EU}esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`);
+  // Abstract in blocco per tutti gli id, una sola chiamata: serve anche al filtro "Solo con abstract"
+  let abs={};
+  try{
+    await ncbiQ;await sleep(350);
+    const xml=await (await fetch(`${EU}efetch.fcgi?db=pubmed&retmode=xml&id=${ids.join(',')}`)).text();
+    const d=new DOMParser().parseFromString(xml,'text/xml');
+    d.querySelectorAll('PubmedArticle').forEach(a=>{
+      const id=a.querySelector('PMID')&&a.querySelector('PMID').textContent;
+      const t=[...a.querySelectorAll('AbstractText')].map(n=>(n.getAttribute('Label')?n.getAttribute('Label')+': ':'')+n.textContent).join('\n\n');
+      if(id&&t)abs[id]=t;
+    });
+  }catch{}
   return ids.map(id=>{const r=s.result[id];const doi=(r.articleids||[]).find(a=>a.idtype==='doi');
-    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:(r.pubdate||'').slice(0,4),doi:doi?doi.value:'',oa:false,abstract:'',url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
+    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:(r.pubdate||'').slice(0,4),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
 }},
 {id:'epmc',name:'Europe PMC',async search(q,f){
   let t=q;if(f.year)t+=` AND PUB_YEAR:[${f.year} TO 3000]`;if(f.oa)t+=' AND OPEN_ACCESS:y';if(f.type)t+=' AND '+T_EP[f.type];
