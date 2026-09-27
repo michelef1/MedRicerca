@@ -32,7 +32,7 @@ Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutt
 |---|---|
 | 🌐 **Ricerca multi-fonte** | Interroga in parallelo più banche dati mediche con un'unica ricerca |
 | 🇮🇹 **Traduzione automatica** | Scrivi in italiano, l'app traduce e cerca in inglese |
-| 💊 **Riconoscimento farmaci** | Un nome commerciale (es. *Mirapexin*) viene ricondotto al principio attivo (*pramipexolo*) |
+| 💊 **Riconoscimento farmaci** | Un nome commerciale (es. *Norvasc*) viene ricondotto al principio attivo (*amlodipina*) |
 | 🈺 **Abstract tradotti** | Traduci titolo e riassunto di ogni articolo con un tocco |
 | 🎚️ **Filtri avanzati** | Anno, tipo di studio (*Review*, *RCT*, *Meta-analisi*), open access, presenza di abstract, ordinamento |
 | ⭐ **Preferiti e cronologia** | Salva gli articoli utili, ritrova le ricerche fatte |
