@@ -227,7 +227,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">3.8</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">3.9</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -298,7 +298,7 @@ async function myMemory(t,s,g,signal){
   const out=[];
   for(const c of ch){
     let r;
-    try{r=await jget(`https://api.mymemory.translated.net/get?q=${enc(c)}&langpair=${s}|${g}`,2,signal,1500);}
+    try{r=await jget(`https://api.mymemory.translated.net/get?q=${enc(c)}&langpair=${s}|${g}&de=app@medricerca.it`,2,signal,1500);}
     catch(e){
       if(/429/.test(e.message))throw new Error('Il servizio di traduzione gratuito ha raggiunto il limite di richieste per ora. Riprova tra qualche minuto, o leggi il testo originale.');
       throw e;
