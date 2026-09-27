@@ -227,7 +227,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">3.7</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">3.8</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -752,7 +752,12 @@ applyCfg();
 
 // Avviso semplice, riusabile: persist=true resta finché non lo chiudo io (es. durante un'attesa)
 function showToast(msg,{persist=false,warn=false,ms=3500}={}){
-  const t=$('#toast');t.classList.toggle('warn',!!warn);
+  const t=$('#toast');
+  // Un <dialog> aperto disegna sopra tutto il resto della pagina: se è aperto, l'avviso va spostato lì dentro, altrimenti resterebbe nascosto
+  const openDlg=$('#dlg').open?$('#dlg'):($('#dlg-ios').open?$('#dlg-ios'):null);
+  const host=openDlg||document.body;
+  if(t.parentElement!==host)host.appendChild(t);
+  t.classList.toggle('warn',!!warn);
   t.innerHTML=persist?`<span class="spin" aria-hidden="true"></span><span>${esc(msg)}</span>`:`<span>${esc(msg)}</span>`;
   t.hidden=false;clearTimeout(t._timer);
   if(!persist)t._timer=setTimeout(()=>{t.hidden=true;},ms);
