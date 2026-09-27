@@ -122,6 +122,13 @@ summary{font-weight:700;cursor:pointer}
 details p,details li{margin-top:8px;color:var(--mut);font-size:.93rem}
 details ul{padding-left:20px}
 .rm .ecg path{animation:none;stroke-dashoffset:0}.rm .sk{animation:none}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pri);color:#fff;padding:10px 18px;border-radius:999px;font-size:.88rem;box-shadow:var(--sh);z-index:60;max-width:88%;display:flex;align-items:center;gap:8px;text-align:left}
+[data-theme=dark] #toast{color:#06211d}
+#toast.warn{background:#9a4a1c;color:#fff}
+#toast[hidden]{display:none}
+.spin{width:14px;height:14px;flex:none;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.rm .spin{animation:none}
 @media (prefers-reduced-motion:reduce){.ecg path{animation:none;stroke-dashoffset:0}.sk{animation:none}}
 </style></head>
 <body>
@@ -220,7 +227,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">3.5</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">3.6</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -237,6 +244,7 @@ details ul{padding-left:20px}
   <button data-v="info"><span>ⓘ</span>Info</button>
 </nav>
 <dialog id="dlg"><div class="dl" id="dl"></div></dialog>
+<div id="toast" hidden></div>
 
 <script>
 "use strict";
@@ -247,7 +255,7 @@ const strip=h=>String(h||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const enc=encodeURIComponent;
 function safeUrl(v){try{const u=new URL(v);return['http:','https:'].includes(u.protocol)?u.href:'#';}catch{return'#';}}
-const jget=async(u,n=1)=>{const r=await fetch(u);if((r.status===503||r.status===429)&&n>0){await sleep(1500);return jget(u,n-1);}if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
+const jget=async(u,n=1,signal)=>{let r;try{r=await fetch(u,{signal});}catch(e){if(e.name==='AbortError')throw new Error('Tempo scaduto');throw e;}if((r.status===503||r.status===429)&&n>0){await sleep(1500);return jget(u,n-1,signal);}if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
 const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}}};
 function fmtDate(d){
   if(!d)return'';
@@ -258,7 +266,13 @@ function fmtDate(d){
   if(m){const MM={Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'}[m[2]];if(MM)return m[3]?`${m[3].padStart(2,'0')}/${MM}/${m[1]}`:`${MM}/${m[1]}`;}
   m=d.match(/(\d{4})/);return m?m[1]:'';
 }
-const withTimeout=(p,ms=20000)=>Promise.race([p,new Promise((_,j)=>setTimeout(()=>j(new Error('Tempo scaduto')),ms))]);
+function withTimeout(factory,ms=20000){
+  const ctrl=new AbortController();
+  const t=setTimeout(()=>ctrl.abort(),ms);
+  const main=Promise.resolve().then(()=>factory(ctrl.signal)).finally(()=>clearTimeout(t));
+  const to=new Promise((_,j)=>ctrl.signal.addEventListener('abort',()=>j(new Error('Tempo scaduto'))));
+  return Promise.race([main,to]);
+}
 
 /* ============ Cache traduzioni (IndexedDB) ============ */
 const idb=new Promise(res=>{try{const r=indexedDB.open('medricerca',1);r.onupgradeneeded=()=>r.result.createObjectStore('tr');r.onsuccess=()=>res(r.result);r.onerror=()=>res(null);}catch{res(null)}});
@@ -274,7 +288,7 @@ async function nativeTr(t,s,g){
   if(!nat[k]){const a=await Translator.availability({sourceLanguage:s,targetLanguage:g});if(a==='unavailable')throw 0;nat[k]=await Translator.create({sourceLanguage:s,targetLanguage:g});}
   return nat[k].translate(t);
 }
-async function myMemory(t,s,g){
+async function myMemory(t,s,g,signal){
   const parts=t.match(/[^.!?]+[.!?]*\s*/g)||[t];const ch=[];let cur='';
   for(const p of parts){
     if((cur+p).length>450){if(cur)ch.push(cur);cur=p;while(cur.length>450){ch.push(cur.slice(0,450));cur=cur.slice(450);}}
@@ -283,38 +297,38 @@ async function myMemory(t,s,g){
   if(cur)ch.push(cur);
   const out=[];
   for(const c of ch){
-    const r=await jget(`https://api.mymemory.translated.net/get?q=${enc(c)}&langpair=${s}|${g}`);
+    const r=await jget(`https://api.mymemory.translated.net/get?q=${enc(c)}&langpair=${s}|${g}`,1,signal);
     if(r.responseStatus!==200)throw new Error(String(r.responseDetails||'Quota di traduzione esaurita'));
     out.push(r.responseData.translatedText);await sleep(250);
   }
   return out.join(' ');
 }
-async function translate(t,s,g){
+async function translate(t,s,g,signal){
   if(!t)return '';
   const k=s+g+hash(t),c=await idbGet(k);if(c)return c;
-  let o;try{o=await nativeTr(t,s,g);}catch{o=await myMemory(t,s,g);}
+  let o;try{o=await nativeTr(t,s,g);}catch{o=await myMemory(t,s,g,signal);}
   idbSet(k,o);return o;
 }
 
 /* ============ Fonti (stessa interfaccia: search(q,f,mode)) ============ */
 const EU='https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
 let ncbiQ=Promise.resolve();                       // max ~3 richieste/sec
-const ncbi=u=>{const p=ncbiQ.then(()=>sleep(350)).then(()=>jget(u));ncbiQ=p.catch(()=>{});return p;};
+const ncbi=(u,signal)=>{const p=ncbiQ.then(()=>sleep(350)).then(()=>jget(u,1,signal));ncbiQ=p.catch(()=>{});return p;};
 const T_PM={review:'"review"[pt]',rct:'"randomized controlled trial"[pt]',meta:'"meta-analysis"[pt]'};
 const T_EP={review:'PUB_TYPE:"Review"',rct:'PUB_TYPE:"Randomized Controlled Trial"',meta:'PUB_TYPE:"Meta-Analysis"'};
 
 const SOURCES=[
-{id:'pubmed',name:'PubMed',async search(q,f){
+{id:'pubmed',name:'PubMed',async search(q,f,signal){
   let t=`(${q})`;if(f.type)t+=' AND '+T_PM[f.type];if(f.oa)t+=' AND free full text[sb]';
   let u=`${EU}esearch.fcgi?db=pubmed&retmode=json&retmax=20&sort=${f.sort==='date'?'pub_date':'relevance'}&term=${enc(t)}`;
   if(f.year)u+=`&datetype=pdat&mindate=${f.year}&maxdate=3000`;
-  const ids=(await ncbi(u)).esearchresult.idlist;if(!ids.length)return[];
-  const s=await ncbi(`${EU}esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`);
+  const ids=(await ncbi(u,signal)).esearchresult.idlist;if(!ids.length)return[];
+  const s=await ncbi(`${EU}esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`,signal);
   // Abstract in blocco per tutti gli id, una sola chiamata: serve anche al filtro "Solo con abstract"
   let abs={};
   try{
     await ncbiQ;await sleep(350);
-    const xml=await (await fetch(`${EU}efetch.fcgi?db=pubmed&retmode=xml&id=${ids.join(',')}`)).text();
+    const xml=await (await fetch(`${EU}efetch.fcgi?db=pubmed&retmode=xml&id=${ids.join(',')}`,{signal})).text();
     const d=new DOMParser().parseFromString(xml,'text/xml');
     d.querySelectorAll('PubmedArticle').forEach(a=>{
       const id=a.querySelector('PMID')&&a.querySelector('PMID').textContent;
@@ -325,25 +339,25 @@ const SOURCES=[
   return ids.map(id=>{const r=s.result[id];const doi=(r.articleids||[]).find(a=>a.idtype==='doi');
     return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:fmtDate(r.pubdate),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
 }},
-{id:'epmc',name:'Europe PMC',async search(q,f){
+{id:'epmc',name:'Europe PMC',async search(q,f,signal){
   let t=q;if(f.year)t+=` AND PUB_YEAR:[${f.year} TO 3000]`;if(f.oa)t+=' AND OPEN_ACCESS:y';if(f.type)t+=' AND '+T_EP[f.type];
-  const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=20&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`);
+  const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=20&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`,1,signal);
   return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:fmtDate(a.firstPublicationDate||a.pubYear),doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
 }},
-{id:'openalex',name:'OpenAlex',async search(q,f){
+{id:'openalex',name:'OpenAlex',async search(q,f,signal){
   const fl=[];if(f.year)fl.push('from_publication_date:'+f.year+'-01-01');if(f.oa)fl.push('is_oa:true');if(f.type==='review')fl.push('type:review');
-  const r=await jget(`https://api.openalex.org/works?search=${enc(q)}&per-page=20${fl.length?'&filter='+fl.join(','):''}${f.sort==='date'?'&sort=publication_date:desc':''}`);
+  const r=await jget(`https://api.openalex.org/works?search=${enc(q)}&per-page=20${fl.length?'&filter='+fl.join(','):''}${f.sort==='date'?'&sort=publication_date:desc':''}`,1,signal);
   return (r.results||[]).map(w=>{let ab='';if(w.abstract_inverted_index){const a=[];for(const[k,v]of Object.entries(w.abstract_inverted_index))v.forEach(i=>a[i]=k);ab=a.join(' ');}
     return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:fmtDate(w.publication_date||w.publication_year),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),url:w.doi||w.id};});
 }},
-{id:'ctgov',name:'Studi clinici',canAbs:false,async search(q){
-  const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=20&format=json`);
+{id:'ctgov',name:'Studi clinici',canAbs:false,async search(q,f,signal){
+  const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=20&format=json`,1,signal);
   return (r.studies||[]).map(s=>{const p=s.protocolSection,i=p.identificationModule;
     return{key:'ct:'+i.nctId,src:'ClinicalTrials.gov',title:i.briefTitle,authors:(p.sponsorCollaboratorsModule&&p.sponsorCollaboratorsModule.leadSponsor&&p.sponsorCollaboratorsModule.leadSponsor.name)||'',journal:(i.nctId+' · '+((p.statusModule&&p.statusModule.overallStatus)||'')),year:fmtDate(p.statusModule&&p.statusModule.startDateStruct&&p.statusModule.startDateStruct.date),doi:'',oa:true,abstract:strip(p.descriptionModule&&p.descriptionModule.briefSummary),url:'https://clinicaltrials.gov/study/'+i.nctId};});
 }},
-{id:'fda',name:'Schede FDA',drugOnly:true,canAbs:false,async search(q){
+{id:'fda',name:'Schede FDA',drugOnly:true,canAbs:false,async search(q,f,signal){
   const x=enc('"'+q+'"');
-  let r;try{r=await jget(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:${x}+OR+openfda.brand_name:${x}&limit=10`);}catch(e){if(/404/.test(e.message))return[];throw e;}
+  let r;try{r=await jget(`https://api.fda.gov/drug/label.json?search=openfda.generic_name:${x}+OR+openfda.brand_name:${x}&limit=10`,1,signal);}catch(e){if(/404/.test(e.message))return[];throw e;}
   return (r.results||[]).map(l=>{const o=l.openfda||{};const n=(o.brand_name||[])[0]||(o.generic_name||[])[0]||q;
     return{key:'fda:'+l.id,src:'openFDA',title:n+((o.generic_name||[])[0]&&o.generic_name[0]!==n?' ('+o.generic_name[0]+')':''),authors:(o.manufacturer_name||[])[0]||'',journal:'Scheda FDA',year:fmtDate(l.effective_time),doi:'',oa:true,abstract:strip((l.indications_and_usage||l.purpose||[''])[0]),url:'https://dailymed.nlm.nih.gov/dailymed/search.cfm?labeltype=all&query='+enc(q)};});
 }}
@@ -357,11 +371,11 @@ function toggleFav(it){let a=favs();a=isFav(it.key)?a.filter(f=>f.key!==it.key):
 
 /* ============ Ricerca ============ */
 // Marchio o nome italiano → principio attivo (RxNorm). Null se non trovato.
-async function normDrug(n){
+async function normDrug(n,signal){
   try{
-    const r=await jget(`https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${enc(n)}&maxEntries=1`);
+    const r=await jget(`https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${enc(n)}&maxEntries=1`,1,signal);
     const c=r.approximateGroup&&r.approximateGroup.candidate&&r.approximateGroup.candidate[0];if(!c)return null;
-    const p=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/related.json?tty=IN`);
+    const p=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/related.json?tty=IN`,1,signal);
     const g=((p.relatedGroup&&p.relatedGroup.conceptGroup)||[]).flatMap(x=>x.conceptProperties||[])[0];
     return g?g.name.toLowerCase():null;
   }catch{return null;}
@@ -433,6 +447,7 @@ function currentFilters(){return {year:filterVal.fy,type:filterVal.ft,sort:filte
 // Rilancia la ricerca con i filtri correnti, senza ritradurre né toccare la cronologia
 function reSearch(){
   if(!st.q)return;
+  if(!navigator.onLine){showToast('Sei offline: aggiornare i filtri richiede una connessione a internet.',{warn:true,ms:4500});return;}
   const my=++st.sid,f=currentFilters();st.f=f;
   const list=SOURCES.filter(s=>!(s.drugOnly&&st.mode==='malattia'));
   st.tab=st.tab&&list.some(s=>s.id===st.tab)?st.tab:list[0].id;
@@ -441,13 +456,14 @@ function reSearch(){
 }
 async function doSearch(){
   const raw=$('#q').value.trim();if(!raw)return;
+  if(!navigator.onLine){showToast('Sei offline: una nuova ricerca richiede una connessione a internet.',{warn:true,ms:4500});return;}
   const my=++st.sid;
   let en=$('#en').value.trim();
   if(!st.enManual||!en){
     en='';
-    if(st.mode==='farmaco')en=await withTimeout(normDrug(raw),10000).catch(()=>null)||'';
+    if(st.mode==='farmaco')en=await withTimeout(signal=>normDrug(raw,signal),10000).catch(()=>null)||'';
     if(!en){
-      try{en=await withTimeout(translate(raw,'it','en'),15000);}catch{en=raw;}
+      try{en=await withTimeout(signal=>translate(raw,'it','en',signal),15000);}catch{en=raw;}
       if(!en||/^\W*$/.test(en))en=raw;
       // Guardia: una traduzione molto più lunga dell'originale è quasi sempre un falso match di MyMemory
       const wc=s=>s.trim().split(/\s+/).length;
@@ -467,7 +483,7 @@ async function doSearch(){
 function runSrc(s,en,f){
   const sid=st.sid;
   st.res[s.id]={name:s.name,loading:true,items:[],canAbs:s.canAbs!==false};drawTabs();drawRes();
-  withTimeout(s.search(en,f)).then(items=>{if(sid!==st.sid)return;items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items,canAbs:s.canAbs!==false};}).catch(e=>{if(sid!==st.sid)return;st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{if(sid===st.sid){drawTabs();drawRes();}});
+  withTimeout(signal=>s.search(en,f,signal)).then(items=>{if(sid!==st.sid)return;items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items,canAbs:s.canAbs!==false};}).catch(e=>{if(sid!==st.sid)return;st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{if(sid===st.sid){drawTabs();drawRes();}});
 }
 // Home: azzera ricerca, risultati e ricerche ancora in corso
 function goHome(){
@@ -576,8 +592,10 @@ $('#dl').addEventListener('click',async e=>{
     if(cur.tr){showTr=true;return paint();}
     const item=cur;
     e.target.disabled=true;e.target.textContent='Traduco…';item.trErr='';
+    showToast('Attendere, sto traducendo il testo…',{persist:true});
     try{const t=await translate(item.title,'en','it');const a=item.abstract?await translate(item.abstract,'en','it'):'';item.tr={title:t,abs:a||'Abstract non disponibile.'};if(cur===item)showTr=true;}
     catch(err){item.trErr='Traduzione non riuscita ('+err.message+'). Il testo originale resta disponibile.';}
+    hideToast();
     if(cur===item)paint();
   }
 });
@@ -726,6 +744,15 @@ mnu.onclick=async e=>{
 document.addEventListener('click',()=>{mnu.hidden=true;});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){mnu.hidden=true;closeAllCSel();}});
 applyCfg();
+
+// Avviso semplice, riusabile: persist=true resta finché non lo chiudo io (es. durante un'attesa)
+function showToast(msg,{persist=false,warn=false,ms=3500}={}){
+  const t=$('#toast');t.classList.toggle('warn',!!warn);
+  t.innerHTML=persist?`<span class="spin" aria-hidden="true"></span><span>${esc(msg)}</span>`:`<span>${esc(msg)}</span>`;
+  t.hidden=false;clearTimeout(t._timer);
+  if(!persist)t._timer=setTimeout(()=>{t.hidden=true;},ms);
+}
+function hideToast(){$('#toast').hidden=true;}
 
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
