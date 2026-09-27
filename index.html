@@ -122,11 +122,11 @@ summary{font-weight:700;cursor:pointer}
 details p,details li{margin-top:8px;color:var(--mut);font-size:.93rem}
 details ul{padding-left:20px}
 .rm .ecg path{animation:none;stroke-dashoffset:0}.rm .sk{animation:none}
-#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pri);color:#fff;padding:10px 18px;border-radius:999px;font-size:.88rem;box-shadow:var(--sh);z-index:60;max-width:88%;display:flex;align-items:center;gap:8px;text-align:left}
-[data-theme=dark] #toast{color:#06211d}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pri);color:#fff;padding:12px 16px;border-radius:16px;font-size:.9rem;line-height:1.35;box-shadow:var(--sh);z-index:60;width:min(92vw,380px);display:flex;align-items:flex-start;gap:10px;text-align:left}
+[data-theme=dark] #toast:not(.warn){color:#06211d}
 #toast.warn{background:#9a4a1c;color:#fff}
 #toast[hidden]{display:none}
-.spin{width:14px;height:14px;flex:none;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+.spin{width:14px;height:14px;flex:none;margin-top:3px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .rm .spin{animation:none}
 @media (prefers-reduced-motion:reduce){.ecg path{animation:none;stroke-dashoffset:0}.sk{animation:none}}
@@ -227,7 +227,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">3.6</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">3.7</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -255,7 +255,7 @@ const strip=h=>String(h||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const enc=encodeURIComponent;
 function safeUrl(v){try{const u=new URL(v);return['http:','https:'].includes(u.protocol)?u.href:'#';}catch{return'#';}}
-const jget=async(u,n=1,signal)=>{let r;try{r=await fetch(u,{signal});}catch(e){if(e.name==='AbortError')throw new Error('Tempo scaduto');throw e;}if((r.status===503||r.status===429)&&n>0){await sleep(1500);return jget(u,n-1,signal);}if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
+const jget=async(u,n=1,signal,backoff=1500)=>{let r;try{r=await fetch(u,{signal});}catch(e){if(e.name==='AbortError')throw new Error('Tempo scaduto');throw e;}if((r.status===503||r.status===429)&&n>0){await sleep(backoff);return jget(u,n-1,signal,backoff*2);}if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
 const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}}};
 function fmtDate(d){
   if(!d)return'';
@@ -297,8 +297,13 @@ async function myMemory(t,s,g,signal){
   if(cur)ch.push(cur);
   const out=[];
   for(const c of ch){
-    const r=await jget(`https://api.mymemory.translated.net/get?q=${enc(c)}&langpair=${s}|${g}`,1,signal);
-    if(r.responseStatus!==200)throw new Error(String(r.responseDetails||'Quota di traduzione esaurita'));
+    let r;
+    try{r=await jget(`https://api.mymemory.translated.net/get?q=${enc(c)}&langpair=${s}|${g}`,2,signal,1500);}
+    catch(e){
+      if(/429/.test(e.message))throw new Error('Il servizio di traduzione gratuito ha raggiunto il limite di richieste per ora. Riprova tra qualche minuto, o leggi il testo originale.');
+      throw e;
+    }
+    if(r.responseStatus!==200)throw new Error(String(r.responseDetails||'Servizio di traduzione non disponibile'));
     out.push(r.responseData.translatedText);await sleep(250);
   }
   return out.join(' ');
@@ -594,7 +599,7 @@ $('#dl').addEventListener('click',async e=>{
     e.target.disabled=true;e.target.textContent='Traduco…';item.trErr='';
     showToast('Attendere, sto traducendo il testo…',{persist:true});
     try{const t=await translate(item.title,'en','it');const a=item.abstract?await translate(item.abstract,'en','it'):'';item.tr={title:t,abs:a||'Abstract non disponibile.'};if(cur===item)showTr=true;}
-    catch(err){item.trErr='Traduzione non riuscita ('+err.message+'). Il testo originale resta disponibile.';}
+    catch(err){item.trErr=/[.!]$/.test(err.message)?err.message+' Il testo originale resta disponibile.':'Traduzione non riuscita ('+err.message+'). Il testo originale resta disponibile.';}
     hideToast();
     if(cur===item)paint();
   }
