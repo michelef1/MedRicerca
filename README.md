@@ -6,7 +6,7 @@
 
 **PWA gratuita · Nessuna registrazione · Nessun backend · Nessuna pubblicità**
 
-[![Versione](https://img.shields.io/badge/versione-2.1-22c2a0?style=flat-square)](#)
+[![Versione](https://img.shields.io/badge/versione-3.2-22c2a0?style=flat-square)](#)
 [![PWA](https://img.shields.io/badge/PWA-installabile-0b5d6b?style=flat-square)](#)
 [![Licenza](https://img.shields.io/badge/licenza-uso%20personale-lightgrey?style=flat-square)](#)
 
@@ -34,7 +34,7 @@ Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutt
 | 🇮🇹 **Traduzione automatica** | Scrivi in italiano, l'app traduce e cerca in inglese |
 | 💊 **Riconoscimento farmaci** | Un nome commerciale (es. *Mirapexin*) viene ricondotto al principio attivo (*pramipexolo*) |
 | 🈺 **Abstract tradotti** | Traduci titolo e riassunto di ogni articolo con un tocco |
-| 🎚️ **Filtri avanzati** | Anno, tipo di studio, open access, presenza di abstract, ordinamento |
+| 🎚️ **Filtri avanzati** | Anno, tipo di studio (*Review*, *RCT*, *Meta-analisi*), open access, presenza di abstract, ordinamento |
 | ⭐ **Preferiti e cronologia** | Salva gli articoli utili, ritrova le ricerche fatte |
 | 📤 **Esportazione** | Condividi un articolo o scaricalo in formato `.ris` per Zotero/Mendeley |
 | 🎨 **Personalizzazione** | Temi a gradiente, tema chiaro/scuro, dimensione del testo |
@@ -74,6 +74,16 @@ Tutto avviene **nel browser**: nessun server proprietario, nessun dato personale
 | **openFDA + RxNorm** | Schede dei farmaci e riconoscimento del principio attivo |
 
 Per fonti a pagamento o senza accesso libero (**Embase**, **Cochrane**, **AIFA**, **SNLG**) l'app fornisce un collegamento diretto alla ricerca sul loro sito.
+
+---
+
+## 🔬 Tipi di studio (filtro "Ogni tipo")
+
+| Tipo | Cosa significa |
+|---|---|
+| **Review** | Una rassegna che riassume e commenta gli studi già pubblicati su un argomento, senza raccogliere nuovi dati |
+| **RCT** *(Randomized Controlled Trial)* | Studio randomizzato controllato: i partecipanti sono divisi a caso tra trattamento e confronto, per misurarne l'effetto reale |
+| **Meta-analisi** | Analisi che unisce i dati di più studi sullo stesso argomento, per una stima complessiva più solida |
 
 ---
 
