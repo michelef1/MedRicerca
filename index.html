@@ -220,7 +220,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">3.4</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">3.5</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -378,21 +378,51 @@ function renderCSel(id){
   root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false"><span class="lbl">${esc(cur[1])}</span><span class="car" aria-hidden="true">▾</span></button><div class="csel-menu" role="listbox" hidden>${opts.map(o=>`<button type="button" role="option" data-v="${esc(o[0])}" class="${o[0]===filterVal[id]?'sel':''}">${esc(o[1])}</button>`).join('')}</div>`;
 }
 function closeAllCSel(){document.querySelectorAll('.csel-menu').forEach(m=>m.hidden=true);document.querySelectorAll('.csel-btn').forEach(b=>b.setAttribute('aria-expanded','false'));}
+function openCSelMenu(btn){
+  const menu=btn.nextElementSibling;
+  const r=btn.getBoundingClientRect();
+  menu.style.position='fixed';menu.style.top=(r.bottom+6)+'px';menu.style.left=r.left+'px';
+  menu.hidden=false;btn.setAttribute('aria-expanded','true');
+  const mw=menu.offsetWidth,maxL=innerWidth-mw-8;
+  menu.style.left=Math.max(8,Math.min(r.left,maxL))+'px';
+  const maxT=innerHeight-menu.offsetHeight-8;
+  if(r.bottom+6>maxT)menu.style.top=Math.max(8,r.top-menu.offsetHeight-6)+'px';
+  return menu;
+}
+// Tastiera: frecce per muoversi tra le opzioni, Invio per scegliere (già nativo sui <button>), Esc per chiudere
+document.addEventListener('keydown',e=>{
+  const btn=e.target.closest('.csel-btn');
+  if(btn){
+    if((e.key==='ArrowDown'||e.key==='ArrowUp')&&btn.getAttribute('aria-expanded')!=='true'){
+      e.preventDefault();closeAllCSel();
+      const menu=openCSelMenu(btn),opts=[...menu.querySelectorAll('[role="option"]')];
+      (opts.find(o=>o.classList.contains('sel'))||opts[0])?.focus();
+    }
+    return;
+  }
+  const opt=e.target.closest('.csel-menu [role="option"]');
+  if(opt){
+    const menu=opt.closest('.csel-menu'),opts=[...menu.querySelectorAll('[role="option"]')],i=opts.indexOf(opt);
+    if(e.key==='ArrowDown'){e.preventDefault();(opts[i+1]||opts[0]).focus();}
+    else if(e.key==='ArrowUp'){e.preventDefault();(opts[i-1]||opts[opts.length-1]).focus();}
+    else if(e.key==='Home'){e.preventDefault();opts[0].focus();}
+    else if(e.key==='End'){e.preventDefault();opts[opts.length-1].focus();}
+    else if(e.key==='Escape'){e.preventDefault();const trg=opt.closest('.csel').querySelector('.csel-btn');closeAllCSel();trg.focus();}
+  }
+});
+// Se il focus esce dal menu (es. con Tab), il menu si chiude da solo
+document.addEventListener('focusout',e=>{
+  const root=e.target.closest('.csel');if(!root)return;
+  const next=e.relatedTarget;
+  if(!next||!root.contains(next))closeAllCSel();
+});
 Object.keys(FILTER_DEFS).forEach(renderCSel);
 addEventListener('scroll',closeAllCSel,true);
 document.addEventListener('click',e=>{
   const btn=e.target.closest('.csel-btn');
   if(btn){
-    e.stopPropagation();const menu=btn.nextElementSibling,willOpen=menu.hidden;closeAllCSel();
-    if(willOpen){
-      const r=btn.getBoundingClientRect();
-      menu.style.position='fixed';menu.style.top=(r.bottom+6)+'px';menu.style.left=r.left+'px';
-      menu.hidden=false;btn.setAttribute('aria-expanded','true');
-      const mw=menu.offsetWidth,maxL=innerWidth-mw-8;
-      menu.style.left=Math.max(8,Math.min(r.left,maxL))+'px';
-      const maxT=innerHeight-menu.offsetHeight-8;
-      if(r.bottom+6>maxT)menu.style.top=Math.max(8,r.top-menu.offsetHeight-6)+'px';
-    }
+    e.stopPropagation();const willOpen=btn.nextElementSibling.hidden;closeAllCSel();
+    if(willOpen)openCSelMenu(btn);
     return;
   }
   const opt=e.target.closest('.csel-menu [data-v]');
