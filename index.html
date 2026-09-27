@@ -149,7 +149,7 @@ details ul{padding-left:20px}
       </div>
     </div>
     <div class="tabs" id="tabs"></div>
-    <div id="res"><p class="msg">Scrivi un farmaco o una malattia, anche in italiano: la ricerca parte sulle banche dati in inglese.</p></div>
+    <div id="res" aria-live="polite" aria-atomic="false"><p class="msg">Scrivi un farmaco o una malattia, anche in italiano: la ricerca parte sulle banche dati in inglese.</p></div>
     <div class="also" id="also"></div>
   </section>
   <section id="v-fav" class="view"><div class="top"><h2 class="t">Preferiti</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div><div id="favs"></div></section>
@@ -220,7 +220,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">3.2</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">3.3</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -246,8 +246,9 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const strip=h=>String(h||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const enc=encodeURIComponent;
+function safeUrl(v){try{const u=new URL(v);return['http:','https:'].includes(u.protocol)?u.href:'#';}catch{return'#';}}
 const jget=async(u,n=1)=>{const r=await fetch(u);if((r.status===503||r.status===429)&&n>0){await sleep(1500);return jget(u,n-1);}if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
-const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}}};
 function fmtDate(d){
   if(!d)return'';
   d=String(d);
@@ -352,7 +353,7 @@ const SOURCES=[
 const st={mode:'tutto',tab:null,res:{},items:{},enManual:false,q:'',sid:0};
 const favs=()=>ls.get('mr_fav',[]);
 const isFav=k=>favs().some(f=>f.key===k);
-function toggleFav(it){let a=favs();a=isFav(it.key)?a.filter(f=>f.key!==it.key):[it,...a];ls.set('mr_fav',a);}
+function toggleFav(it){let a=favs();a=isFav(it.key)?a.filter(f=>f.key!==it.key):[it,...a];if(!ls.set('mr_fav',a))alert('Impossibile salvare i preferiti: memoria del browser piena o non disponibile (es. navigazione privata).');}
 
 /* ============ Ricerca ============ */
 // Marchio o nome italiano → principio attivo (RxNorm). Null se non trovato.
@@ -496,17 +497,25 @@ async function shareItem(btn){
   try{await navigator.clipboard.writeText(text+'\n'+url);btn.textContent='Link copiato ✓';setTimeout(()=>{btn.textContent='Condividi';},1600);}
   catch{prompt('Copia il link:',url);}
 }
+let detailReqId=0;
 async function openItem(key){
-  cur=st.items[key]||favs().find(f=>f.key===key);if(!cur)return;
-  showTr=false;paint();$('#dlg').showModal();fitZoom();
-  if(cur.pmid&&!cur.abstract){
+  const item=st.items[key]||favs().find(f=>f.key===key);if(!item)return;
+  cur=item;showTr=false;paint();$('#dlg').showModal();fitZoom();
+  const myReq=++detailReqId; // evita che una risposta in ritardo sporchi un articolo aperto dopo
+  if(item.pmid&&!item.abstract){
     try{
       await ncbiQ;await sleep(350);
-      const xml=await (await fetch(`${EU}efetch.fcgi?db=pubmed&retmode=xml&id=${cur.pmid}`)).text();
+      const xml=await (await fetch(`${EU}efetch.fcgi?db=pubmed&retmode=xml&id=${item.pmid}`)).text();
+      if(myReq!==detailReqId)return;
       const d=new DOMParser().parseFromString(xml,'text/xml');
-      cur.abstract=[...d.querySelectorAll('AbstractText')].map(n=>(n.getAttribute('Label')?n.getAttribute('Label')+': ':'')+n.textContent).join('\n\n')||'Abstract non disponibile per questo articolo.';
-      st.items[cur.key]=cur;paint();
-    }catch{cur.abstract='';paint();}
+      item.abstract=[...d.querySelectorAll('AbstractText')].map(n=>(n.getAttribute('Label')?n.getAttribute('Label')+': ':'')+n.textContent).join('\n\n')||'Abstract non disponibile per questo articolo.';
+      st.items[item.key]=item;
+      if(cur===item)paint();
+    }catch{
+      if(myReq!==detailReqId)return;
+      item.abstract='';
+      if(cur===item)paint();
+    }
   }
 }
 function paint(){
@@ -521,8 +530,8 @@ function paint(){
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
     <button id="bsh">Condividi</button>
     <button id="bris">Esporta .ris</button>
-    <a href="${esc(it.url)}" target="_blank" rel="noopener">Apri fonte</a>
-    ${it.doi?`<a href="https://doi.org/${esc(it.doi)}" target="_blank" rel="noopener">DOI</a>`:''}
+    <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">Apri fonte</a>
+    ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">DOI</a>`:''}
     <button id="bcl">Chiudi</button>
   </div>`;
 }
@@ -535,10 +544,11 @@ $('#dl').addEventListener('click',async e=>{
   if(id==='btr'){
     if(showTr){showTr=false;return paint();}
     if(cur.tr){showTr=true;return paint();}
-    e.target.disabled=true;e.target.textContent='Traduco…';cur.trErr='';
-    try{const t=await translate(cur.title,'en','it');const a=cur.abstract?await translate(cur.abstract,'en','it'):'';cur.tr={title:t,abs:a||'Abstract non disponibile.'};showTr=true;}
-    catch(err){cur.trErr='Traduzione non riuscita ('+err.message+'). Il testo originale resta disponibile.';}
-    paint();
+    const item=cur;
+    e.target.disabled=true;e.target.textContent='Traduco…';item.trErr='';
+    try{const t=await translate(item.title,'en','it');const a=item.abstract?await translate(item.abstract,'en','it'):'';item.tr={title:t,abs:a||'Abstract non disponibile.'};if(cur===item)showTr=true;}
+    catch(err){item.trErr='Traduzione non riuscita ('+err.message+'). Il testo originale resta disponibile.';}
+    if(cur===item)paint();
   }
 });
 $('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')$('#dlg').close();});
@@ -575,8 +585,20 @@ $('#exp').onclick=()=>{
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='medricerca-dati.json';a.click();
 };
 $('#imp').onclick=()=>$('#file').click();
+function validFav(x){return x&&typeof x==='object'&&typeof x.key==='string'&&typeof x.title==='string';}
+function validHist(x){return x&&typeof x==='object'&&typeof x.q==='string';}
 $('#file').onchange=async e=>{
-  try{const d=JSON.parse(await e.target.files[0].text());if(Array.isArray(d.fav))ls.set('mr_fav',d.fav);if(Array.isArray(d.hist))ls.set('mr_hist',d.hist);drawFavs();drawHist();alert('Dati importati.');}
+  try{
+    const d=JSON.parse(await e.target.files[0].text());
+    const fav=Array.isArray(d.fav)?d.fav.filter(validFav).slice(0,500):null;
+    const hist=Array.isArray(d.hist)?d.hist.filter(validHist).slice(0,200):null;
+    if(fav===null&&hist===null)throw 0;
+    let ok=true;
+    if(fav!==null)ok=ls.set('mr_fav',fav)&&ok;
+    if(hist!==null)ok=ls.set('mr_hist',hist)&&ok;
+    drawFavs();drawHist();
+    alert(ok?'Dati importati.':'Dati importati, ma il salvataggio potrebbe non essere completo (memoria del browser piena o non disponibile).');
+  }
   catch{alert('File non valido: scegli un export di MedRicerca.');}
 };
 
