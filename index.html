@@ -228,7 +228,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">4.2</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">4.3</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
@@ -285,9 +285,9 @@ const hash=s=>{let h=5381;for(let i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i)
 /* ============ Traduzione ============ */
 const nat={};
 async function nativeTr(t,s,g){
-  if(!('Translator' in self))throw 0;
+  if(!('Translator' in self))throw new Error('Translator non disponibile');
   const k=s+g;
-  if(!nat[k]){const a=await Translator.availability({sourceLanguage:s,targetLanguage:g});if(a==='unavailable')throw 0;nat[k]=await Translator.create({sourceLanguage:s,targetLanguage:g});}
+  if(!nat[k]){const a=await Translator.availability({sourceLanguage:s,targetLanguage:g});if(a==='unavailable')throw new Error('Translator non disponibile');nat[k]=await Translator.create({sourceLanguage:s,targetLanguage:g});}
   return nat[k].translate(t);
 }
 async function myMemory(t,s,g,signal){
@@ -305,7 +305,7 @@ async function myMemory(t,s,g,signal){
       if(/429/.test(e.message))throw new Error('Il servizio di traduzione gratuito ha raggiunto il limite di richieste per ora. Riprova tra qualche minuto, o leggi il testo originale.');
       throw e;
     }
-    if(r.responseStatus!==200)throw new Error(String(r.responseDetails||'Servizio di traduzione non disponibile'));
+    if(String(r.responseStatus)!=='200')throw new Error(String(r.responseDetails||'Servizio di traduzione non disponibile'));
     out.push(r.responseData.translatedText);await sleep(250);
   }
   return out.join(' ');
@@ -328,7 +328,7 @@ const SOURCES=[
 {id:'pubmed',name:'PubMed',async search(q,f,signal){
   let t=`(${q})`;if(f.type)t+=' AND '+T_PM[f.type];if(f.oa)t+=' AND free full text[sb]';
   let u=`${EU}esearch.fcgi?db=pubmed&retmode=json&retmax=20&sort=${f.sort==='date'?'pub_date':'relevance'}&term=${enc(t)}`;
-  if(f.year)u+=`&datetype=pdat&mindate=${f.year}&maxdate=3000`;
+  if(f.year)u+=`&datetype=pdat&mindate=${f.year}&maxdate=${new Date().getFullYear()}`;
   const ids=(await ncbi(u,signal)).esearchresult.idlist;if(!ids.length)return[];
   const s=await ncbi(`${EU}esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`,signal);
   // Abstract in blocco per tutti gli id, una sola chiamata: serve anche al filtro "Solo con abstract"
@@ -344,7 +344,7 @@ const SOURCES=[
     });
   }catch{}
   return ids.map(id=>{const r=s.result[id];const doi=(r.articleids||[]).find(a=>a.idtype==='doi');
-    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:fmtDate(r.pubdate),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
+    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:fmtDate(r.pubdate),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',abstractTried:true,url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
 }},
 {id:'epmc',name:'Europe PMC',async search(q,f,signal){
   let t=q;if(f.year)t+=` AND PUB_YEAR:[${f.year} TO 3000]`;if(f.oa)t+=' AND OPEN_ACCESS:y';if(f.type)t+=' AND '+T_EP[f.type];
@@ -499,6 +499,7 @@ function reSearch(){
 }
 async function doSearch(){
   const raw=$('#q').value.trim();if(!raw)return;
+  st.items={};
   if(!navigator.onLine){showToast('Sei offline: una nuova ricerca richiede una connessione a internet.',{warn:true,ms:4500});return;}
   const my=++st.sid;
   let en=$('#en').value.trim();
@@ -537,7 +538,7 @@ function runSrc(s,en,f){
 }
 // Home: azzera ricerca, risultati e ricerche ancora in corso
 function goHome(){
-  st.sid++;st.res={};st.tab=null;st.q='';st.enManual=false;
+  st.sid++;st.res={};st.items={};st.tab=null;st.q='';st.enManual=false;
   $('#q').value='';$('#en').value='';$('#tabs').innerHTML='';$('#also').innerHTML='';
   $('#res').innerHTML='<p class="msg">Scrivi un farmaco o una malattia, anche in italiano: la ricerca parte sulle banche dati in inglese.</p>';
   if($('#dlg').open)$('#dlg').close();
@@ -547,7 +548,6 @@ function drawTabs(){
   const onlyAbs=$('#fab').checked;
   $('#tabs').innerHTML=Object.entries(st.res).map(([id,r])=>{const n=r.loading||r.err?0:(onlyAbs&&r.canAbs!==false?r.items.filter(i=>i.abstract).length:r.items.length);return `<button data-t="${id}" class="${id===st.tab?'on':''}">${esc(r.name)}<b>${r.loading?'…':r.err?'!':n}</b></button>`;}).join('');
 }
-function passAbs(it){return !$('#fab').checked||!!it.abstract===true||it.abstract===undefined?true:!!it.abstract;}
 function card(it){
   return `<button class="card" data-k="${esc(it.key)}"><h3>${esc(it.title)}${it.oa?'<span class="badge">Open Access</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button>`;
 }
@@ -584,10 +584,11 @@ function exportRis(it){
   L.push('ER  - ');
   const b=new Blob([L.join('\n')],{type:'application/x-research-info-systems'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);
-  a.download=(it.title||'articolo').slice(0,60).replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')+'.ris';
+  a.download=((it.title||'').slice(0,60).replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-')||'articolo')+'.ris';
   a.click();URL.revokeObjectURL(a.href);
 }
 async function shareItem(btn){
+  if(!cur)return;
   const it=cur,url=it.url,text=it.title;
   if(navigator.share){try{await navigator.share({title:text,text,url});}catch{}return;}
   try{await navigator.clipboard.writeText(text+'\n'+url);btn.textContent='Link copiato ✓';setTimeout(()=>{btn.textContent='Condividi';},1600);}
@@ -598,7 +599,7 @@ async function openItem(key){
   const item=st.items[key]||favs().find(f=>f.key===key);if(!item)return;
   cur=item;showTr=false;paint();$('#dlg').showModal();fitZoom();
   const myReq=++detailReqId; // evita che una risposta in ritardo sporchi un articolo aperto dopo
-  if(item.pmid&&!item.abstract){
+  if(item.pmid&&!item.abstract&&!item.abstractTried){
     try{
       await ncbiQ;await sleep(350);
       const xml=await (await fetch(`${EU}efetch.fcgi?db=pubmed&retmode=xml&id=${item.pmid}`)).text();
@@ -615,6 +616,7 @@ async function openItem(key){
   }
 }
 function paint(){
+  if(!cur)return;
   const it=cur;const tr=showTr&&it.tr;
   $('#dl').innerHTML=`<h2>${esc(tr?tr.title:it.title)}</h2>
   <div class="meta">${esc([it.src,it.authors,it.journal,it.year].filter(Boolean).join(' · '))}${it.oa?'<span class="badge">Open Access</span>':''}</div>
