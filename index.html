@@ -145,6 +145,7 @@ details ul{padding-left:20px}
       <div class="sbar"><input id="q" type="search" placeholder="Es. aspirina, ipertensione…" enterkeyhint="search" autocomplete="off"><button class="go" id="go">Cerca</button></div>
       <div class="seg" id="mode"><button data-m="tutto" class="on">Tutto</button><button data-m="farmaco">Farmaco</button><button data-m="malattia">Malattia</button></div>
       <div class="en">Cerco come <input id="en" placeholder="termine inglese (modificabile)" aria-label="Termine inglese"></div>
+      <div class="meta" id="enhint" hidden></div>
       <div class="selrow">
         <div class="csel" id="d-fy"></div>
         <div class="csel" id="d-ft"></div>
@@ -198,7 +199,7 @@ details ul{padding-left:20px}
       <li><b>Esporta dati / Importa dati</b> (in Impostazioni) — salva o ripristina Preferiti e Cronologia.</li>
       <li><b>Ripristina impostazioni</b> — riporta tema, sfondo e dimensione del testo ai valori iniziali.</li>
     </ul></details>
-    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC, OpenAlex: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
+    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC, OpenAlex: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Elenco AIFA dei farmaci autorizzati in Italia (licenza CC-BY 4.0): serve a riconoscere i nomi commerciali italiani e a ricavarne il principio attivo. È una copia salvata nell'app, aggiornata al 28/09/2026.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
     <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p></details>
     <details><summary>Avvertenza</summary><p>Solo a scopo informativo, non sostituisce il parere del medico.</p></details>
   </section>
@@ -227,9 +228,10 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">4.0</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">4.2</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
+      <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
       <p class="disc" style="text-align:left;color:var(--ink)"><b>Solo a scopo informativo, non sostituisce il parere del medico.</b></p>
     </div>
@@ -376,14 +378,50 @@ function toggleFav(it){let a=favs();a=isFav(it.key)?a.filter(f=>f.key!==it.key):
 
 /* ============ Ricerca ============ */
 // Marchio o nome italiano → principio attivo (RxNorm). Null se non trovato.
-async function normDrug(n,signal){
+// Nomi commerciali italiani comuni -> principio attivo in inglese (RxNorm è americano e non li conosce)
+const IT_BRANDS={moment:'ibuprofen',brufen:'ibuprofen',nurofen:'ibuprofen',tachipirina:'paracetamol',efferalgan:'paracetamol',aspirina:'aspirin',cardioaspirin:'aspirin',oki:'ketoprofen',voltaren:'diclofenac',novalgina:'metamizole',buscopan:'hyoscine butylbromide',augmentin:'amoxicillin clavulanate',zimox:'amoxicillin',bentelan:'betamethasone',deltacortene:'prednisone',lasix:'furosemide',norvasc:'amlodipine',zestril:'lisinopril',triatec:'ramipril',tenormin:'atenolol',lipitor:'atorvastatin',sortis:'atorvastatin',crestor:'rosuvastatin',zocor:'simvastatin',glucophage:'metformin',xanax:'alprazolam',tavor:'lorazepam',valium:'diazepam',lexotan:'bromazepam',seroquel:'quetiapine',zoloft:'sertraline',prozac:'fluoxetine',cipralex:'escitalopram',mirapexin:'pramipexole',sinemet:'levodopa carbidopa',nexium:'esomeprazole',antra:'omeprazole',lansox:'lansoprazole',plasil:'metoclopramide',imodium:'loperamide',muscoril:'thiocolchicoside',eutirox:'levothyroxine',coumadin:'warfarin',xarelto:'rivaroxaban',eliquis:'apixaban',plavix:'clopidogrel',zyrtec:'cetirizine',aerius:'desloratadine',ventolin:'salbutamol',dulcolax:'bisacodyl',fluimucil:'acetylcysteine',diflucan:'fluconazole',zovirax:'aciclovir',spasmomen:'otilonium bromide'};
+const plain=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+function lev(a,b){const m=[...Array(b.length+1)].map((_,i)=>[i]);for(let j=0;j<=a.length;j++)m[0][j]=j;for(let i=1;i<=b.length;i++)for(let j=1;j<=a.length;j++)m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(b[i-1]===a[j-1]?0:1));return m[b.length][a.length];}
+const sim=(a,b)=>1-lev(a,b)/Math.max(a.length,b.length,1);
+function brandLookup(raw){for(const t of plain(raw).split(/[^a-z]+/).filter(Boolean)){if(IT_BRANDS[t])return IT_BRANDS[t];}return null;}
+// Elenco AIFA (nome commerciale -> principio attivo), file farmaci-it.json caricato solo al bisogno
+let aifaDb=null,aifaLoading=null;
+function loadAifa(){
+  if(aifaDb)return Promise.resolve(aifaDb);
+  if(!aifaLoading)aifaLoading=fetch('./farmaci-it.json').then(r=>{if(!r.ok)throw 0;return r.json();}).then(j=>aifaDb=j).catch(()=>{aifaLoading=null;return null;});
+  return aifaLoading;
+}
+function aifaLookup(db,raw){
+  const toks=plain(raw).split(/[^a-z0-9]+/).filter(Boolean);
+  for(let n=Math.min(3,toks.length);n>=1;n--){const k=toks.slice(0,n).join(' ');if(db.k[k]!==undefined)return db.p[db.k[k]];}
+  return null;
+}
+// Italiano -> nome inglese tramite RxNorm, scartando i riconoscimenti che non somigliano a ciò che ho scritto
+async function rxEnglish(n,signal){
   try{
     const r=await jget(`https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${enc(n)}&maxEntries=1`,1,signal);
     const c=r.approximateGroup&&r.approximateGroup.candidate&&r.approximateGroup.candidate[0];if(!c)return null;
+    const pr=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/properties.json`,1,signal);
+    const words=t=>plain(t).split(/[^a-z]+/).filter(w=>w.length>=5);
+    const qs=words(n),ws=words(pr.properties&&pr.properties.name);
+    if(!qs.length||!ws.some(w=>qs.some(q=>sim(q,w)>=0.7)))return null;
     const p=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/related.json?tty=IN`,1,signal);
     const g=((p.relatedGroup&&p.relatedGroup.conceptGroup)||[]).flatMap(x=>x.conceptProperties||[])[0];
     return g?g.name.toLowerCase():null;
   }catch{return null;}
+}
+// Restituisce {en, it}: en = termine inglese (se trovato), it = principio attivo italiano (se trovato nell'elenco AIFA)
+async function normDrug(n,signal){
+  const known=brandLookup(n);if(known)return{en:known};
+  const db=await loadAifa();
+  const it=db?aifaLookup(db,n):null;
+  if(it){
+    const comps=it.split('/').slice(0,2);
+    const outs=await Promise.all(comps.map(c=>rxEnglish(c,signal)));
+    return{en:outs.every(Boolean)?outs.join(' '):null,it:comps.join(' ')};
+  }
+  const en=await rxEnglish(n,signal);
+  return en?{en}:null;
 }
 const CY=new Date().getFullYear();
 const FILTER_DEFS={
@@ -466,15 +504,22 @@ async function doSearch(){
   let en=$('#en').value.trim();
   if(!st.enManual||!en){
     en='';
-    if(st.mode==='farmaco')en=await withTimeout(signal=>normDrug(raw,signal),10000).catch(()=>null)||'';
+    let dn=null;
+    if(st.mode==='farmaco'){dn=await withTimeout(signal=>normDrug(raw,signal),12000).catch(()=>null);if(dn&&dn.en)en=dn.en;}
     if(!en){
-      try{en=await withTimeout(signal=>translate(raw,'it','en',signal),15000);}catch{en=raw;}
-      if(!en||/^\W*$/.test(en))en=raw;
+      const src=(dn&&dn.it)||raw;
+      try{en=await withTimeout(signal=>translate(src,'it','en',signal),15000);}catch{en=src;}
+      if(!en||/^\W*$/.test(en))en=src;
       // Guardia: una traduzione molto più lunga dell'originale è quasi sempre un falso match di MyMemory
       const wc=s=>s.trim().split(/\s+/).length;
-      if(wc(en)>wc(raw)+1||en.length>raw.length*2+5)en=raw;
+      if(wc(en)>wc(src)+1||en.length>src.length*2+5)en=src;
     }
+    st.dn=dn;
     $('#en').value=en;
+    const hint=$('#enhint');
+    if(st.mode==='farmaco'&&st.dn&&st.dn.it){hint.textContent='Elenco AIFA: principio attivo «'+st.dn.it+'». Cerco come «'+en+'». Se non è il farmaco giusto, scrivilo tu nel campo sopra e premi Cerca.';hint.hidden=false;}
+    else if(st.mode==='farmaco'&&plain(en)!==plain(raw)){hint.textContent='Riconosciuto come «'+en+'». Se non è il farmaco giusto, scrivilo tu nel campo sopra e premi Cerca.';hint.hidden=false;}
+    else hint.hidden=true;
   }
   if(my!==st.sid)return;
   const f=currentFilters();

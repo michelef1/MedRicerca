@@ -6,7 +6,7 @@
 
 **PWA gratuita · Nessuna registrazione · Nessun backend · Nessuna pubblicità**
 
-[![Versione](https://img.shields.io/badge/versione-3.2-22c2a0?style=flat-square)](#)
+[![Versione](https://img.shields.io/badge/versione-4.2-22c2a0?style=flat-square)](#)
 [![PWA](https://img.shields.io/badge/PWA-installabile-0b5d6b?style=flat-square)](#)
 [![Licenza](https://img.shields.io/badge/licenza-uso%20personale-lightgrey?style=flat-square)](#)
 
@@ -32,7 +32,7 @@ Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutt
 |---|---|
 | 🌐 **Ricerca multi-fonte** | Interroga in parallelo più banche dati mediche con un'unica ricerca |
 | 🇮🇹 **Traduzione automatica** | Scrivi in italiano, l'app traduce e cerca in inglese |
-| 💊 **Riconoscimento farmaci** | Un nome commerciale (es. *Norvasc*) viene ricondotto al principio attivo (*amlodipina*) |
+| 💊 **Riconoscimento farmaci** | Un nome commerciale (es. *Mirapexin*) viene ricondotto al principio attivo (*pramipexolo*) |
 | 🈺 **Abstract tradotti** | Traduci titolo e riassunto di ogni articolo con un tocco |
 | 🎚️ **Filtri avanzati** | Anno, tipo di studio (*Review*, *RCT*, *Meta-analisi*), open access, presenza di abstract, ordinamento |
 | ⭐ **Preferiti e cronologia** | Salva gli articoli utili, ritrova le ricerche fatte |
@@ -72,6 +72,7 @@ Tutto avviene **nel browser**: nessun server proprietario, nessun dato personale
 | **OpenAlex** | Ampio catalogo accademico multidisciplinare |
 | **ClinicalTrials.gov** | Studi clinici in corso e conclusi |
 | **openFDA + RxNorm** | Schede dei farmaci e riconoscimento del principio attivo |
+| **AIFA – Anagrafica farmaci** | Elenco dei medicinali autorizzati in Italia: riconosce i nomi commerciali italiani (es. *Moment* → *ibuprofene*). Copia salvata nell'app, dati [AIFA](https://www.aifa.gov.it/liste-dei-farmaci) con licenza CC-BY 4.0 |
 
 Per fonti a pagamento o senza accesso libero (**Embase**, **Cochrane**, **AIFA**, **SNLG**) l'app fornisce un collegamento diretto alla ricerca sul loro sito.
 
@@ -103,6 +104,7 @@ Una volta installata, funziona anche offline per i contenuti già consultati.
 
 - **HTML + CSS + JavaScript vanilla** — nessun framework, nessuna build
 - **Service Worker** — cache offline e aggiornamenti automatici
+- **`farmaci-it.json`** — elenco compatto nome commerciale → principio attivo, ricavato dall'Anagrafica farmaci AIFA (aggiornato al 28/09/2026)
 - **IndexedDB / localStorage** — dati salvati solo in locale
 - Nessuna chiave API richiesta, nessun costo di gestione
 
