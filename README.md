@@ -6,7 +6,7 @@
 
 **PWA gratuita · Nessuna registrazione · Nessun backend · Nessuna pubblicità**
 
-[![Versione](https://img.shields.io/badge/versione-4.2-22c2a0?style=flat-square)](#)
+[![Versione](https://img.shields.io/badge/versione-4.4-22c2a0?style=flat-square)](#)
 [![PWA](https://img.shields.io/badge/PWA-installabile-0b5d6b?style=flat-square)](#)
 [![Licenza](https://img.shields.io/badge/licenza-uso%20personale-lightgrey?style=flat-square)](#)
 
@@ -38,7 +38,7 @@ Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutt
 | ⭐ **Preferiti e cronologia** | Salva gli articoli utili, ritrova le ricerche fatte |
 | 📤 **Esportazione** | Condividi un articolo o scaricalo in formato `.ris` per Zotero/Mendeley |
 | 🎨 **Personalizzazione** | Temi a gradiente, tema chiaro/scuro, dimensione del testo |
-| 📴 **Offline-ready** | Installabile come app, funziona anche a connessione instabile |
+| 📴 **Offline-ready** | Installabile come app; interfaccia, Preferiti, Cronologia e articoli già visti restano disponibili offline — una ricerca nuova richiede sempre connessione |
 
 ---
 
