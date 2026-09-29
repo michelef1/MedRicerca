@@ -228,7 +228,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">4.4</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">4.5</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
@@ -257,7 +257,18 @@ const strip=h=>String(h||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const enc=encodeURIComponent;
 function safeUrl(v){try{const u=new URL(v);return['http:','https:'].includes(u.protocol)?u.href:'#';}catch{return'#';}}
-const jget=async(u,n=1,signal,backoff=1500)=>{let r;try{r=await fetch(u,{signal});}catch(e){if(e.name==='AbortError')throw new Error('Tempo scaduto');throw e;}if((r.status===503||r.status===429)&&n>0){await sleep(backoff);return jget(u,n-1,signal,backoff*2);}if(!r.ok)throw new Error('HTTP '+r.status);return r.json();};
+const jget=async(u,n=1,signal,backoff=1500)=>{
+  let r;
+  try{r=await fetch(u,{signal});}
+  catch(e){
+    if(e.name==='AbortError')throw new Error('Tempo scaduto');
+    if(n>0){await sleep(backoff);return jget(u,n-1,signal,backoff*2);}
+    throw new Error('Rete non raggiungibile');
+  }
+  if((r.status===503||r.status===429)&&n>0){await sleep(backoff);return jget(u,n-1,signal,backoff*2);}
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  return r.json();
+};
 const ls={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}}};
 function fmtDate(d){
   if(!d)return'';
@@ -397,14 +408,18 @@ function aifaLookup(db,raw){
   return null;
 }
 // Italiano -> nome inglese tramite RxNorm, scartando i riconoscimenti che non somigliano a ciò che ho scritto
-async function rxEnglish(n,signal){
+// verify=true controlla che la risposta di RxNorm somigli davvero al nome scritto (serve per i nomi grezzi non confermati);
+// verify=false salta il controllo, per i nomi già confermati dall'elenco AIFA, risparmiando una richiesta
+async function rxEnglish(n,signal,verify=true){
   try{
     const r=await jget(`https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${enc(n)}&maxEntries=1`,1,signal);
     const c=r.approximateGroup&&r.approximateGroup.candidate&&r.approximateGroup.candidate[0];if(!c)return null;
-    const pr=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/properties.json`,1,signal);
-    const words=t=>plain(t).split(/[^a-z]+/).filter(w=>w.length>=5);
-    const qs=words(n),ws=words(pr.properties&&pr.properties.name);
-    if(!qs.length||!ws.some(w=>qs.some(q=>sim(q,w)>=0.7)))return null;
+    if(verify){
+      const pr=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/properties.json`,1,signal);
+      const words=t=>plain(t).split(/[^a-z]+/).filter(w=>w.length>=5);
+      const qs=words(n),ws=words(pr.properties&&pr.properties.name);
+      if(!qs.length||!ws.some(w=>qs.some(q=>sim(q,w)>=0.7)))return null;
+    }
     const p=await jget(`https://rxnav.nlm.nih.gov/REST/rxcui/${c.rxcui}/related.json?tty=IN`,1,signal);
     const g=((p.relatedGroup&&p.relatedGroup.conceptGroup)||[]).flatMap(x=>x.conceptProperties||[])[0];
     return g?g.name.toLowerCase():null;
@@ -417,7 +432,7 @@ async function normDrug(n,signal){
   const it=db?aifaLookup(db,n):null;
   if(it){
     const comps=it.split('/').slice(0,2);
-    const outs=await Promise.all(comps.map(c=>rxEnglish(c,signal)));
+    const outs=await Promise.all(comps.map(c=>rxEnglish(c,signal,false)));
     return{en:outs.every(Boolean)?outs.join(' '):null,it:comps.join(' ')};
   }
   const en=await rxEnglish(n,signal);
