@@ -228,7 +228,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">4.6</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">4.7</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
@@ -359,7 +359,7 @@ const SOURCES=[
 }},
 {id:'epmc',name:'Europe PMC',async search(q,f,signal){
   let t=q;if(f.year)t+=` AND PUB_YEAR:[${f.year} TO 3000]`;if(f.oa)t+=' AND OPEN_ACCESS:y';if(f.type)t+=' AND '+T_EP[f.type];
-  const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=20&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`,1,signal);
+  const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=20&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`,2,signal,1200);
   return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:fmtDate(a.firstPublicationDate||a.pubYear),doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
 }},
 {id:'openalex',name:'OpenAlex',async search(q,f,signal){
