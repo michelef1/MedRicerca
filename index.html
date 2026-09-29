@@ -228,7 +228,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">4.7</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">4.8</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
@@ -259,9 +259,8 @@ const enc=encodeURIComponent;
 function safeUrl(v){try{const u=new URL(v);return['http:','https:'].includes(u.protocol)?u.href:'#';}catch{return'#';}}
 const jget=async(u,n=1,signal,backoff=1500)=>{
   let r;
-  try{r=await fetch(u,{signal});}
+  try{r=await fetch(u);}
   catch(e){
-    if(e.name==='AbortError')throw new Error('Tempo scaduto');
     if(n>0){await sleep(backoff);return jget(u,n-1,signal,backoff*2);}
     throw new Error('Rete non raggiungibile');
   }
