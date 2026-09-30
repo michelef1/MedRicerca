@@ -2,9 +2,10 @@
 <html lang="it"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MedRicerca</title>
+<title>MedRicerca 5.0</title>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b5d6b">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" href="./icons/icon-192.png">
 <style>
@@ -61,6 +62,14 @@ main{max-width:760px;margin:-46px auto 0;padding:0 14px;position:relative}
 .tabs button.on{background:var(--pri);border-color:var(--pri);color:#fff}
 [data-theme=dark] .tabs button.on{color:#06211d}
 .tabs b{margin-left:6px;opacity:.75}
+.compare-study-head{min-width:220px;vertical-align:top}.compare-study-link{display:block;width:100%;padding:0;border:0;background:transparent;color:var(--pri);font:inherit;font-weight:800;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}.compare-study-link:hover{opacity:.78}.compare-study-link:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}.compare-open-hint{font-size:.72rem;font-weight:600;color:var(--mut);margin-top:5px}
+.comparebar{position:sticky;top:8px;z-index:4;display:flex;align-items:center;gap:8px;justify-content:space-between;
+  background:linear-gradient(135deg,color-mix(in srgb,#7a1f3d 12%,var(--card)),color-mix(in srgb,#f2994a 16%,var(--card)));
+  border:1.5px solid #f2994a;border-radius:16px;padding:9px 11px;margin:4px 0 10px;box-shadow:var(--sh)}
+.comparebar span{color:var(--ink)}
+.comparebar #comparego{background:linear-gradient(135deg,#7a1f3d,#d9534f,#f2994a);border:0;color:#fff}
+.comparebar #compareclear{border:1.5px solid #d9534f;color:#d9534f;background:transparent}
+.comparebar .smallgo{padding:8px 13px}.comparebar .x{padding:6px 10px}.pick{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:.82rem;color:var(--mut)}.pick input{accent-color:var(--pri);width:18px;height:18px}.etype{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 7px;font-size:.7rem;margin-left:4px;color:var(--pri);background:color-mix(in srgb,var(--pri) 7%,var(--card))}.source-note{margin:0 0 8px;padding:8px 10px;border-radius:12px;background:color-mix(in srgb,var(--pri) 7%,var(--card));color:var(--mut);font-size:.78rem}
 .card{background:var(--card);border-radius:16px;box-shadow:var(--sh);padding:14px 16px;margin:10px 0;display:block;width:100%;text-align:left}
 .card h3{font-size:1rem;line-height:1.35;margin-bottom:4px}
 .meta{font-size:.82rem;color:var(--mut)}
@@ -85,7 +94,7 @@ dialog::backdrop{background:rgba(5,25,30,.55)}
 .acts button,.acts a{border:1.5px solid var(--pri);color:var(--pri);border-radius:999px;padding:7px 14px;font-size:.88rem;text-decoration:none}
 .acts .fill{background:var(--pri);color:#fff}
 [data-theme=dark] .acts .fill{color:#06211d}
-.note{font-size:.78rem;color:var(--warn);margin-top:6px}
+.ctable{border-collapse:collapse;width:100%;min-width:680px;font-size:.84rem}.ctable th,.ctable td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.ctable th{background:color-mix(in srgb,var(--pri) 8%,var(--card));position:sticky;top:0}.ctable th:first-child{left:0;z-index:1;min-width:120px}.note{font-size:.78rem;color:var(--warn);margin-top:6px}
 h2.t{font-size:1.1rem;margin:4px 0 8px}
 .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
@@ -134,7 +143,7 @@ details ul{padding-left:20px}
 <body>
 <header>
   <h1><button id="home" class="ttl" aria-label="Torna alla home">MedRicerca</button></h1>
-  <p>Farmaci e malattie nella letteratura medica</p>
+  <p>Ricerca e confronto nella letteratura medica</p>
   <button id="menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">⋮</button>
   <div id="mnu" hidden><button id="mi" hidden>⬇️ Installa app</button><button data-go="guide">📖 Guida</button><button data-go="set">⚙️ Impostazioni</button><button data-go="info">ⓘ Info e crediti</button><button id="qt">◐ <span id="qt-lbl">Tema Scuro</span></button></div>
   <svg class="ecg" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 H90 L102 20 L110 4 L122 32 L132 12 L140 20 H230 L242 20 L250 6 L262 30 L272 14 L280 20 H400"/></svg>
@@ -142,7 +151,7 @@ details ul{padding-left:20px}
 <main>
   <section id="v-search" class="view on">
     <div class="box">
-      <div class="sbar"><input id="q" type="search" placeholder="Es. aspirina, ipertensione…" enterkeyhint="search" autocomplete="off"><button class="go" id="go">Cerca</button></div>
+      <div class="sbar"><input id="q" type="search" placeholder="Es. pramipexolo, Parkinson, ipertensione…" enterkeyhint="search" autocomplete="off"><button class="go" id="go">Cerca</button></div>
       <div class="seg" id="mode"><button data-m="tutto" class="on">Tutto</button><button data-m="farmaco">Farmaco</button><button data-m="malattia">Malattia</button></div>
       <div class="en">Cerco come <input id="en" placeholder="termine inglese (modificabile)" aria-label="Termine inglese"></div>
       <div class="meta" id="enhint" hidden></div>
@@ -157,6 +166,7 @@ details ul{padding-left:20px}
       </div>
     </div>
     <div class="tabs" id="tabs"></div>
+    <div id="comparebar" class="comparebar" hidden><span><b id="comparecount">0</b> studi selezionati</span><button id="comparego" class="go smallgo">Confronta</button><button id="compareclear" class="x">Azzera</button></div>
     <div id="res" aria-live="polite" aria-atomic="false"><p class="msg">Scrivi un farmaco o una malattia, anche in italiano: la ricerca parte sulle banche dati in inglese.</p></div>
     <div class="also" id="also"></div>
   </section>
@@ -175,6 +185,8 @@ details ul{padding-left:20px}
       <li><b>Meta-analisi</b> — un'analisi che unisce i dati di più studi (spesso più RCT) sullo stesso argomento, per ottenere una stima complessiva più solida di quella di un singolo studio.</li>
     </ul></details>
     <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo.</p></details>
+    <details><summary>Confrontare gli studi</summary><p>Nei risultati puoi selezionare fino a 4 studi. Apparirà il pulsante <b>Confronta</b>, che mette a confronto titolo, fonte, anno, tipo di evidenza, autori, accesso aperto, DOI e abstract disponibile. Il confronto descrive i dati disponibili: non stabilisce quale studio sia “migliore”.</p></details>
+    <details><summary>Privacy della traduzione</summary><p>MedRicerca prova prima la traduzione integrata nel browser. Se non è disponibile, può usare MyMemory come servizio esterno: in quel caso il testo da tradurre viene inviato a quel servizio. Puoi sempre leggere il testo originale senza tradurlo.</p></details>
     <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Salva</b> aggiunge ai Preferiti. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
     <details><summary>Glossario di tutti i pulsanti</summary><ul>
       <li><b>MedRicerca</b> (il titolo in alto) — riporta alla home e azzera la ricerca in corso.</li>
@@ -228,9 +240,9 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">4.8</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">5.1</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
-      <div class="row"><span>Traduzione</span><span>Browser, con ripiego su MyMemory</span></div>
+      <div class="row"><span>Traduzione</span><span>Browser; ripiego online su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
       <p class="disc" style="text-align:left;color:var(--ink)"><b>Solo a scopo informativo, non sostituisce il parere del medico.</b> Trovare uno studio tra i risultati non significa che il trattamento sia efficace, sicuro o adatto a te: per l'interpretazione clinica, rivolgiti a un medico o farmacista.</p>
@@ -248,6 +260,8 @@ details ul{padding-left:20px}
 <dialog id="dlg"><div class="dl" id="dl"></div></dialog>
 <div id="toast" hidden></div>
 
+
+<dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" onclick="document.getElementById('compareDlg').close()">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
 <script>
 "use strict";
 /* ============ Utilità ============ */
@@ -259,8 +273,9 @@ const enc=encodeURIComponent;
 function safeUrl(v){try{const u=new URL(v);return['http:','https:'].includes(u.protocol)?u.href:'#';}catch{return'#';}}
 const jget=async(u,n=1,signal,backoff=1500)=>{
   let r;
-  try{r=await fetch(u);}
+  try{r=await fetch(u,{signal});}
   catch(e){
+    if(e.name==='AbortError')throw new Error('Tempo scaduto');
     if(n>0){await sleep(backoff);return jget(u,n-1,signal,backoff*2);}
     throw new Error('Rete non raggiungibile');
   }
@@ -327,6 +342,20 @@ async function translate(t,s,g,signal){
   idbSet(k,o);return o;
 }
 
+/* ============ Classificazione trasparente dell'evidenza ============ */
+function evidenceType(it){
+  const t=plain((it.title||'')+' '+(it.abstract||'')+' '+(it.pubtypes||''));
+  if(it.src==='ClinicalTrials.gov')return'Studio clinico';
+  if(it.src==='openFDA')return'Scheda farmaco';
+  if(/meta-analysis|meta analysis|metaanalysis/.test(t))return'Meta-analisi';
+  if(/systematic review|systematic literature review/.test(t))return'Revisione sistematica';
+  if(/randomized controlled trial|randomised controlled trial|randomized trial|randomised trial|controlled trial/.test(t))return'RCT / trial controllato';
+  if(/review|scoping review|narrative review/.test(t))return'Review';
+  if(/cohort|case-control|cross-sectional|observational study/.test(t))return'Osservazionale';
+  return'';
+}
+function enrichEvidence(items){return items.map(i=>{if(!i.studyType)i.studyType=evidenceType(i);return i;});}
+
 /* ============ Fonti (stessa interfaccia: search(q,f,mode)) ============ */
 const EU='https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
 let ncbiQ=Promise.resolve();                       // max ~3 richieste/sec
@@ -337,7 +366,7 @@ const T_EP={review:'PUB_TYPE:"Review"',rct:'PUB_TYPE:"Randomized Controlled Tria
 const SOURCES=[
 {id:'pubmed',name:'PubMed',async search(q,f,signal){
   let t=`(${q})`;if(f.type)t+=' AND '+T_PM[f.type];if(f.oa)t+=' AND free full text[sb]';
-  let u=`${EU}esearch.fcgi?db=pubmed&retmode=json&retmax=20&sort=${f.sort==='date'?'pub_date':'relevance'}&term=${enc(t)}`;
+  let u=`${EU}esearch.fcgi?db=pubmed&retmode=json&retmax=30&sort=${f.sort==='date'?'pub_date':'relevance'}&term=${enc(t)}`;
   if(f.year)u+=`&datetype=pdat&mindate=${f.year}&maxdate=${new Date().getFullYear()}`;
   const ids=(await ncbi(u,signal)).esearchresult.idlist;if(!ids.length)return[];
   const s=await ncbi(`${EU}esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`,signal);
@@ -354,21 +383,21 @@ const SOURCES=[
     });
   }catch{}
   return ids.map(id=>{const r=s.result[id];const doi=(r.articleids||[]).find(a=>a.idtype==='doi');
-    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:fmtDate(r.pubdate),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',abstractTried:true,url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
+    return{key:'pubmed:'+id,src:'PubMed',pmid:id,title:strip(r.title),authors:(r.authors||[]).slice(0,4).map(a=>a.name).join(', '),journal:r.fulljournalname||r.source,year:fmtDate(r.pubdate),doi:doi?doi.value:'',oa:false,abstract:abs[id]||'',abstractTried:true,pubtypes:(r.pubtype||[]).join(' '),url:'https://pubmed.ncbi.nlm.nih.gov/'+id+'/'};});
 }},
 {id:'epmc',name:'Europe PMC',async search(q,f,signal){
   let t=q;if(f.year)t+=` AND PUB_YEAR:[${f.year} TO 3000]`;if(f.oa)t+=' AND OPEN_ACCESS:y';if(f.type)t+=' AND '+T_EP[f.type];
-  const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=20&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`,2,signal,1200);
-  return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:fmtDate(a.firstPublicationDate||a.pubYear),doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
+  const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=30&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`,2,signal,1200);
+  return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:fmtDate(a.firstPublicationDate||a.pubYear),doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),pubtypes:(a.pubType||''),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
 }},
 {id:'openalex',name:'OpenAlex',async search(q,f,signal){
   const fl=[];if(f.year)fl.push('from_publication_date:'+f.year+'-01-01');if(f.oa)fl.push('is_oa:true');if(f.type==='review')fl.push('type:review');
-  const r=await jget(`https://api.openalex.org/works?search=${enc(q)}&per-page=20${fl.length?'&filter='+fl.join(','):''}${f.sort==='date'?'&sort=publication_date:desc':''}&mailto=app@medricerca.it`,1,signal);
+  const r=await jget(`https://api.openalex.org/works?search=${enc(q)}&per_page=30${fl.length?'&filter='+fl.join(','):''}${f.sort==='date'?'&sort=publication_date:desc':''}&mailto=app@medricerca.it`,1,signal);
   return (r.results||[]).map(w=>{let ab='';if(w.abstract_inverted_index){const a=[];for(const[k,v]of Object.entries(w.abstract_inverted_index))v.forEach(i=>a[i]=k);ab=a.join(' ');}
-    return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:fmtDate(w.publication_date||w.publication_year),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),url:w.doi||w.id};});
+    return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:fmtDate(w.publication_date||w.publication_year),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),pubtypes:((w.type||'')+' '+(w.primary_topic&&w.primary_topic.display_name||'')),url:w.doi||w.id};});
 }},
 {id:'ctgov',name:'Studi clinici',canAbs:false,async search(q,f,signal){
-  const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=20&format=json`,1,signal);
+  const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=30&format=json`,1,signal);
   return (r.studies||[]).map(s=>{const p=s.protocolSection,i=p.identificationModule;
     return{key:'ct:'+i.nctId,src:'ClinicalTrials.gov',title:i.briefTitle,authors:(p.sponsorCollaboratorsModule&&p.sponsorCollaboratorsModule.leadSponsor&&p.sponsorCollaboratorsModule.leadSponsor.name)||'',journal:(i.nctId+' · '+((p.statusModule&&p.statusModule.overallStatus)||'')),year:fmtDate(p.statusModule&&p.statusModule.startDateStruct&&p.statusModule.startDateStruct.date),doi:'',oa:true,abstract:strip(p.descriptionModule&&p.descriptionModule.briefSummary),url:'https://clinicaltrials.gov/study/'+i.nctId};});
 }},
@@ -382,6 +411,7 @@ const SOURCES=[
 
 /* ============ Stato ============ */
 const st={mode:'tutto',tab:null,res:{},items:{},enManual:false,q:'',sid:0};
+const compareKeys=new Set();
 const favs=()=>ls.get('mr_fav',[]);
 const isFav=k=>favs().some(f=>f.key===k);
 function toggleFav(it){let a=favs();a=isFav(it.key)?a.filter(f=>f.key!==it.key):[it,...a];if(!ls.set('mr_fav',a))alert('Impossibile salvare i preferiti: memoria del browser piena o non disponibile (es. navigazione privata).');}
@@ -513,7 +543,7 @@ function reSearch(){
 }
 async function doSearch(){
   const raw=$('#q').value.trim();if(!raw)return;
-  st.items={};
+  st.items={};compareKeys.clear();updateCompareBar();
   if(!navigator.onLine){showToast('Sei offline: una nuova ricerca richiede una connessione a internet.',{warn:true,ms:4500});return;}
   const my=++st.sid;
   let en=$('#en').value.trim();
@@ -548,11 +578,11 @@ async function doSearch(){
 function runSrc(s,en,f){
   const sid=st.sid;
   st.res[s.id]={name:s.name,loading:true,items:[],canAbs:s.canAbs!==false};drawTabs();drawRes();
-  withTimeout(signal=>s.search(en,f,signal)).then(items=>{if(sid!==st.sid)return;items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items,canAbs:s.canAbs!==false};}).catch(e=>{if(sid!==st.sid)return;st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{if(sid===st.sid){drawTabs();drawRes();}});
+  withTimeout(signal=>s.search(en,f,signal)).then(items=>{if(sid!==st.sid)return;items=enrichEvidence(items);items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items,canAbs:s.canAbs!==false};}).catch(e=>{if(sid!==st.sid)return;st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{if(sid===st.sid){drawTabs();drawRes();}});
 }
 // Home: azzera ricerca, risultati e ricerche ancora in corso
 function goHome(){
-  st.sid++;st.res={};st.items={};st.tab=null;st.q='';st.enManual=false;
+  st.sid++;st.res={};st.items={};compareKeys.clear();updateCompareBar();st.tab=null;st.q='';st.enManual=false;
   $('#q').value='';$('#en').value='';$('#tabs').innerHTML='';$('#also').innerHTML='';
   $('#res').innerHTML='<p class="msg">Scrivi un farmaco o una malattia, anche in italiano: la ricerca parte sulle banche dati in inglese.</p>';
   if($('#dlg').open)$('#dlg').close();
@@ -563,15 +593,30 @@ function drawTabs(){
   $('#tabs').innerHTML=Object.entries(st.res).map(([id,r])=>{const n=r.loading||r.err?0:(onlyAbs&&r.canAbs!==false?r.items.filter(i=>i.abstract).length:r.items.length);return `<button data-t="${id}" class="${id===st.tab?'on':''}">${esc(r.name)}<b>${r.loading?'…':r.err?'!':n}</b></button>`;}).join('');
 }
 function card(it){
-  return `<button class="card" data-k="${esc(it.key)}"><h3>${esc(it.title)}${it.oa?'<span class="badge">Open Access</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button>`;
+  return `<article class="card" data-k="${esc(it.key)}"><button class="ttl" data-open="${esc(it.key)}"><h3>${esc(it.title)}${it.oa?'<span class="badge">Open Access</span>':''}${it.studyType?'<span class="etype">'+esc(it.studyType)+'</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button><label class="pick"><input type="checkbox" data-pick="${esc(it.key)}" ${compareKeys.has(it.key)?'checked':''}> Seleziona per confronto</label></article>`;
 }
+function updateCompareBar(){
+  const b=$('#comparebar');if(!b)return;
+  $('#comparecount').textContent=compareKeys.size;
+  b.hidden=compareKeys.size===0;
+}
+function compareItems(){return [...compareKeys].map(k=>st.items[k]||favs().find(x=>x.key===k)).filter(Boolean).slice(0,4);}
+function openCompare(){
+  const a=compareItems();if(a.length<2){showToast('Seleziona almeno 2 studi per confrontarli.',{warn:true});return;}
+  const rows=[['Fonte',x=>x.src],['Anno',x=>x.year||'—'],['Tipo di evidenza',x=>x.studyType||'Non determinato'],['Autori',x=>x.authors||'—'],['Open access',x=>x.oa?'Sì':'No'],['DOI',x=>x.doi||'—'],['Abstract',x=>x.abstract?'Disponibile':'Non disponibile']];
+  $('#compareTitle').textContent=`Confronto di ${a.length} studi`;
+  $('#compareTable').innerHTML=rows.map(([label,fn])=>`<tr><th>${esc(label)}</th>${a.map(x=>`<td>${esc(fn(x))}</td>`).join('')}</tr>`).join('');
+  $('#compareHeads').innerHTML='<th>Campo</th>'+a.map(x=>`<th class="compare-study-head"><button type="button" class="compare-study-link" data-compare-open="${esc(x.key)}" title="Apri lo studio">${esc((x.title||'').slice(0,90))}</button><div class="compare-open-hint">Apri studio ↗</div></th>`).join('');
+  $('#compareDlg').showModal();
+}
+
 function drawRes(){
   const r=st.res[st.tab];if(!r)return;
   if(r.loading){$('#res').innerHTML='<div class="sk"></div><div class="sk"></div><div class="sk"></div>';return;}
   if(r.err){$('#res').innerHTML=`<p class="msg err">${esc(r.name)} non ha risposto (${esc(r.err)}). Le altre fonti restano disponibili.</p><p class="msg"><button class="go" style="padding:10px 22px" data-retry="${esc(st.tab)}">Riprova</button></p>`;return;}
   const onlyAbs=$('#fab').checked&&(r.canAbs!==false);
   const items=onlyAbs?r.items.filter(i=>i.abstract):r.items;
-  $('#res').innerHTML=items.length?items.map(card).join(''):(r.items.length?'<p class="msg">Nessun risultato con abstract disponibile. Prova a togliere il filtro "Solo con abstract".</p>':'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>');
+  $('#res').innerHTML=items.length?items.map(card).join(''):(r.items.length?'<p class="msg">Nessun risultato con abstract disponibile. Prova a togliere il filtro "Solo con abstract".</p>':'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>');updateCompareBar();
 }
 function drawAlso(en){
   const q=enc(en);
@@ -609,9 +654,21 @@ async function shareItem(btn){
   catch{prompt('Copia il link:',url);}
 }
 let detailReqId=0;
+let detailHistoryOpen=false;
+// Il tasto Indietro di Android deve chiudere il dettaglio, non uscire dalla PWA.
+// Inseriamo una voce di cronologia solo mentre il dettaglio di uno studio è aperto.
+if(!history.state || history.state.medricerca!=='home') history.replaceState({medricerca:'home'},'',location.href);
+function closeDetail(){
+  if(!$('#dlg').open)return;
+  if(detailHistoryOpen){ history.back(); }
+  else { $('#dlg').close(); }
+}
 async function openItem(key){
   const item=st.items[key]||favs().find(f=>f.key===key);if(!item)return;
-  cur=item;showTr=false;paint();$('#dlg').showModal();fitZoom();
+  cur=item;showTr=false;paint();
+  if(detailHistoryOpen) history.replaceState({medricerca:'detail',key:item.key},'',location.href);
+  else { history.pushState({medricerca:'detail',key:item.key},'',location.href); detailHistoryOpen=true; }
+  $('#dlg').showModal();fitZoom();
   const myReq=++detailReqId; // evita che una risposta in ritardo sporchi un articolo aperto dopo
   if(item.pmid&&!item.abstract&&!item.abstractTried){
     try{
@@ -649,7 +706,7 @@ function paint(){
 }
 $('#dl').addEventListener('click',async e=>{
   const id=e.target.id;
-  if(id==='bcl')$('#dlg').close();
+  if(id==='bcl')closeDetail();
   if(id==='bsh')shareItem(e.target);
   if(id==='bris')exportRis(cur);
   if(id==='bfav'){toggleFav(cur);paint();drawFavs();}
@@ -665,7 +722,14 @@ $('#dl').addEventListener('click',async e=>{
     if(cur===item)paint();
   }
 });
-$('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')$('#dlg').close();});
+$('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDetail();});
+$('#dlg').addEventListener('cancel',e=>{e.preventDefault();closeDetail();});
+window.addEventListener('popstate',e=>{
+  if(detailHistoryOpen){
+    detailHistoryOpen=false;
+    if($('#dlg').open)$('#dlg').close();
+  }
+});
 $('#dlg-ios').addEventListener('click',e=>{if(e.target.id==='dlg-ios'||e.target.closest('[data-close]'))$('#dlg-ios').close();});
 // Pinch-to-zoom: il testo del dettaglio si rimpagina sulla larghezza visibile
 function fitZoom(){
@@ -718,6 +782,8 @@ $('#file').onchange=async e=>{
 
 /* ============ Eventi ============ */
 $('#go').onclick=doSearch;
+$('#comparego').onclick=openCompare;
+$('#compareclear').onclick=()=>{compareKeys.clear();updateCompareBar();drawRes();};
 $('#home').onclick=goHome;
 $('#q').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
 ['#fo','#fab'].forEach(id=>$(id).addEventListener('change',reSearch));
@@ -729,7 +795,9 @@ $('#tabs').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;st.tab=
 document.addEventListener('click',e=>{
   const rt=e.target.closest('[data-retry]');if(rt){const s=SOURCES.find(x=>x.id===rt.dataset.retry);if(s)runSrc(s,st.q,st.f);return;}
   if(e.target.closest('[data-close]')){show('search');return;}
-  const c=e.target.closest('.card[data-k]');if(c)return openItem(c.dataset.k);
+  const pick=e.target.closest('[data-pick]');if(pick){const k=pick.dataset.pick;if(pick.checked){if(compareKeys.size>=4){pick.checked=false;showToast('Puoi confrontare al massimo 4 studi.',{warn:true});return;}compareKeys.add(k);}else compareKeys.delete(k);updateCompareBar();return;}
+  const cop=e.target.closest('[data-compare-open]');if(cop){const k=cop.dataset.compareOpen;$('#compareDlg').close();openItem(k);return;}
+  const op=e.target.closest('[data-open]');if(op)return openItem(op.dataset.open);
   const h=e.target.closest('[data-h]');if(h&&hsel){const i=+h.dataset.h;hsel.has(i)?hsel.delete(i):hsel.add(i);drawHist();return;}
   if(h){const x=ls.get('mr_hist',[])[+h.dataset.h];$('#q').value=x.q;st.mode=x.m;[...$('#mode').children].forEach(b=>b.classList.toggle('on',b.dataset.m===x.m));st.enManual=false;$('#en').value='';show('search');doSearch();}
   const hid=e.target.id;

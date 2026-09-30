@@ -1,14 +1,26 @@
-const CACHE = 'medricerca-v4.8';
-const SHELL = ['./', './index.html', './manifest.json', './icons/icon-192.png', './icons/icon-512.png'];
-self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL))); self.skipWaiting(); });
-self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x !== CACHE).map(x => caches.delete(x)))));
+const CACHE = 'medricerca-v5.1';
+const SHELL = [
+  './', './index.html', './manifest.json', './farmaci-it.json',
+  './icons/icon-192.png', './icons/icon-512.png',
+  './icons/maskable-192.png', './icons/maskable-512.png'
+];
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)));
+  self.skipWaiting();
+});
+self.addEventListener('activate', event => {
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE).map(key => caches.delete(key)))));
   self.clients.claim();
 });
-// Solo file della app: rete prima, cache se offline. Le API esterne passano dirette.
-self.addEventListener('fetch', e => {
-  const u = new URL(e.request.url);
-  if (e.request.method !== 'GET' || u.origin !== location.origin) return;
-  e.respondWith(fetch(e.request).then(r => { const cp = r.clone(); caches.open(CACHE).then(c => c.put(e.request, cp)); return r; })
-    .catch(() => caches.match(e.request).then(m => m || caches.match('./index.html'))));
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  if (event.request.method !== 'GET' || url.origin !== location.origin) return;
+  event.respondWith(fetch(event.request).then(response => {
+    if (response && response.ok) {
+      const copy = response.clone();
+      caches.open(CACHE).then(cache => cache.put(event.request, copy));
+    }
+    return response;
+  }).catch(() => caches.match(event.request).then(cached => cached || caches.match('./index.html'))));
 });
+self.addEventListener('message', event => { if (event.data === 'SKIP_WAITING') self.skipWaiting(); });
