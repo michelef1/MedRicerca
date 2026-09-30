@@ -6,7 +6,7 @@
 
 **PWA gratuita · Nessuna registrazione · Nessun backend · Nessuna pubblicità**
 
-[![Versione](https://img.shields.io/badge/versione-5.1-22c2a0?style=flat-square)](#)
+[![Versione](https://img.shields.io/badge/versione-5.2-22c2a0?style=flat-square)](#)
 [![PWA](https://img.shields.io/badge/PWA-installabile-0b5d6b?style=flat-square)](#)
 [![Licenza](https://img.shields.io/badge/licenza-uso%20personale-lightgrey?style=flat-square)](#)
 
@@ -30,14 +30,14 @@ Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutt
 
 | Funzione | Descrizione |
 |---|---|
-| 🌐 **Ricerca multi-fonte** | Interroga in parallelo PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov e openFDA, fino a 30 risultati per fonte |
+| 🌐 **Ricerca multi-fonte** | Interroga in parallelo PubMed, Europe PMC, ClinicalTrials.gov e openFDA, fino a 30 risultati per fonte |
 | 🇮🇹 **Traduzione automatica** | Scrivi in italiano, l'app traduce e cerca in inglese |
 | 💊 **Riconoscimento farmaci** | Un nome commerciale italiano (es. *Moment*) viene ricondotto al principio attivo (*ibuprofene*) tramite l'anagrafica AIFA, con RxNorm come supporto |
 | ⚖️ **Confronto fino a 4 studi** | Seleziona più risultati e confrontali affiancati: fonte, anno, tipo di evidenza, autori, open access, DOI e abstract |
 | 🏷️ **Tipo di evidenza** | Un'etichetta indicativa (RCT, Review, Meta-analisi, Osservazionale...) riconosciuta dai dati disponibili, quando possibile |
 | 🈺 **Abstract tradotti** | Traduci titolo e riassunto di ogni articolo con un tocco |
 | 🎚️ **Filtri avanzati** | Anno, tipo di studio, open access, presenza di abstract, ordinamento |
-| ⭐ **Preferiti e cronologia** | Salva gli articoli utili, ritrova le ricerche fatte, con eliminazione selettiva |
+| ⭐ **Preferiti con categorie** | Salva gli articoli utili in categorie personalizzate (es. Neurologia, Cardiologia), ritrova le ricerche in Cronologia |
 | 📤 **Esportazione** | Condividi un articolo o scaricalo in formato `.ris` per Zotero/Mendeley |
 | 🎨 **Personalizzazione** | Temi a gradiente, tema chiaro/scuro, dimensione del testo |
 | 🔙 **Navigazione Android** | Il tasto Indietro del telefono chiude il dettaglio di uno studio invece di uscire dall'app |
@@ -86,7 +86,6 @@ Tutto avviene **nel browser**: nessun server proprietario, nessun dato personale
 |---|---|
 | **PubMed** | Il più grande archivio di letteratura biomedica al mondo |
 | **Europe PMC** | Articoli scientifici, spesso a testo completo |
-| **OpenAlex** | Ampio catalogo accademico multidisciplinare |
 | **ClinicalTrials.gov** | Studi clinici in corso e conclusi |
 | **openFDA + RxNorm** | Schede dei farmaci e riconoscimento del principio attivo |
 | **AIFA – Anagrafica farmaci** | Elenco dei medicinali autorizzati in Italia: riconosce i nomi commerciali italiani (es. *Moment* → *ibuprofene*). Copia salvata nell'app, dati [AIFA](https://www.aifa.gov.it/liste-dei-farmaci) con licenza CC-BY 4.0 |

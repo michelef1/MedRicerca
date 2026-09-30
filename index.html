@@ -138,6 +138,13 @@ details ul{padding-left:20px}
 .spin{width:14px;height:14px;flex:none;margin-top:3px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .rm .spin{animation:none}
+.catrow{display:flex;align-items:center;gap:8px;margin:10px 0}
+.catgroup{font-size:.78rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--mut);margin:16px 4px 4px}
+.catgroup:first-child{margin-top:4px}
+.newcat{display:flex;gap:6px;padding:8px 6px 4px;margin-top:4px;border-top:1px solid var(--line)}
+.newcat input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 9px;font-size:.85rem}
+.newcat button{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:6px 12px;font-size:.85rem}
+[data-theme=dark] .newcat button{color:#06211d}
 @media (prefers-reduced-motion:reduce){.ecg path{animation:none;stroke-dashoffset:0}.sk{animation:none}}
 </style></head>
 <body>
@@ -187,7 +194,7 @@ details ul{padding-left:20px}
     <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo.</p></details>
     <details><summary>Confrontare gli studi</summary><p>Nei risultati puoi selezionare fino a 4 studi. Apparirà il pulsante <b>Confronta</b>, che mette a confronto titolo, fonte, anno, tipo di evidenza, autori, accesso aperto, DOI e abstract disponibile. Il confronto descrive i dati disponibili: non stabilisce quale studio sia “migliore”.</p></details>
     <details><summary>Privacy della traduzione</summary><p>MedRicerca prova prima la traduzione integrata nel browser. Se non è disponibile, può usare MyMemory come servizio esterno: in quel caso il testo da tradurre viene inviato a quel servizio. Puoi sempre leggere il testo originale senza tradurlo.</p></details>
-    <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Salva</b> aggiunge ai Preferiti. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
+    <details><summary>Condividere, Preferiti, Categorie e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Salva</b> aggiunge ai Preferiti. Nel dettaglio di un articolo, il menu <b>Categoria</b> permette di scegliere una categoria già creata o di scriverne una nuova (es. Neurologia, Cardiologia): scegliendola, l'articolo viene salvato automaticamente nei Preferiti, dove compare raggruppato sotto quella categoria. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
     <details><summary>Glossario di tutti i pulsanti</summary><ul>
       <li><b>MedRicerca</b> (il titolo in alto) — riporta alla home e azzera la ricerca in corso.</li>
       <li><b>⋮</b> — apre Installa app, Guida, Impostazioni, Info e crediti, Tema Chiaro/Scuro.</li>
@@ -200,7 +207,7 @@ details ul{padding-left:20px}
       <li><b>Traduci in italiano / Mostra originale</b> — traduce o torna al testo inglese dell'abstract.</li>
       <li><b>☆ Salva / ★ Nei preferiti</b> — aggiunge o toglie l'articolo dai Preferiti.</li>
       <li><b>Condividi</b> — invia il link con le tue app, oppure lo copia.</li>
-      <li><b>Esporta .ris</b> — scarica la citazione per Zotero o Mendeley.</li>
+      <li><b>Categoria</b> — assegna o crea una categoria per un articolo; lo salva automaticamente nei Preferiti.</li><li><b>Esporta .ris</b> — scarica la citazione per Zotero o Mendeley.</li>
       <li><b>Apri fonte</b> — apre la scheda dell'articolo sulla banca dati che l'ha trovato.</li>
       <li><b>DOI</b> — apre la pagina dell'articolo sul sito della rivista.</li>
       <li><b>✕ Chiudi</b> — chiude la finestra o torna alla ricerca.</li>
@@ -211,7 +218,7 @@ details ul{padding-left:20px}
       <li><b>Esporta dati / Importa dati</b> (in Impostazioni) — salva o ripristina Preferiti e Cronologia.</li>
       <li><b>Ripristina impostazioni</b> — riporta tema, sfondo e dimensione del testo ai valori iniziali.</li>
     </ul></details>
-    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC, OpenAlex: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Elenco AIFA dei farmaci autorizzati in Italia (licenza CC-BY 4.0): serve a riconoscere i nomi commerciali italiani e a ricavarne il principio attivo. È una copia salvata nell'app, aggiornata al 28/09/2026.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
+    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Elenco AIFA dei farmaci autorizzati in Italia (licenza CC-BY 4.0): serve a riconoscere i nomi commerciali italiani e a ricavarne il principio attivo. È una copia salvata nell'app, aggiornata al 28/09/2026.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
     <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p><p><b>Modalità offline:</b> installata o meno, l'app resta utilizzabile senza connessione solo per l'interfaccia e per Preferiti, Cronologia e articoli già consultati. Una ricerca nuova, o una già fatta ma non ancora vista, richiede sempre una connessione a internet, perché interroga le banche dati in tempo reale.</p></details>
     <details><summary>Avvertenza</summary><p>Solo a scopo informativo, non sostituisce il parere del medico. Trovare uno studio tra i risultati non significa che il trattamento descritto sia efficace, sicuro o adatto a una persona specifica: per l'interpretazione clinica, rivolgersi sempre a un medico o farmacista.</p></details>
   </section>
@@ -240,8 +247,8 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">5.1</b></div>
-      <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, OpenAlex, ClinicalTrials.gov, openFDA, RxNorm</span></div>
+      <div class="row"><span>Versione</span><b id="app-version">5.2</b></div>
+      <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser; ripiego online su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
@@ -261,7 +268,7 @@ details ul{padding-left:20px}
 <div id="toast" hidden></div>
 
 
-<dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" onclick="document.getElementById('compareDlg').close()">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
+<dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" id="compareClose">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
 <script>
 "use strict";
 /* ============ Utilità ============ */
@@ -390,12 +397,6 @@ const SOURCES=[
   const r=await jget(`https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&pageSize=30&resultType=core${f.sort==='date'?'&sort='+enc('P_PDATE_D desc'):''}&query=${enc(t)}`,2,signal,1200);
   return (r.resultList.result||[]).map(a=>({key:'epmc:'+a.source+a.id,src:'Europe PMC',title:strip(a.title),authors:a.authorString||'',journal:a.journalTitle||'',year:fmtDate(a.firstPublicationDate||a.pubYear),doi:a.doi||'',oa:a.isOpenAccess==='Y',abstract:strip(a.abstractText),pubtypes:(a.pubType||''),url:`https://europepmc.org/article/${a.source}/${a.id}`}));
 }},
-{id:'openalex',name:'OpenAlex',async search(q,f,signal){
-  const fl=[];if(f.year)fl.push('from_publication_date:'+f.year+'-01-01');if(f.oa)fl.push('is_oa:true');if(f.type==='review')fl.push('type:review');
-  const r=await jget(`https://api.openalex.org/works?search=${enc(q)}&per_page=30${fl.length?'&filter='+fl.join(','):''}${f.sort==='date'?'&sort=publication_date:desc':''}&mailto=app@medricerca.it`,1,signal);
-  return (r.results||[]).map(w=>{let ab='';if(w.abstract_inverted_index){const a=[];for(const[k,v]of Object.entries(w.abstract_inverted_index))v.forEach(i=>a[i]=k);ab=a.join(' ');}
-    return{key:'oa:'+w.id,src:'OpenAlex',title:strip(w.display_name),authors:(w.authorships||[]).slice(0,4).map(a=>a.author.display_name).join(', '),journal:(w.primary_location&&w.primary_location.source&&w.primary_location.source.display_name)||'',year:fmtDate(w.publication_date||w.publication_year),doi:(w.doi||'').replace('https://doi.org/',''),oa:!!(w.open_access&&w.open_access.is_oa),abstract:strip(ab),pubtypes:((w.type||'')+' '+(w.primary_topic&&w.primary_topic.display_name||'')),url:w.doi||w.id};});
-}},
 {id:'ctgov',name:'Studi clinici',canAbs:false,async search(q,f,signal){
   const r=await jget(`https://clinicaltrials.gov/api/v2/studies?query.term=${enc(q)}&pageSize=30&format=json`,1,signal);
   return (r.studies||[]).map(s=>{const p=s.protocolSection,i=p.identificationModule;
@@ -479,6 +480,34 @@ function renderCSel(id){
   root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false"><span class="lbl">${esc(cur[1])}</span><span class="car" aria-hidden="true">▾</span></button><div class="csel-menu" role="listbox" hidden>${opts.map(o=>`<button type="button" role="option" data-v="${esc(o[0])}" class="${o[0]===filterVal[id]?'sel':''}">${esc(o[1])}</button>`).join('')}</div>`;
 }
 function closeAllCSel(){document.querySelectorAll('.csel-menu').forEach(m=>m.hidden=true);document.querySelectorAll('.csel-btn').forEach(b=>b.setAttribute('aria-expanded','false'));}
+// Categorie dei preferiti: elenco condiviso, riusabile tra un articolo e l'altro
+function itemCat(key){const f=favs().find(x=>x.key===key);return f&&f.cat||'';}
+function saveFavWithCat(it,cat){
+  let a=favs();const idx=a.findIndex(f=>f.key===it.key);
+  if(idx>=0){if(cat)a[idx].cat=cat;else delete a[idx].cat;}
+  else{const item={...it};if(cat)item.cat=cat;a=[item,...a];}
+  if(!ls.set('mr_fav',a))alert('Impossibile salvare i preferiti: memoria del browser piena o non disponibile (es. navigazione privata).');
+}
+function renderCatSel(){
+  const root=$('#d-cat');if(!root||!cur)return;
+  const cats=ls.get('mr_cats',[]).slice().sort((a,b)=>a.localeCompare(b,'it'));
+  const curCat=itemCat(cur.key);
+  root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false"><span class="lbl">${esc(curCat||'Nessuna categoria')}</span><span class="car" aria-hidden="true">▾</span></button>
+    <div class="csel-menu" role="listbox" hidden>
+      <button type="button" role="option" data-v="" class="${curCat===''?'sel':''}">Nessuna categoria</button>
+      ${cats.map(c=>`<button type="button" role="option" data-v="${esc(c)}" class="${c===curCat?'sel':''}">${esc(c)}</button>`).join('')}
+      <div class="newcat"><input type="text" id="newcat-input" placeholder="Nuova categoria…" maxlength="40"><button type="button" id="newcat-add">Aggiungi</button></div>
+    </div>`;
+  const inp=$('#newcat-input');
+  const addNew=()=>{
+    const v=inp.value.trim();if(!v||!cur)return;
+    const cs=ls.get('mr_cats',[]);
+    if(!cs.some(c=>c.toLowerCase()===v.toLowerCase())){cs.push(v);ls.set('mr_cats',cs);}
+    saveFavWithCat(cur,v);closeAllCSel();paint();drawFavs();
+  };
+  $('#newcat-add').onclick=addNew;
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addNew();}});
+}
 function openCSelMenu(btn){
   const menu=btn.nextElementSibling;
   const r=btn.getBoundingClientRect();
@@ -520,6 +549,7 @@ document.addEventListener('focusout',e=>{
 Object.keys(FILTER_DEFS).forEach(renderCSel);
 addEventListener('scroll',closeAllCSel,true);
 document.addEventListener('click',e=>{
+  if(e.target.closest('.newcat'))return;
   const btn=e.target.closest('.csel-btn');
   if(btn){
     e.stopPropagation();const willOpen=btn.nextElementSibling.hidden;closeAllCSel();
@@ -527,7 +557,16 @@ document.addEventListener('click',e=>{
     return;
   }
   const opt=e.target.closest('.csel-menu [data-v]');
-  if(opt){const root=opt.closest('.csel'),id=root.id.slice(2);filterVal[id]=opt.dataset.v;renderCSel(id);closeAllCSel();reSearch();return;}
+  if(opt){
+    const root=opt.closest('.csel');
+    if(root.id==='d-cat'){
+      const v=opt.dataset.v;
+      if(v!==''||isFav(cur.key))saveFavWithCat(cur,v);
+      closeAllCSel();paint();drawFavs();
+      return;
+    }
+    const id=root.id.slice(2);filterVal[id]=opt.dataset.v;renderCSel(id);closeAllCSel();reSearch();return;
+  }
   closeAllCSel();
 });
 function currentFilters(){return {year:filterVal.fy,type:filterVal.ft,sort:filterVal.fs,oa:$('#fo').checked};}
@@ -603,12 +642,16 @@ function updateCompareBar(){
 function compareItems(){return [...compareKeys].map(k=>st.items[k]||favs().find(x=>x.key===k)).filter(Boolean).slice(0,4);}
 function openCompare(){
   const a=compareItems();if(a.length<2){showToast('Seleziona almeno 2 studi per confrontarli.',{warn:true});return;}
+  pushModalHistory('compare');
   const rows=[['Fonte',x=>x.src],['Anno',x=>x.year||'—'],['Tipo di evidenza',x=>x.studyType||'Non determinato'],['Autori',x=>x.authors||'—'],['Open access',x=>x.oa?'Sì':'No'],['DOI',x=>x.doi||'—'],['Abstract',x=>x.abstract?'Disponibile':'Non disponibile']];
   $('#compareTitle').textContent=`Confronto di ${a.length} studi`;
   $('#compareTable').innerHTML=rows.map(([label,fn])=>`<tr><th>${esc(label)}</th>${a.map(x=>`<td>${esc(fn(x))}</td>`).join('')}</tr>`).join('');
   $('#compareHeads').innerHTML='<th>Campo</th>'+a.map(x=>`<th class="compare-study-head"><button type="button" class="compare-study-link" data-compare-open="${esc(x.key)}" title="Apri lo studio">${esc((x.title||'').slice(0,90))}</button><div class="compare-open-hint">Apri studio ↗</div></th>`).join('');
   $('#compareDlg').showModal();
 }
+$('#compareClose').onclick=closeCompare;
+$('#compareDlg').addEventListener('click',e=>{if(e.target.id==='compareDlg')closeCompare();});
+$('#compareDlg').addEventListener('cancel',e=>{e.preventDefault();closeCompare();});
 
 function drawRes(){
   const r=st.res[st.tab];if(!r)return;
@@ -654,20 +697,25 @@ async function shareItem(btn){
   catch{prompt('Copia il link:',url);}
 }
 let detailReqId=0;
-let detailHistoryOpen=false;
-// Il tasto Indietro di Android deve chiudere il dettaglio, non uscire dalla PWA.
-// Inseriamo una voce di cronologia solo mentre il dettaglio di uno studio è aperto.
+// Il tasto Indietro di Android deve chiudere il dettaglio o il confronto aperti, non uscire dalla PWA.
+// Inseriamo una voce di cronologia solo mentre una di queste due finestre è aperta.
+let modalHistoryOpen=null; // null | 'detail' | 'compare'
 if(!history.state || history.state.medricerca!=='home') history.replaceState({medricerca:'home'},'',location.href);
-function closeDetail(){
-  if(!$('#dlg').open)return;
-  if(detailHistoryOpen){ history.back(); }
-  else { $('#dlg').close(); }
+function pushModalHistory(which){
+  if(modalHistoryOpen) history.replaceState({medricerca:which},'',location.href);
+  else { history.pushState({medricerca:which},'',location.href); modalHistoryOpen=which; }
 }
+function closeModalViaHistory(dlgSel){
+  if(!$(dlgSel).open)return;
+  if(modalHistoryOpen){ history.back(); }
+  else { $(dlgSel).close(); }
+}
+function closeDetail(){closeModalViaHistory('#dlg');}
+function closeCompare(){closeModalViaHistory('#compareDlg');}
 async function openItem(key){
   const item=st.items[key]||favs().find(f=>f.key===key);if(!item)return;
   cur=item;showTr=false;paint();
-  if(detailHistoryOpen) history.replaceState({medricerca:'detail',key:item.key},'',location.href);
-  else { history.pushState({medricerca:'detail',key:item.key},'',location.href); detailHistoryOpen=true; }
+  pushModalHistory('detail');
   $('#dlg').showModal();fitZoom();
   const myReq=++detailReqId; // evita che una risposta in ritardo sporchi un articolo aperto dopo
   if(item.pmid&&!item.abstract&&!item.abstractTried){
@@ -694,6 +742,7 @@ function paint(){
   <div class="abs">${esc(tr?tr.abs:(it.abstract||(it.pmid?'Carico l’abstract…':'Abstract non disponibile.')))}</div>
   ${tr?'<p class="note">Traduzione automatica: verifica i termini medici sul testo originale.</p>':''}
   ${it.trErr?`<p class="note">${esc(it.trErr)}</p>`:''}
+  <div class="catrow"><span class="meta">Categoria</span><div class="csel" id="d-cat"></div></div>
   <div class="acts">
     <button class="fill" id="btr">${showTr?'Mostra originale':'Traduci in italiano'}</button>
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
@@ -703,6 +752,7 @@ function paint(){
     ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">DOI</a>`:''}
     <button id="bcl">Chiudi</button>
   </div>`;
+  renderCatSel();
 }
 $('#dl').addEventListener('click',async e=>{
   const id=e.target.id;
@@ -725,9 +775,10 @@ $('#dl').addEventListener('click',async e=>{
 $('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDetail();});
 $('#dlg').addEventListener('cancel',e=>{e.preventDefault();closeDetail();});
 window.addEventListener('popstate',e=>{
-  if(detailHistoryOpen){
-    detailHistoryOpen=false;
-    if($('#dlg').open)$('#dlg').close();
+  if(modalHistoryOpen){
+    const which=modalHistoryOpen;modalHistoryOpen=null;
+    if(which==='detail'&&$('#dlg').open)$('#dlg').close();
+    if(which==='compare'&&$('#compareDlg').open)$('#compareDlg').close();
   }
 });
 $('#dlg-ios').addEventListener('click',e=>{if(e.target.id==='dlg-ios'||e.target.closest('[data-close]'))$('#dlg-ios').close();});
@@ -746,7 +797,12 @@ if(window.visualViewport){visualViewport.addEventListener('resize',fitZoom);visu
 /* ============ Preferiti / cronologia / dati ============ */
 function drawFavs(){
   const a=favs();a.forEach(i=>st.items[i.key]=st.items[i.key]||i);
-  $('#favs').innerHTML=a.length?a.map(card).join(''):'<p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';
+  if(!a.length){$('#favs').innerHTML='<p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';return;}
+  const groups={};
+  a.forEach(i=>{const c=i.cat||'Senza categoria';(groups[c]=groups[c]||[]).push(i);});
+  const names=Object.keys(groups).filter(n=>n!=='Senza categoria').sort((x,y)=>x.localeCompare(y,'it'));
+  if(groups['Senza categoria'])names.push('Senza categoria');
+  $('#favs').innerHTML=names.map(n=>`<h3 class="catgroup">${esc(n)}</h3>`+groups[n].map(card).join('')).join('');
 }
 let hsel=null; // null = modalità normale, Set = modalità selezione
 function drawHist(){
