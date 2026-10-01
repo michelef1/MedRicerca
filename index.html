@@ -262,7 +262,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">5.3</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">5.4</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser; ripiego online su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
@@ -436,6 +436,15 @@ const compareKeys=new Set();
 const DEFAULT_FAV_CATS=['Senza categoria','Generale','Neurologia','Cardiologia','Oncologia','Endocrinologia','Gastroenterologia','Pneumologia','Farmacologia'];
 const FOLDER_COLORS=['#0b5d6b','#2e7d32','#6a1b9a','#ad1457','#ef6c00','#1565c0','#00838f','#7b5e00','#455a64','#c62828'];
 function folderColor(name){let h=0;for(const ch of String(name||''))h=(h*31+ch.charCodeAt(0))>>>0;return FOLDER_COLORS[h%FOLDER_COLORS.length];}
+function moveFolder(name,dir){
+  const cats=favCats(),i=cats.indexOf(name);
+  if(i<0)return;const j=i+dir;if(j<0||j>=cats.length)return;
+  appConfirm(`Spostare la cartella "${name}" più in ${dir<0?'alto':'basso'}?`,{okText:'Sposta'}).then(ok=>{
+    if(!ok)return;
+    [cats[i],cats[j]]=[cats[j],cats[i]];
+    saveFavCats(cats);drawFavs();drawFolderManager();
+  });
+}
 function favCats(){
   let a=ls.get('mr_fav_cats',DEFAULT_FAV_CATS);
   if(!Array.isArray(a))a=[...DEFAULT_FAV_CATS];
@@ -467,7 +476,7 @@ function appPrompt(message,defaultValue=''){return new Promise(resolve=>{const d
 function addFolder(name){const v=String(name||'').trim().slice(0,40);if(!v)return false;const cats=favCats();if(cats.some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){appAlert('Esiste già una cartella con questo nome.');return false;}cats.push(v);if(!saveFavCats(cats)){appAlert('Impossibile creare la cartella.');return false;}return true;}
 async function renameFolder(oldName){if(oldName==='Senza categoria'){await appAlert('La cartella “Senza categoria” è obbligatoria e non può essere rinominata.');return;}const next=await appPrompt(`Rinomina la cartella “${oldName}”`,oldName);if(next===null)return;const v=next.trim().slice(0,40);if(!v||v===oldName)return;if(favCats().some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){await appAlert('Esiste già una cartella con questo nome.');return;}if(!await appConfirm(`Rinominare la cartella “${oldName}” in “${v}”?`,{okText:'Rinomina'}))return;const cats=favCats().map(c=>c===oldName?v:c);saveFavCats(cats);const a=favs().map(x=>(x.category||'Senza categoria')===oldName?{...x,category:v}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
 async function deleteFolder(name){if(name==='Senza categoria'){await appAlert('La cartella “Senza categoria” non può essere eliminata.');return;}const n=folderCount(name);const msg=n?`Eliminare la cartella “${name}”?\n\nI ${n} articoli contenuti verranno spostati in “Senza categoria”.`:`Eliminare la cartella “${name}”?`;if(!await appConfirm(msg,{danger:true,okText:'Elimina'}))return;saveFavCats(favCats().filter(c=>c!==name));const a=favs().map(x=>(x.category||'Senza categoria')===name?{...x,category:'Senza categoria'}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
-function drawFolderManager(){const cats=favCats();$('#folderList').innerHTML=cats.map(c=>`<div class="cat-option" style="border-left:5px solid ${folderColor(c)};display:flex;align-items:center;justify-content:space-between;gap:8px"><span>📁 <b>${esc(c)}</b><small class="meta">${folderCount(c)} articoli</small></span><span class="fav-cat-actions"><button type="button" data-folder-rename="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>🗑️</button></span></div>`).join('');}
+function drawFolderManager(){const cats=favCats();$('#folderList').innerHTML=cats.map((c,i)=>`<div class="cat-option" style="border-left:5px solid ${folderColor(c)};display:flex;align-items:center;justify-content:space-between;gap:8px"><span>📁 <b>${esc(c)}</b><small class="meta">${folderCount(c)} articoli</small></span><span class="fav-cat-actions">${c!=='Senza categoria'?`<button type="button" data-folder-up="${esc(c)}" ${i===0?'disabled':''}>⬆️</button><button type="button" data-folder-down="${esc(c)}" ${i===cats.length-1?'disabled':''}>⬇️</button>`:''}<button type="button" data-folder-rename="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>🗑️</button></span></div>`).join('');}
 function openFolderManager(){drawFolderManager();$('#folderNew').value='';$('#folderDlg').showModal();}
 let moveFavKey=null;
 function openMoveFav(key){moveFavKey=key;const item=favs().find(x=>x.key===key);if(!item)return;$('#moveFavList').innerHTML=favCats().map(c=>`<button type="button" class="folder-chip${(item.category||'Senza categoria')===c?' on':''}" data-move-to="${esc(c)}" style="--folder-color:${folderColor(c)}">📁 <b>${esc(c)}</b><small>${folderCount(c)} articoli</small></button>`).join('');$('#moveFavDlg').showModal();}
@@ -784,13 +793,13 @@ function paint(){
   <div class="acts">
     <button class="fill" id="btr">${showTr?'Mostra originale':'Traduci in italiano'}</button>
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
-    <button id="bsh">Condividi</button>
+    <button id="bsh">🔗 Condividi</button>
     <button id="bprint">🖨️ Stampa</button>
     <button id="bpdf">📄 Salva PDF</button>
-    <button id="bris">Esporta .ris</button>
-    <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">Apri fonte</a>
-    ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">DOI</a>`:''}
-    <button id="bcl">Chiudi</button>
+    <button id="bris">📥 Esporta .ris</button>
+    <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">🌐 Apri fonte</a>
+    ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">🏷️ DOI</a>`:''}
+    <button id="bcl">✕ Chiudi</button>
   </div>`;
 }
 $('#dl').addEventListener('click',async e=>{
@@ -884,7 +893,7 @@ $('#favCatDlg').addEventListener('click',e=>{if(e.target.id==='favCatDlg')cancel
 $('#folderClose').onclick=()=>$('#folderDlg').close();
 $('#folderAdd').onclick=()=>{if(addFolder($('#folderNew').value)){ $('#folderNew').value='';drawFolderManager();drawFavs(); }};
 $('#folderNew').addEventListener('keydown',e=>{if(e.key==='Enter')$('#folderAdd').click();if(e.key==='Escape')$('#folderDlg').close();});
-$('#folderList').addEventListener('click',async e=>{const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
+$('#folderList').addEventListener('click',async e=>{const u=e.target.closest('[data-folder-up]');const dn=e.target.closest('[data-folder-down]');const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(u)moveFolder(u.dataset.folderUp,-1);if(dn)moveFolder(dn.dataset.folderDown,1);if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
 $('#folderDlg').addEventListener('click',e=>{if(e.target.id==='folderDlg')$('#folderDlg').close();});
 $('#moveFavCancel').onclick=()=>{$('#moveFavDlg').close();moveFavKey=null;};
 $('#moveFavList').addEventListener('click',async e=>{const b=e.target.closest('[data-move-to]');if(b)await moveFavTo(b.dataset.moveTo);});
