@@ -2,7 +2,7 @@
 <html lang="it"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MedRicerca 5.0</title>
+<title>MedRicerca</title>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b5d6b">
 <meta name="color-scheme" content="light dark">
@@ -94,8 +94,11 @@ dialog::backdrop{background:rgba(5,25,30,.55)}
 .acts button,.acts a{border:1.5px solid var(--pri);color:var(--pri);border-radius:999px;padding:7px 14px;font-size:.88rem;text-decoration:none}
 .acts .fill{background:var(--pri);color:#fff}
 [data-theme=dark] .acts .fill{color:#06211d}
-.ctable{border-collapse:collapse;width:100%;min-width:680px;font-size:.84rem}.ctable th,.ctable td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.ctable th{background:color-mix(in srgb,var(--pri) 8%,var(--card));position:sticky;top:0}.ctable th:first-child{left:0;z-index:1;min-width:120px}.note{font-size:.78rem;color:var(--warn);margin-top:6px}
+.ctable{border-collapse:collapse;width:100%;min-width:680px;font-size:.84rem}.ctable th,.ctable td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.ctable th{background:color-mix(in srgb,var(--pri) 8%,var(--card));position:sticky;top:0}.ctable th:first-child{left:0;z-index:1;min-width:120px}.note{font-size:.78rem;color:var(--warn);margin-top:6px}.fav-cat{font-size:.95rem;margin:18px 0 6px;color:var(--pri);display:flex;align-items:center;gap:7px}.fav-cat:first-child{margin-top:6px}.fav-cat::before{content:"📁"}.cat-list{display:grid;gap:7px;margin:10px 0}.cat-option{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:.92rem}.cat-option:hover,.cat-option.sel{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 9%,var(--card))}.cat-new{display:flex;gap:8px;margin-top:10px}.cat-new input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px}.cat-help{font-size:.8rem;color:var(--mut);margin:4px 0 10px}
+.fav-cat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 6px;padding:8px 10px;border-radius:14px;background:color-mix(in srgb,var(--cat-color) 12%,var(--card));border-left:5px solid var(--cat-color)}
+.fav-cat-head:first-child{margin-top:6px}.fav-cat-name{display:flex;align-items:center;gap:8px;min-width:0;font-size:.95rem;color:var(--ink);font-weight:800}.fav-cat-name .meta{font-weight:500;color:var(--mut)}.fav-cat-actions{display:flex;gap:5px;flex-wrap:wrap}.fav-cat-actions button{border:1px solid color-mix(in srgb,var(--cat-color) 35%,var(--line));background:var(--card);color:var(--ink);border-radius:9px;padding:6px 8px;font-size:.78rem}.fav-cat-actions button:hover{background:color-mix(in srgb,var(--cat-color) 9%,var(--card))}.fav-item-actions{display:flex;gap:6px;margin:4px 0 10px}.fav-item-actions button{font-size:.75rem;padding:5px 8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px}.folder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}.folder-chip{border:1.5px solid var(--line);border-left:5px solid var(--folder-color);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;text-align:left}.folder-chip.on{outline:2px solid var(--folder-color);background:color-mix(in srgb,var(--folder-color) 10%,var(--card))}.folder-chip small{display:block;color:var(--mut);margin-top:2px}.manage-help{font-size:.82rem;color:var(--mut);margin:4px 0 10px}.cat-new .go{white-space:nowrap}
 h2.t{font-size:1.1rem;margin:4px 0 8px}
+.app-dialog{max-width:420px;width:calc(100% - 28px);margin:auto;border-radius:22px;padding:0;background:var(--card);color:var(--ink);box-shadow:0 18px 55px rgba(0,0,0,.28);overflow:hidden}.app-dialog::backdrop{background:rgba(5,25,30,.62)}.app-dialog-body{padding:20px 20px 18px}.app-dialog-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.app-dialog-brand .logo{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--pri);color:#fff;font-weight:900;font-size:17px}.app-dialog-brand strong{font-size:1rem;letter-spacing:.1px}.app-dialog-message{font-size:.95rem;line-height:1.48;margin:0 0 16px;color:var(--ink);white-space:pre-wrap}.app-dialog-input{width:100%;box-sizing:border-box;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:11px 12px;font:inherit;outline:none}.app-dialog-input:focus{border-color:var(--pri);box-shadow:0 0 0 3px color-mix(in srgb,var(--pri) 14%,transparent)}.app-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.app-dialog-actions button{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:11px;padding:9px 14px;font-weight:700}.app-dialog-actions .primary{background:var(--pri);border-color:var(--pri);color:#fff}.app-dialog-actions .danger{background:var(--warn);border-color:var(--warn);color:#fff}[data-theme=dark] .app-dialog-actions .primary{color:#06211d}
 .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
 .x{border:1.5px solid var(--pri);color:var(--pri);border-radius:999px;padding:6px 14px;font-size:.88rem;white-space:nowrap}
@@ -138,14 +141,25 @@ details ul{padding-left:20px}
 .spin{width:14px;height:14px;flex:none;margin-top:3px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .rm .spin{animation:none}
-.catrow{display:flex;align-items:center;gap:8px;margin:10px 0}
-.catgroup{font-size:.78rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--mut);margin:16px 4px 4px}
-.catgroup:first-child{margin-top:4px}
-.newcat{display:flex;gap:6px;padding:8px 6px 4px;margin-top:4px;border-top:1px solid var(--line)}
-.newcat input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 9px;font-size:.85rem}
-.newcat button{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:6px 12px;font-size:.85rem}
-[data-theme=dark] .newcat button{color:#06211d}
 @media (prefers-reduced-motion:reduce){.ecg path{animation:none;stroke-dashoffset:0}.sk{animation:none}}
+
+/* ============ Stampa / Salva PDF ============ */
+#printArea{display:none}
+@media print{
+  @page{size:A4;margin:16mm 14mm}
+  html,body{background:#fff!important;color:#111!important}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important;font-family:Arial,sans-serif;color:#111;background:#fff;max-width:180mm;margin:0 auto}
+  #printArea .print-brand{font-size:20pt;font-weight:700;color:#0b5d6b;margin-bottom:3mm}
+  #printArea .print-sub{font-size:9pt;color:#666;margin-bottom:7mm}
+  #printArea h1{font-size:17pt;line-height:1.25;margin:0 0 4mm}
+  #printArea .print-meta{font-size:9pt;color:#555;line-height:1.5;border-bottom:1px solid #ccc;padding-bottom:4mm;margin-bottom:6mm}
+  #printArea .print-badge{display:inline-block;border:1px solid #0b5d6b;border-radius:10px;padding:1px 5px;margin-left:4px;color:#0b5d6b}
+  #printArea h2{font-size:11pt;margin:7mm 0 3mm;color:#174c55}
+  #printArea .print-abstract{font-size:10.5pt;line-height:1.55;white-space:pre-wrap}
+  #printArea .print-note{font-size:8.5pt;color:#666;margin-top:7mm}
+  #printArea .print-footer{font-size:7.5pt;color:#777;border-top:1px solid #ddd;margin-top:10mm;padding-top:3mm}
+}
 </style></head>
 <body>
 <header>
@@ -194,7 +208,8 @@ details ul{padding-left:20px}
     <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo.</p></details>
     <details><summary>Confrontare gli studi</summary><p>Nei risultati puoi selezionare fino a 4 studi. Apparirà il pulsante <b>Confronta</b>, che mette a confronto titolo, fonte, anno, tipo di evidenza, autori, accesso aperto, DOI e abstract disponibile. Il confronto descrive i dati disponibili: non stabilisce quale studio sia “migliore”.</p></details>
     <details><summary>Privacy della traduzione</summary><p>MedRicerca prova prima la traduzione integrata nel browser. Se non è disponibile, può usare MyMemory come servizio esterno: in quel caso il testo da tradurre viene inviato a quel servizio. Puoi sempre leggere il testo originale senza tradurlo.</p></details>
-    <details><summary>Condividere, Preferiti, Categorie e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Salva</b> aggiunge ai Preferiti. Nel dettaglio di un articolo, il menu <b>Categoria</b> permette di scegliere una categoria già creata o di scriverne una nuova (es. Neurologia, Cardiologia): scegliendola, l'articolo viene salvato automaticamente nei Preferiti, dove compare raggruppato sotto quella categoria. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
+    <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Stampa</b> apre la versione ottimizzata per la stampa. <b>Salva PDF</b> apre la stampa del dispositivo, da cui puoi scegliere “Salva come PDF”. <b>Salva</b> aggiunge ai Preferiti. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
+    <details><summary>Categorie nei Preferiti</summary><p>Quando salvi un articolo puoi scegliere una categoria già presente, come Neurologia o Cardiologia, oppure creare una categoria personalizzata. I Preferiti vengono raggruppati per categoria. Gli articoli già salvati nelle versioni precedenti vengono messi automaticamente in “Senza categoria”.</p></details>
     <details><summary>Glossario di tutti i pulsanti</summary><ul>
       <li><b>MedRicerca</b> (il titolo in alto) — riporta alla home e azzera la ricerca in corso.</li>
       <li><b>⋮</b> — apre Installa app, Guida, Impostazioni, Info e crediti, Tema Chiaro/Scuro.</li>
@@ -205,9 +220,9 @@ details ul{padding-left:20px}
       <li><b>Solo open access / Solo con abstract</b> — nascondono i risultati a pagamento o senza riassunto.</li>
       <li><b>Riprova</b> — su una fonte che ha dato errore, ripete solo quella ricerca.</li>
       <li><b>Traduci in italiano / Mostra originale</b> — traduce o torna al testo inglese dell'abstract.</li>
-      <li><b>☆ Salva / ★ Nei preferiti</b> — aggiunge o toglie l'articolo dai Preferiti.</li>
+      <li><b>☆ Salva / ★ Nei preferiti</b> — aggiunge o toglie l'articolo dai Preferiti; quando lo salvi puoi scegliere o creare una categoria.</li>
       <li><b>Condividi</b> — invia il link con le tue app, oppure lo copia.</li>
-      <li><b>Categoria</b> — assegna o crea una categoria per un articolo; lo salva automaticamente nei Preferiti.</li><li><b>Esporta .ris</b> — scarica la citazione per Zotero o Mendeley.</li>
+      <li><b>Esporta .ris</b> — scarica la citazione per Zotero o Mendeley.</li>
       <li><b>Apri fonte</b> — apre la scheda dell'articolo sulla banca dati che l'ha trovato.</li>
       <li><b>DOI</b> — apre la pagina dell'articolo sul sito della rivista.</li>
       <li><b>✕ Chiudi</b> — chiude la finestra o torna alla ricerca.</li>
@@ -218,7 +233,7 @@ details ul{padding-left:20px}
       <li><b>Esporta dati / Importa dati</b> (in Impostazioni) — salva o ripristina Preferiti e Cronologia.</li>
       <li><b>Ripristina impostazioni</b> — riporta tema, sfondo e dimensione del testo ai valori iniziali.</li>
     </ul></details>
-    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed, Europe PMC: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Elenco AIFA dei farmaci autorizzati in Italia (licenza CC-BY 4.0): serve a riconoscere i nomi commerciali italiani e a ricavarne il principio attivo. È una copia salvata nell'app, aggiornata al 28/09/2026.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
+    <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed e Europe PMC: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Elenco AIFA dei farmaci autorizzati in Italia (licenza CC-BY 4.0): serve a riconoscere i nomi commerciali italiani e a ricavarne il principio attivo. È una copia salvata nell'app, aggiornata al 28/09/2026.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
     <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p><p><b>Modalità offline:</b> installata o meno, l'app resta utilizzabile senza connessione solo per l'interfaccia e per Preferiti, Cronologia e articoli già consultati. Una ricerca nuova, o una già fatta ma non ancora vista, richiede sempre una connessione a internet, perché interroga le banche dati in tempo reale.</p></details>
     <details><summary>Avvertenza</summary><p>Solo a scopo informativo, non sostituisce il parere del medico. Trovare uno studio tra i risultati non significa che il trattamento descritto sia efficace, sicuro o adatto a una persona specifica: per l'interpretazione clinica, rivolgersi sempre a un medico o farmacista.</p></details>
   </section>
@@ -247,16 +262,16 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">5.2</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">5.3</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser; ripiego online su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
-      <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
+      <div class="row"><span>Autore</span><b>App Creata da Miki by Claude e ChatGPT</b></div>
       <p class="disc" style="text-align:left;color:var(--ink)"><b>Solo a scopo informativo, non sostituisce il parere del medico.</b> Trovare uno studio tra i risultati non significa che il trattamento sia efficace, sicuro o adatto a te: per l'interpretazione clinica, rivolgiti a un medico o farmacista.</p>
     </div>
   </section>
   <p class="disc">Solo a scopo informativo, non sostituisce il parere del medico.</p>
-  <p class="disc"><b>App Creata da Miki by Claude</b></p>
+  <p class="disc"><b>App Creata da Miki by Claude e ChatGPT</b></p>
 </main>
 <nav>
   <button data-v="search" class="on"><span>🔎</span>Cerca</button>
@@ -266,9 +281,14 @@ details ul{padding-left:20px}
 </nav>
 <dialog id="dlg"><div class="dl" id="dl"></div></dialog>
 <div id="toast" hidden></div>
+<div id="printArea" aria-hidden="true"></div>
 
 
+<dialog id="appMsgDlg" class="app-dialog"><div class="app-dialog-body"><div class="app-dialog-brand"><span class="logo">M</span><strong>MedRicerca</strong></div><p id="appMsgText" class="app-dialog-message"></p><div id="appMsgInputWrap" hidden><input id="appMsgInput" class="app-dialog-input" type="text" maxlength="40"></div><div class="app-dialog-actions"><button id="appMsgCancel" type="button">Annulla</button><button id="appMsgOk" class="primary" type="button">OK</button></div></div></dialog>
 <dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" id="compareClose">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
+<dialog id="favCatDlg"><div class="dl"><div class="top"><h2 class="t">Salva nei Preferiti</h2><button class="x" id="favCatCancel" type="button">✕ Annulla</button></div><p class="cat-help">Scegli una categoria per organizzare questo articolo. Puoi usare una categoria esistente oppure crearne una nuova.</p><div id="favCatList" class="cat-list"></div><div class="cat-new"><input id="favCatNew" type="text" maxlength="40" placeholder="Nuova categoria…"><button id="favCatAdd" class="go" type="button">Crea</button></div></div></dialog>
+<dialog id="folderDlg"><div class="dl"><div class="top"><h2 class="t">Gestisci cartelle</h2><button class="x" id="folderClose" type="button">✕ Chiudi</button></div><p class="manage-help">Crea, rinomina o elimina le cartelle. Prima di ogni modifica irreversibile MedRicerca chiederà conferma.</p><div id="folderList" class="cat-list"></div><div class="cat-new"><input id="folderNew" type="text" maxlength="40" placeholder="Nuova cartella…"><button id="folderAdd" class="go" type="button">Crea</button></div></div></dialog>
+<dialog id="moveFavDlg"><div class="dl"><div class="top"><h2 class="t">Sposta articolo</h2><button class="x" id="moveFavCancel" type="button">✕ Annulla</button></div><p class="manage-help">Scegli la cartella di destinazione.</p><div id="moveFavList" class="folder-grid"></div></div></dialog>
 <script>
 "use strict";
 /* ============ Utilità ============ */
@@ -413,9 +433,45 @@ const SOURCES=[
 /* ============ Stato ============ */
 const st={mode:'tutto',tab:null,res:{},items:{},enManual:false,q:'',sid:0};
 const compareKeys=new Set();
-const favs=()=>ls.get('mr_fav',[]);
+const DEFAULT_FAV_CATS=['Senza categoria','Generale','Neurologia','Cardiologia','Oncologia','Endocrinologia','Gastroenterologia','Pneumologia','Farmacologia'];
+const FOLDER_COLORS=['#0b5d6b','#2e7d32','#6a1b9a','#ad1457','#ef6c00','#1565c0','#00838f','#7b5e00','#455a64','#c62828'];
+function folderColor(name){let h=0;for(const ch of String(name||''))h=(h*31+ch.charCodeAt(0))>>>0;return FOLDER_COLORS[h%FOLDER_COLORS.length];}
+function favCats(){
+  let a=ls.get('mr_fav_cats',DEFAULT_FAV_CATS);
+  if(!Array.isArray(a))a=[...DEFAULT_FAV_CATS];
+  a=[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))];
+  if(!a.length)a=[...DEFAULT_FAV_CATS];
+  if(!a.some(x=>x.toLocaleLowerCase('it-IT')==='senza categoria'))a.unshift('Senza categoria');
+  return a;
+}
+function saveFavCats(a){return ls.set('mr_fav_cats',[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))]);}
+function favs(){
+  const a=ls.get('mr_fav',[]);
+  if(!Array.isArray(a))return [];
+  let changed=false;
+  a.forEach(x=>{if(x&&typeof x==='object'&&!x.category){x.category='Senza categoria';changed=true;}});
+  if(changed)ls.set('mr_fav',a);
+  return a;
+}
 const isFav=k=>favs().some(f=>f.key===k);
-function toggleFav(it){let a=favs();a=isFav(it.key)?a.filter(f=>f.key!==it.key):[it,...a];if(!ls.set('mr_fav',a))alert('Impossibile salvare i preferiti: memoria del browser piena o non disponibile (es. navigazione privata).');}
+let favCatResolver=null;
+function chooseFavCategory(){return new Promise(resolve=>{favCatResolver=resolve;$('#favCatNew').value='';renderFavCatChoices('Senza categoria');$('#favCatDlg').showModal();});}
+function renderFavCatChoices(selected){$('#favCatList').innerHTML=favCats().map(c=>`<button type="button" class="cat-option${c===selected?' sel':''}" data-fav-cat="${esc(c)}" style="border-left:5px solid ${folderColor(c)}">📁 ${esc(c)}</button>`).join('');}
+function finishFavCategory(value){const v=String(value||'').trim();if(!v)return;let cats=favCats();const existing=cats.find(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'));const cat=existing||v.slice(0,40);if(!existing){cats.push(cat);saveFavCats(cats);}$('#favCatDlg').close();if(favCatResolver){const r=favCatResolver;favCatResolver=null;r(cat);}}
+function cancelFavCategory(){if($('#favCatDlg').open)$('#favCatDlg').close();if(favCatResolver){const r=favCatResolver;favCatResolver=null;r(null);}}
+async function toggleFav(it){let a=favs();if(isFav(it.key)){a=a.filter(f=>f.key!==it.key);}else{const category=await chooseFavCategory();if(!category)return false;a=[{...it,category},...a];}if(!ls.set('mr_fav',a)){await appAlert('Impossibile salvare i Preferiti. La memoria del browser potrebbe essere piena o non disponibile.');return false;}return true;}
+function folderCount(cat){return favs().filter(x=>(x.category||'Senza categoria')===cat).length;}
+function appAlert(message){return new Promise(resolve=>{const d=$('#appMsgDlg');$('#appMsgText').textContent=String(message||'');$('#appMsgInputWrap').hidden=true;$('#appMsgCancel').hidden=true;$('#appMsgOk').textContent='OK';$('#appMsgOk').className='primary';const done=()=>{d.close();resolve();};$('#appMsgOk').onclick=done;d.oncancel=e=>{e.preventDefault();done();};d.showModal();});}
+function appConfirm(message,{danger=false,okText='Conferma'}={}){return new Promise(resolve=>{const d=$('#appMsgDlg');$('#appMsgText').textContent=String(message||'');$('#appMsgInputWrap').hidden=true;$('#appMsgCancel').hidden=false;$('#appMsgCancel').textContent='Annulla';$('#appMsgOk').textContent=okText;$('#appMsgOk').className=danger?'danger':'primary';let finished=false;const finish=v=>{if(finished)return;finished=true;d.close();resolve(v);};$('#appMsgOk').onclick=()=>finish(true);$('#appMsgCancel').onclick=()=>finish(false);d.oncancel=e=>{e.preventDefault();finish(false);};d.showModal();});}
+function appPrompt(message,defaultValue=''){return new Promise(resolve=>{const d=$('#appMsgDlg');$('#appMsgText').textContent=String(message||'');$('#appMsgInputWrap').hidden=false;$('#appMsgInput').value=defaultValue;$('#appMsgInput').placeholder='Inserisci il nuovo nome';$('#appMsgCancel').hidden=false;$('#appMsgCancel').textContent='Annulla';$('#appMsgOk').textContent='Continua';$('#appMsgOk').className='primary';let finished=false;const finish=v=>{if(finished)return;finished=true;d.close();resolve(v);};$('#appMsgOk').onclick=()=>finish($('#appMsgInput').value.trim());$('#appMsgCancel').onclick=()=>finish(null);d.oncancel=e=>{e.preventDefault();finish(null);};d.showModal();setTimeout(()=>{$('#appMsgInput').focus();$('#appMsgInput').select();},40);$('#appMsgInput').onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();finish($('#appMsgInput').value.trim());}if(e.key==='Escape'){e.preventDefault();finish(null);}};});}
+function addFolder(name){const v=String(name||'').trim().slice(0,40);if(!v)return false;const cats=favCats();if(cats.some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){appAlert('Esiste già una cartella con questo nome.');return false;}cats.push(v);if(!saveFavCats(cats)){appAlert('Impossibile creare la cartella.');return false;}return true;}
+async function renameFolder(oldName){if(oldName==='Senza categoria'){await appAlert('La cartella “Senza categoria” è obbligatoria e non può essere rinominata.');return;}const next=await appPrompt(`Rinomina la cartella “${oldName}”`,oldName);if(next===null)return;const v=next.trim().slice(0,40);if(!v||v===oldName)return;if(favCats().some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){await appAlert('Esiste già una cartella con questo nome.');return;}if(!await appConfirm(`Rinominare la cartella “${oldName}” in “${v}”?`,{okText:'Rinomina'}))return;const cats=favCats().map(c=>c===oldName?v:c);saveFavCats(cats);const a=favs().map(x=>(x.category||'Senza categoria')===oldName?{...x,category:v}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
+async function deleteFolder(name){if(name==='Senza categoria'){await appAlert('La cartella “Senza categoria” non può essere eliminata.');return;}const n=folderCount(name);const msg=n?`Eliminare la cartella “${name}”?\n\nI ${n} articoli contenuti verranno spostati in “Senza categoria”.`:`Eliminare la cartella “${name}”?`;if(!await appConfirm(msg,{danger:true,okText:'Elimina'}))return;saveFavCats(favCats().filter(c=>c!==name));const a=favs().map(x=>(x.category||'Senza categoria')===name?{...x,category:'Senza categoria'}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
+function drawFolderManager(){const cats=favCats();$('#folderList').innerHTML=cats.map(c=>`<div class="cat-option" style="border-left:5px solid ${folderColor(c)};display:flex;align-items:center;justify-content:space-between;gap:8px"><span>📁 <b>${esc(c)}</b><small class="meta">${folderCount(c)} articoli</small></span><span class="fav-cat-actions"><button type="button" data-folder-rename="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>🗑️</button></span></div>`).join('');}
+function openFolderManager(){drawFolderManager();$('#folderNew').value='';$('#folderDlg').showModal();}
+let moveFavKey=null;
+function openMoveFav(key){moveFavKey=key;const item=favs().find(x=>x.key===key);if(!item)return;$('#moveFavList').innerHTML=favCats().map(c=>`<button type="button" class="folder-chip${(item.category||'Senza categoria')===c?' on':''}" data-move-to="${esc(c)}" style="--folder-color:${folderColor(c)}">📁 <b>${esc(c)}</b><small>${folderCount(c)} articoli</small></button>`).join('');$('#moveFavDlg').showModal();}
+async function moveFavTo(cat){if(!moveFavKey)return;const a=favs();const item=a.find(x=>x.key===moveFavKey);if(!item)return;const old=item.category||'Senza categoria';if(old===cat){$('#moveFavDlg').close();moveFavKey=null;return;}if(!await appConfirm(`Spostare questo articolo da “${old}” a “${cat}”?`,{okText:'Sposta'}))return;item.category=cat;ls.set('mr_fav',a);$('#moveFavDlg').close();moveFavKey=null;drawFavs();}
 
 /* ============ Ricerca ============ */
 // Marchio o nome italiano → principio attivo (RxNorm). Null se non trovato.
@@ -480,34 +536,6 @@ function renderCSel(id){
   root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false"><span class="lbl">${esc(cur[1])}</span><span class="car" aria-hidden="true">▾</span></button><div class="csel-menu" role="listbox" hidden>${opts.map(o=>`<button type="button" role="option" data-v="${esc(o[0])}" class="${o[0]===filterVal[id]?'sel':''}">${esc(o[1])}</button>`).join('')}</div>`;
 }
 function closeAllCSel(){document.querySelectorAll('.csel-menu').forEach(m=>m.hidden=true);document.querySelectorAll('.csel-btn').forEach(b=>b.setAttribute('aria-expanded','false'));}
-// Categorie dei preferiti: elenco condiviso, riusabile tra un articolo e l'altro
-function itemCat(key){const f=favs().find(x=>x.key===key);return f&&f.cat||'';}
-function saveFavWithCat(it,cat){
-  let a=favs();const idx=a.findIndex(f=>f.key===it.key);
-  if(idx>=0){if(cat)a[idx].cat=cat;else delete a[idx].cat;}
-  else{const item={...it};if(cat)item.cat=cat;a=[item,...a];}
-  if(!ls.set('mr_fav',a))alert('Impossibile salvare i preferiti: memoria del browser piena o non disponibile (es. navigazione privata).');
-}
-function renderCatSel(){
-  const root=$('#d-cat');if(!root||!cur)return;
-  const cats=ls.get('mr_cats',[]).slice().sort((a,b)=>a.localeCompare(b,'it'));
-  const curCat=itemCat(cur.key);
-  root.innerHTML=`<button type="button" class="csel-btn" aria-haspopup="listbox" aria-expanded="false"><span class="lbl">${esc(curCat||'Nessuna categoria')}</span><span class="car" aria-hidden="true">▾</span></button>
-    <div class="csel-menu" role="listbox" hidden>
-      <button type="button" role="option" data-v="" class="${curCat===''?'sel':''}">Nessuna categoria</button>
-      ${cats.map(c=>`<button type="button" role="option" data-v="${esc(c)}" class="${c===curCat?'sel':''}">${esc(c)}</button>`).join('')}
-      <div class="newcat"><input type="text" id="newcat-input" placeholder="Nuova categoria…" maxlength="40"><button type="button" id="newcat-add">Aggiungi</button></div>
-    </div>`;
-  const inp=$('#newcat-input');
-  const addNew=()=>{
-    const v=inp.value.trim();if(!v||!cur)return;
-    const cs=ls.get('mr_cats',[]);
-    if(!cs.some(c=>c.toLowerCase()===v.toLowerCase())){cs.push(v);ls.set('mr_cats',cs);}
-    saveFavWithCat(cur,v);closeAllCSel();paint();drawFavs();
-  };
-  $('#newcat-add').onclick=addNew;
-  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addNew();}});
-}
 function openCSelMenu(btn){
   const menu=btn.nextElementSibling;
   const r=btn.getBoundingClientRect();
@@ -548,8 +576,7 @@ document.addEventListener('focusout',e=>{
 });
 Object.keys(FILTER_DEFS).forEach(renderCSel);
 addEventListener('scroll',closeAllCSel,true);
-document.addEventListener('click',e=>{
-  if(e.target.closest('.newcat'))return;
+document.addEventListener('click',async e=>{
   const btn=e.target.closest('.csel-btn');
   if(btn){
     e.stopPropagation();const willOpen=btn.nextElementSibling.hidden;closeAllCSel();
@@ -557,16 +584,7 @@ document.addEventListener('click',e=>{
     return;
   }
   const opt=e.target.closest('.csel-menu [data-v]');
-  if(opt){
-    const root=opt.closest('.csel');
-    if(root.id==='d-cat'){
-      const v=opt.dataset.v;
-      if(v!==''||isFav(cur.key))saveFavWithCat(cur,v);
-      closeAllCSel();paint();drawFavs();
-      return;
-    }
-    const id=root.id.slice(2);filterVal[id]=opt.dataset.v;renderCSel(id);closeAllCSel();reSearch();return;
-  }
+  if(opt){const root=opt.closest('.csel'),id=root.id.slice(2);filterVal[id]=opt.dataset.v;renderCSel(id);closeAllCSel();reSearch();return;}
   closeAllCSel();
 });
 function currentFilters(){return {year:filterVal.fy,type:filterVal.ft,sort:filterVal.fs,oa:$('#fo').checked};}
@@ -694,7 +712,28 @@ async function shareItem(btn){
   const it=cur,url=it.url,text=it.title;
   if(navigator.share){try{await navigator.share({title:text,text,url});}catch{}return;}
   try{await navigator.clipboard.writeText(text+'\n'+url);btn.textContent='Link copiato ✓';setTimeout(()=>{btn.textContent='Condividi';},1600);}
-  catch{prompt('Copia il link:',url);}
+  catch{appPrompt('Copia il link e incollalo dove desideri.',url);}
+}
+function printArticle(mode='print') {
+  if(!cur)return;
+  const it=cur, tr=showTr&&it.tr;
+  const title=tr?.title||it.title||'Articolo';
+  const abstract=tr?.abs||it.abstract||'Abstract non disponibile.';
+  const meta=[it.src,it.authors,it.journal,it.year].filter(Boolean).join(' · ');
+  const type=it.studyType?`<span class="print-badge">${esc(it.studyType)}</span>`:'';
+  const doi=it.doi?`<br><b>DOI:</b> ${esc(it.doi)}`:'';
+  const url=safeUrl(it.url);
+  $('#printArea').innerHTML=`<div class="print-brand">MedRicerca</div>
+    <div class="print-sub">Scheda articolo scientifico${mode==='pdf'?' · Salvataggio PDF':' · Stampa'}</div>
+    <h1>${esc(title)}</h1>
+    <div class="print-meta">${esc(meta)} ${type}${doi}<br><b>Fonte originale:</b> ${esc(url)}</div>
+    <h2>Abstract${tr?' · Traduzione italiana':''}</h2>
+    <div class="print-abstract">${esc(abstract)}</div>
+    ${tr?'<div class="print-note">Traduzione automatica: verifica i termini medici sul testo originale.</div>':''}
+    <div class="print-footer">MedRicerca · Documento generato dalla scheda dello studio. Solo a scopo informativo, non sostituisce il parere del medico.</div>`;
+  const cleanup=()=>{window.removeEventListener('afterprint',cleanup);setTimeout(()=>{$('#printArea').innerHTML='';},250);};
+  window.addEventListener('afterprint',cleanup);
+  window.print();
 }
 let detailReqId=0;
 // Il tasto Indietro di Android deve chiudere il dettaglio o il confronto aperti, non uscire dalla PWA.
@@ -742,24 +781,26 @@ function paint(){
   <div class="abs">${esc(tr?tr.abs:(it.abstract||(it.pmid?'Carico l’abstract…':'Abstract non disponibile.')))}</div>
   ${tr?'<p class="note">Traduzione automatica: verifica i termini medici sul testo originale.</p>':''}
   ${it.trErr?`<p class="note">${esc(it.trErr)}</p>`:''}
-  <div class="catrow"><span class="meta">Categoria</span><div class="csel" id="d-cat"></div></div>
   <div class="acts">
     <button class="fill" id="btr">${showTr?'Mostra originale':'Traduci in italiano'}</button>
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
     <button id="bsh">Condividi</button>
+    <button id="bprint">🖨️ Stampa</button>
+    <button id="bpdf">📄 Salva PDF</button>
     <button id="bris">Esporta .ris</button>
     <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">Apri fonte</a>
     ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">DOI</a>`:''}
     <button id="bcl">Chiudi</button>
   </div>`;
-  renderCatSel();
 }
 $('#dl').addEventListener('click',async e=>{
   const id=e.target.id;
   if(id==='bcl')closeDetail();
   if(id==='bsh')shareItem(e.target);
+  if(id==='bprint')printArticle('print');
+  if(id==='bpdf')printArticle('pdf');
   if(id==='bris')exportRis(cur);
-  if(id==='bfav'){toggleFav(cur);paint();drawFavs();}
+  if(id==='bfav'){await toggleFav(cur);paint();drawFavs();}
   if(id==='btr'){
     if(showTr){showTr=false;return paint();}
     if(cur.tr){showTr=true;return paint();}
@@ -797,12 +838,10 @@ if(window.visualViewport){visualViewport.addEventListener('resize',fitZoom);visu
 /* ============ Preferiti / cronologia / dati ============ */
 function drawFavs(){
   const a=favs();a.forEach(i=>st.items[i.key]=st.items[i.key]||i);
-  if(!a.length){$('#favs').innerHTML='<p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';return;}
-  const groups={};
-  a.forEach(i=>{const c=i.cat||'Senza categoria';(groups[c]=groups[c]||[]).push(i);});
-  const names=Object.keys(groups).filter(n=>n!=='Senza categoria').sort((x,y)=>x.localeCompare(y,'it'));
-  if(groups['Senza categoria'])names.push('Senza categoria');
-  $('#favs').innerHTML=names.map(n=>`<h3 class="catgroup">${esc(n)}</h3>`+groups[n].map(card).join('')).join('');
+  if(!a.length){$('#favs').innerHTML='<div class="acts"><button class="fill" id="manageFolders">📁 Gestisci cartelle</button></div><p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';return;}
+  const groups={};a.forEach(i=>{const c=i.category||'Senza categoria';(groups[c]??=[]).push(i);});
+  const order=favCats();const names=[...order.filter(c=>groups[c]),...Object.keys(groups).filter(c=>!order.includes(c))];
+  $('#favs').innerHTML='<div class="acts"><button class="fill" id="manageFolders">📁 Gestisci cartelle</button></div>'+names.map(cat=>{const items=groups[cat]||[];const col=folderColor(cat);return `<section><div class="fav-cat-head" style="--cat-color:${col}"><div class="fav-cat-name">📁 ${esc(cat)} <span class="meta">(${items.length})</span></div><div class="fav-cat-actions"><button type="button" data-folder-rename="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>🗑️</button></div></div>${items.map(i=>card(i)+`<div class="fav-item-actions"><button type="button" data-move-fav="${esc(i.key)}">📂 Sposta</button><button type="button" data-remove-fav="${esc(i.key)}">🗑️ Rimuovi</button></div>`).join('')}</section>`;}).join('');
 }
 let hsel=null; // null = modalità normale, Set = modalità selezione
 function drawHist(){
@@ -824,17 +863,34 @@ function validHist(x){return x&&typeof x==='object'&&typeof x.q==='string';}
 $('#file').onchange=async e=>{
   try{
     const d=JSON.parse(await e.target.files[0].text());
-    const fav=Array.isArray(d.fav)?d.fav.filter(validFav).slice(0,500):null;
+    const fav=Array.isArray(d.fav)?d.fav.filter(validFav).map(x=>({...x,category:x.category||'Senza categoria'})).slice(0,500):null;
     const hist=Array.isArray(d.hist)?d.hist.filter(validHist).slice(0,200):null;
     if(fav===null&&hist===null)throw 0;
     let ok=true;
     if(fav!==null)ok=ls.set('mr_fav',fav)&&ok;
     if(hist!==null)ok=ls.set('mr_hist',hist)&&ok;
     drawFavs();drawHist();
-    alert(ok?'Dati importati.':'Dati importati, ma il salvataggio potrebbe non essere completo (memoria del browser piena o non disponibile).');
+    await appAlert(ok?'Dati importati.':'Dati importati, ma il salvataggio potrebbe non essere completo (memoria del browser piena o non disponibile).');
   }
-  catch{alert('File non valido: scegli un export di MedRicerca.');}
+  catch{await appAlert('File non valido: scegli un export di MedRicerca.');}
 };
+
+$('#favCatList').addEventListener('click',e=>{const b=e.target.closest('[data-fav-cat]');if(b)finishFavCategory(b.dataset.favCat);});
+$('#favCatAdd').onclick=()=>finishFavCategory($('#favCatNew').value);
+$('#favCatNew').addEventListener('keydown',e=>{if(e.key==='Enter')finishFavCategory(e.target.value);if(e.key==='Escape')cancelFavCategory();});
+$('#favCatCancel').onclick=cancelFavCategory;
+$('#favCatDlg').addEventListener('cancel',e=>{e.preventDefault();cancelFavCategory();});
+$('#favCatDlg').addEventListener('click',e=>{if(e.target.id==='favCatDlg')cancelFavCategory();});
+$('#folderClose').onclick=()=>$('#folderDlg').close();
+$('#folderAdd').onclick=()=>{if(addFolder($('#folderNew').value)){ $('#folderNew').value='';drawFolderManager();drawFavs(); }};
+$('#folderNew').addEventListener('keydown',e=>{if(e.key==='Enter')$('#folderAdd').click();if(e.key==='Escape')$('#folderDlg').close();});
+$('#folderList').addEventListener('click',async e=>{const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
+$('#folderDlg').addEventListener('click',e=>{if(e.target.id==='folderDlg')$('#folderDlg').close();});
+$('#moveFavCancel').onclick=()=>{$('#moveFavDlg').close();moveFavKey=null;};
+$('#moveFavList').addEventListener('click',async e=>{const b=e.target.closest('[data-move-to]');if(b)await moveFavTo(b.dataset.moveTo);});
+$('#moveFavDlg').addEventListener('click',e=>{if(e.target.id==='moveFavDlg'){e.preventDefault();$('#moveFavDlg').close();moveFavKey=null;}});
+$('#favs').addEventListener('click',async e=>{if(e.target.closest('#manageFolders')){openFolderManager();return;}const m=e.target.closest('[data-move-fav]');if(m){openMoveFav(m.dataset.moveFav);return;}const rm=e.target.closest('[data-remove-fav]');if(rm){const it=favs().find(x=>x.key===rm.dataset.removeFav);if(it&&await appConfirm('Rimuovere questo articolo dai Preferiti?',{danger:true,okText:'Rimuovi'})){ls.set('mr_fav',favs().filter(x=>x.key!==it.key));drawFavs();}return;}const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
+
 
 /* ============ Eventi ============ */
 $('#go').onclick=doSearch;
@@ -848,7 +904,7 @@ $('#en').addEventListener('input',()=>{st.enManual=true;});
 $('#en').addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();});
 $('#mode').onclick=e=>{const m=e.target.dataset.m;if(!m||m===st.mode)return;st.mode=m;[...$('#mode').children].forEach(b=>b.classList.toggle('on',b===e.target));if(st.q&&$('#q').value.trim())doSearch();};
 $('#tabs').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;st.tab=b.dataset.t;drawTabs();drawRes();};
-document.addEventListener('click',e=>{
+document.addEventListener('click',async e=>{
   const rt=e.target.closest('[data-retry]');if(rt){const s=SOURCES.find(x=>x.id===rt.dataset.retry);if(s)runSrc(s,st.q,st.f);return;}
   if(e.target.closest('[data-close]')){show('search');return;}
   const pick=e.target.closest('[data-pick]');if(pick){const k=pick.dataset.pick;if(pick.checked){if(compareKeys.size>=4){pick.checked=false;showToast('Puoi confrontare al massimo 4 studi.',{warn:true});return;}compareKeys.add(k);}else compareKeys.delete(k);updateCompareBar();return;}
@@ -861,7 +917,7 @@ document.addEventListener('click',e=>{
   if(hid==='hcan'){hsel=null;drawHist();}
   if(hid==='hall'){const n=ls.get('mr_hist',[]).length;hsel=hsel.size===n?new Set():new Set([...Array(n).keys()]);drawHist();}
   if(hid==='hdel'&&hsel&&hsel.size){ls.set('mr_hist',ls.get('mr_hist',[]).filter((_,i)=>!hsel.has(i)));hsel=null;drawHist();}
-  if(hid==='clh'&&confirm('Cancellare tutta la cronologia?')){ls.set('mr_hist',[]);hsel=null;drawHist();}
+  if(hid==='clh'&&await appConfirm('Cancellare tutta la cronologia?',{danger:true,okText:'Cancella'})){ls.set('mr_hist',[]);hsel=null;drawHist();}
 });
 function show(v){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='fav')drawFavs();if(v==='hist'){hsel=null;drawHist();}scrollTo(0,0);}
 document.querySelector('nav').onclick=e=>{

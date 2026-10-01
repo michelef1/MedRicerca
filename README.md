@@ -6,7 +6,7 @@
 
 **PWA gratuita · Nessuna registrazione · Nessun backend · Nessuna pubblicità**
 
-[![Versione](https://img.shields.io/badge/versione-5.2-22c2a0?style=flat-square)](#)
+[![Versione](https://img.shields.io/badge/versione-5.3-22c2a0?style=flat-square)](#)
 [![PWA](https://img.shields.io/badge/PWA-installabile-0b5d6b?style=flat-square)](#)
 [![Licenza](https://img.shields.io/badge/licenza-uso%20personale-lightgrey?style=flat-square)](#)
 
@@ -22,7 +22,7 @@
 
 Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutta in inglese, sparsa su più siti, e ognuno con la propria interfaccia. MedRicerca la raccoglie in un unico posto, in italiano, gratis.
 
-> 🏥 App creata da **Miki**, sviluppata con l'assistenza di **Claude** (Anthropic).
+> 🏥 App creata da **Miki**, sviluppata con l'assistenza di **Claude** (Anthropic) e **ChatGPT**.
 
 ---
 
@@ -37,11 +37,18 @@ Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutt
 | 🏷️ **Tipo di evidenza** | Un'etichetta indicativa (RCT, Review, Meta-analisi, Osservazionale...) riconosciuta dai dati disponibili, quando possibile |
 | 🈺 **Abstract tradotti** | Traduci titolo e riassunto di ogni articolo con un tocco |
 | 🎚️ **Filtri avanzati** | Anno, tipo di studio, open access, presenza di abstract, ordinamento |
-| ⭐ **Preferiti con categorie** | Salva gli articoli utili in categorie personalizzate (es. Neurologia, Cardiologia), ritrova le ricerche in Cronologia |
+| 📁 **Preferiti in cartelle** | Organizza gli articoli salvati in cartelle personalizzate (es. Neurologia, Cardiologia): crea, rinomina, elimina o sposta un articolo da una cartella all'altra |
+| 🖨️ **Stampa e Salva PDF** | Ogni articolo si può stampare o salvare come PDF in una versione impaginata e leggibile |
 | 📤 **Esportazione** | Condividi un articolo o scaricalo in formato `.ris` per Zotero/Mendeley |
 | 🎨 **Personalizzazione** | Temi a gradiente, tema chiaro/scuro, dimensione del testo |
-| 🔙 **Navigazione Android** | Il tasto Indietro del telefono chiude il dettaglio di uno studio invece di uscire dall'app |
+| 🔙 **Navigazione Android** | Il tasto Indietro del telefono chiude il dettaglio o il confronto aperti, invece di uscire dall'app |
 | 📴 **Offline-ready** | Installabile come app; interfaccia, Preferiti, Cronologia e articoli già visti restano disponibili offline — una ricerca nuova richiede sempre connessione |
+
+---
+
+## 📁 Preferiti in cartelle
+
+Quando salvi un articolo, MedRicerca chiede in quale cartella metterlo: puoi scegliere una cartella già esistente (ce ne sono alcune pronte all'uso, come Neurologia o Cardiologia) oppure crearne una nuova al volo. Dalla schermata Preferiti, il pulsante **"Gestisci cartelle"** permette di rinominare o eliminare una cartella — eliminandola, gli articoli contenuti vengono spostati in "Senza categoria", non cancellati. Ogni articolo salvato si può anche spostare in un secondo momento in un'altra cartella.
 
 ---
 
@@ -59,11 +66,17 @@ Quando i dati lo permettono, ogni scheda mostra un'etichetta indicativa: **RCT**
 
 ---
 
+## 🖨️ Stampa e Salva PDF
+
+Nel dettaglio di un articolo, i pulsanti **Stampa** e **Salva PDF** aprono una versione impaginata, pensata per la lettura su carta: titolo, dati della fonte, abstract (tradotto, se stai leggendo la traduzione) e un richiamo all'avvertenza medica. "Salva PDF" usa la finestra di stampa del dispositivo, da cui si sceglie "Salva come PDF" invece di una stampante.
+
+---
+
 ## ⚙️ Come funziona
 
 ```
 Tu scrivi           L'app traduce         Cerca in parallelo su
-"mal di testa"  →    "headache"      →    5 banche dati mediche
+"mal di testa"  →    "headache"      →    4 banche dati mediche
                                                     │
                                                     ▼
                                      Risultati raggruppati per fonte,
@@ -74,7 +87,7 @@ Tu scrivi           L'app traduce         Cerca in parallelo su
 2. Scegli la modalità: **Tutto** · **Farmaco** · **Malattia**.
 3. L'app traduce il termine (modificabile a mano) e lancia la ricerca.
 4. I risultati arrivano per fonte, con filtri per affinare e l'etichetta del tipo di evidenza quando disponibile.
-5. Apri un articolo per leggere l'abstract, tradurlo, salvarlo o condividerlo — oppure selezionane fino a 4 per confrontarli.
+5. Apri un articolo per leggere l'abstract, tradurlo, salvarlo in una cartella, stamparlo o condividerlo — oppure selezionane fino a 4 per confrontarli.
 
 Tutto avviene **nel browser**: nessun server proprietario, nessun dato personale raccolto. Preferiti, cronologia e impostazioni restano solo sul tuo dispositivo.
 
@@ -108,7 +121,7 @@ MedRicerca è una PWA: si installa come un'app nativa, senza passare da nessuno 
 - **iPhone/iPad (Safari)** → `Condividi` → *Aggiungi a Home*
 - **Desktop (Chrome/Edge)** → icona di installazione nella barra degli indirizzi
 
-Una volta installata, il tasto Indietro del telefono chiude il dettaglio di uno studio invece di uscire dall'app, e funziona anche offline per i contenuti già consultati.
+Una volta installata, il tasto Indietro del telefono chiude il dettaglio o il confronto aperti invece di uscire dall'app, e funziona anche offline per i contenuti già consultati.
 
 ---
 
@@ -133,6 +146,6 @@ Le informazioni mostrate provengono da banche dati pubbliche e da traduzioni aut
 
 <div align="center">
 
-Fatto con 🩺 da **Miki** · sviluppato con **Claude**
+Fatto con 🩺 da **Miki** · sviluppato con **Claude** e **ChatGPT**
 
 </div>
