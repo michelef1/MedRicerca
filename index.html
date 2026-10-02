@@ -2,7 +2,7 @@
 <html lang="it"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>MedRicerca</title>
+<title>MedRicerca 5.0</title>
 <link rel="manifest" href="./manifest.json">
 <meta name="theme-color" content="#0b5d6b">
 <meta name="color-scheme" content="light dark">
@@ -63,15 +63,12 @@ main{max-width:760px;margin:-46px auto 0;padding:0 14px;position:relative}
 [data-theme=dark] .tabs button.on{color:#06211d}
 .tabs b{margin-left:6px;opacity:.75}
 .compare-study-head{min-width:220px;vertical-align:top}.compare-study-link{display:block;width:100%;padding:0;border:0;background:transparent;color:var(--pri);font:inherit;font-weight:800;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}.compare-study-link:hover{opacity:.78}.compare-study-link:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}.compare-open-hint{font-size:.72rem;font-weight:600;color:var(--mut);margin-top:5px}
-.comparebar{position:sticky;top:8px;z-index:4;display:flex;align-items:center;gap:8px;justify-content:space-between;
-  background:linear-gradient(135deg,color-mix(in srgb,#7a1f3d 12%,var(--card)),color-mix(in srgb,#f2994a 16%,var(--card)));
-  border:1.5px solid #f2994a;border-radius:16px;padding:9px 11px;margin:4px 0 10px;box-shadow:var(--sh)}
-.comparebar span{color:var(--ink)}
-.comparebar #comparego{background:linear-gradient(135deg,#7a1f3d,#d9534f,#f2994a);border:0;color:#fff}
-.comparebar #compareclear{border:1.5px solid #d9534f;color:#d9534f;background:transparent}
+.comparebar{position:sticky;top:8px;z-index:4;display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--card);border:1.5px solid var(--acc);border-radius:16px;padding:9px 11px;margin:4px 0 10px;box-shadow:var(--sh)}
 .comparebar .smallgo{padding:8px 13px}.comparebar .x{padding:6px 10px}.pick{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:.82rem;color:var(--mut)}.pick input{accent-color:var(--pri);width:18px;height:18px}.etype{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 7px;font-size:.7rem;margin-left:4px;color:var(--pri);background:color-mix(in srgb,var(--pri) 7%,var(--card))}.source-note{margin:0 0 8px;padding:8px 10px;border-radius:12px;background:color-mix(in srgb,var(--pri) 7%,var(--card));color:var(--mut);font-size:.78rem}
 .card{background:var(--card);border-radius:16px;box-shadow:var(--sh);padding:14px 16px;margin:10px 0;display:block;width:100%;text-align:left}
 .card h3{font-size:1rem;line-height:1.35;margin-bottom:4px}
+.card h3 mark{background:#ffe680;color:inherit;border-radius:4px;padding:0 3px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+[data-theme=dark] .card h3 mark{background:#b8860b;color:#fff;box-shadow:none}
 .meta{font-size:.82rem;color:var(--mut)}
 .badge{display:inline-block;background:var(--acc);color:#04231d;border-radius:6px;padding:0 7px;font-size:.72rem;font-weight:700;margin-left:6px}
 .sk{height:74px;border-radius:16px;margin:10px 0;background:linear-gradient(90deg,var(--line) 25%,var(--card) 50%,var(--line) 75%);background-size:200% 100%;animation:sh 1.2s infinite}
@@ -94,14 +91,14 @@ dialog::backdrop{background:rgba(5,25,30,.55)}
 .acts button,.acts a{border:1.5px solid var(--pri);color:var(--pri);border-radius:999px;padding:7px 14px;font-size:.88rem;text-decoration:none}
 .acts .fill{background:var(--pri);color:#fff}
 [data-theme=dark] .acts .fill{color:#06211d}
-.ctable{border-collapse:collapse;width:100%;min-width:680px;font-size:.84rem}.ctable th,.ctable td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.ctable th{background:color-mix(in srgb,var(--pri) 8%,var(--card));position:sticky;top:0}.ctable th:first-child{left:0;z-index:1;min-width:120px}.note{font-size:.78rem;color:var(--warn);margin-top:6px}.fav-cat{font-size:.95rem;margin:18px 0 6px;color:var(--pri);display:flex;align-items:center;gap:7px}.fav-cat:first-child{margin-top:6px}.fav-cat::before{content:"📁"}.cat-list{display:grid;gap:7px;margin:10px 0}.cat-option{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:.92rem}.cat-option:hover,.cat-option.sel{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 9%,var(--card))}.cat-new{display:flex;gap:8px;margin-top:10px}.cat-new input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px}.cat-help{font-size:.8rem;color:var(--mut);margin:4px 0 10px}
+.ctable{border-collapse:collapse;width:100%;min-width:680px;font-size:.84rem}.ctable th,.ctable td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.ctable th{background:color-mix(in srgb,var(--pri) 8%,var(--card));position:sticky;top:0}.ctable th:first-child{left:0;z-index:1;min-width:120px}.note{font-size:.78rem;color:var(--warn);margin-top:6px}.fav-cat{font-size:.95rem;margin:18px 0 6px;color:var(--pri);display:flex;align-items:center;gap:7px}.fav-cat:first-child{margin-top:6px}.fav-cat::before{content:"📁"}.cat-list{display:grid;gap:7px;margin:10px 0}.cat-option{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:.92rem}.cat-option:hover,.cat-option.sel{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 9%,var(--card))}.cat-new{display:flex;gap:8px;margin-top:10px}.cat-new input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px}.cat-help{font-size:.8rem;color:var(--mut);margin:4px 0 10px}.folder-top-actions{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;width:100%;margin:0 0 14px}.folder-top-actions .top-main{display:flex;justify-content:center;width:100%}.folder-top-actions .top-secondary{display:flex;justify-content:center;align-items:center;gap:8px;width:100%}.folder-top-actions button{min-height:40px;border-radius:999px;padding:8px 14px;font-size:.86rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 7px rgba(0,0,0,.08)}.folder-top-actions .fill{background:var(--pri);color:#fff;border:1.5px solid var(--pri)}.folder-top-actions button:not(.fill){background:var(--card);color:var(--pri);border:1.5px solid var(--pri)}[data-theme=dark] .folder-top-actions .fill{color:#06211d}@media(max-width:520px){.folder-top-actions{gap:7px}.folder-top-actions .top-secondary{gap:6px}.folder-top-actions button{padding:8px 11px;font-size:.8rem}}.folder-manager-title{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;flex:1}.folder-manager-title .t{margin:0;text-align:center}.folder-manager-tools{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}.folder-tool{border:1.5px solid var(--pri);background:var(--card);color:var(--pri);border-radius:999px;padding:8px 13px;font-size:.84rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;box-shadow:0 2px 7px rgba(0,0,0,.08)}.folder-tool.fill{background:var(--pri);color:#fff}.folder-tool:active{transform:scale(.98)}[data-theme=dark] .folder-tool.fill{color:#06211d}@media(max-width:520px){.folder-manager-tools{gap:6px}.folder-tool{padding:8px 10px;font-size:.8rem}.folder-manager-tools .folder-tool span{white-space:nowrap}}
 .fav-cat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 6px;padding:8px 10px;border-radius:14px;background:color-mix(in srgb,var(--cat-color) 12%,var(--card));border-left:5px solid var(--cat-color)}
-.fav-cat-head:first-child{margin-top:6px}.fav-cat-name{display:flex;align-items:center;gap:8px;min-width:0;font-size:.95rem;color:var(--ink);font-weight:800}.fav-cat-name .meta{font-weight:500;color:var(--mut)}.fav-cat-actions{display:flex;gap:5px;flex-wrap:wrap}.fav-cat-actions button{border:1px solid color-mix(in srgb,var(--cat-color) 35%,var(--line));background:var(--card);color:var(--ink);border-radius:9px;padding:6px 8px;font-size:.78rem}.fav-cat-actions button:hover{background:color-mix(in srgb,var(--cat-color) 9%,var(--card))}.fav-item-actions{display:flex;gap:6px;margin:4px 0 10px}.fav-item-actions button{font-size:.75rem;padding:5px 8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px}.folder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}.folder-chip{border:1.5px solid var(--line);border-left:5px solid var(--folder-color);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;text-align:left}.folder-chip.on{outline:2px solid var(--folder-color);background:color-mix(in srgb,var(--folder-color) 10%,var(--card))}.folder-chip small{display:block;color:var(--mut);margin-top:2px}.manage-help{font-size:.82rem;color:var(--mut);margin:4px 0 10px}.cat-new .go{white-space:nowrap}
+.fav-cat-head:first-child{margin-top:6px}.fav-folder-content{display:none}.fav-folder-section.open .fav-folder-content{display:block}.fav-cat-head{cursor:pointer}.fav-cat-head:active{transform:scale(.995)}.fav-cat-name{display:flex;align-items:center;gap:8px;min-width:0;font-size:.95rem;color:var(--ink);font-weight:800}.fav-cat-name .meta{font-weight:500;color:var(--mut)}.fav-cat-actions{display:flex;gap:5px;flex-wrap:wrap}.fav-cat-actions button{border:1px solid color-mix(in srgb,var(--cat-color) 35%,var(--line));background:var(--card);color:var(--ink);border-radius:9px;padding:6px 8px;font-size:.78rem}.fav-cat-actions button:hover{background:color-mix(in srgb,var(--cat-color) 9%,var(--card))}.fav-item-actions{display:flex;gap:6px;margin:4px 0 10px}.fav-item-actions button{font-size:.75rem;padding:5px 8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px}.fav-search{display:flex;align-items:center;gap:8px;margin:4px 0 14px}.fav-search input{flex:1;min-width:0;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:11px 16px;font-size:.95rem}.fav-search input:focus{border-color:var(--acc);outline:0}.fav-search .clear{border:1.5px solid var(--line);background:var(--card);color:var(--mut);border-radius:999px;padding:8px 11px;font-size:.82rem}.fav-search-count{text-align:center;color:var(--mut);font-size:.78rem;margin:-7px 0 8px}.fav-note{margin:7px 0 8px;padding:9px 11px;border-radius:12px;background:color-mix(in srgb,var(--acc) 8%,var(--card));border-left:4px solid var(--acc);font-size:.82rem;color:var(--ink);white-space:pre-wrap}.fav-note b{color:var(--pri)}.note-editor textarea{width:100%;min-height:150px;resize:vertical;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:12px;font:inherit;line-height:1.45}.note-editor .acts{justify-content:flex-end;margin-top:12px}.folder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}.folder-chip{border:1.5px solid var(--line);border-left:5px solid var(--folder-color);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;text-align:left}.folder-chip.on{outline:2px solid var(--folder-color);background:color-mix(in srgb,var(--folder-color) 10%,var(--card))}.folder-chip small{display:block;color:var(--mut);margin-top:2px}.manage-help{font-size:.82rem;color:var(--mut);margin:4px 0 10px}.cat-new .go{white-space:nowrap}
 h2.t{font-size:1.1rem;margin:4px 0 8px}
 .app-dialog{max-width:420px;width:calc(100% - 28px);margin:auto;border-radius:22px;padding:0;background:var(--card);color:var(--ink);box-shadow:0 18px 55px rgba(0,0,0,.28);overflow:hidden}.app-dialog::backdrop{background:rgba(5,25,30,.62)}.app-dialog-body{padding:20px 20px 18px}.app-dialog-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.app-dialog-brand .logo{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--pri);color:#fff;font-weight:900;font-size:17px}.app-dialog-brand strong{font-size:1rem;letter-spacing:.1px}.app-dialog-message{font-size:.95rem;line-height:1.48;margin:0 0 16px;color:var(--ink);white-space:pre-wrap}.app-dialog-input{width:100%;box-sizing:border-box;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:11px 12px;font:inherit;outline:none}.app-dialog-input:focus{border-color:var(--pri);box-shadow:0 0 0 3px color-mix(in srgb,var(--pri) 14%,transparent)}.app-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.app-dialog-actions button{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:11px;padding:9px 14px;font-weight:700}.app-dialog-actions .primary{background:var(--pri);border-color:var(--pri);color:#fff}.app-dialog-actions .danger{background:var(--warn);border-color:var(--warn);color:#fff}[data-theme=dark] .app-dialog-actions .primary{color:#06211d}
 .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
-.x{border:1.5px solid var(--pri);color:var(--pri);border-radius:999px;padding:6px 14px;font-size:.88rem;white-space:nowrap}
+.x{border:1.5px solid var(--pri);background:var(--pri);color:#fff;border-radius:999px;padding:7px 14px;font-size:.88rem;font-weight:800;white-space:nowrap;box-shadow:0 2px 7px rgba(0,0,0,.12)}.x:active{transform:scale(.98)}
 .dl,.dl *{overflow-wrap:anywhere}
 dialog.zoomed{max-width:none;width:100%;border-radius:0}
 @media(min-width:900px){
@@ -165,7 +162,7 @@ details ul{padding-left:20px}
 <header>
   <h1><button id="home" class="ttl" aria-label="Torna alla home">MedRicerca</button></h1>
   <p>Ricerca e confronto nella letteratura medica</p>
-  <button id="menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">⋮</button>
+  <button id="menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">☰</button>
   <div id="mnu" hidden><button id="mi" hidden>⬇️ Installa app</button><button data-go="guide">📖 Guida</button><button data-go="set">⚙️ Impostazioni</button><button data-go="info">ⓘ Info e crediti</button><button id="qt">◐ <span id="qt-lbl">Tema Scuro</span></button></div>
   <svg class="ecg" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 H90 L102 20 L110 4 L122 32 L132 12 L140 20 H230 L242 20 L250 6 L262 30 L272 14 L280 20 H400"/></svg>
 </header>
@@ -209,7 +206,7 @@ details ul{padding-left:20px}
     <details><summary>Confrontare gli studi</summary><p>Nei risultati puoi selezionare fino a 4 studi. Apparirà il pulsante <b>Confronta</b>, che mette a confronto titolo, fonte, anno, tipo di evidenza, autori, accesso aperto, DOI e abstract disponibile. Il confronto descrive i dati disponibili: non stabilisce quale studio sia “migliore”.</p></details>
     <details><summary>Privacy della traduzione</summary><p>MedRicerca prova prima la traduzione integrata nel browser. Se non è disponibile, può usare MyMemory come servizio esterno: in quel caso il testo da tradurre viene inviato a quel servizio. Puoi sempre leggere il testo originale senza tradurlo.</p></details>
     <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Stampa</b> apre la versione ottimizzata per la stampa. <b>Salva PDF</b> apre la stampa del dispositivo, da cui puoi scegliere “Salva come PDF”. <b>Salva</b> aggiunge ai Preferiti. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
-    <details><summary>Categorie nei Preferiti</summary><p>Quando salvi un articolo puoi scegliere una categoria già presente, come Neurologia o Cardiologia, oppure creare una categoria personalizzata. I Preferiti vengono raggruppati per categoria. Gli articoli già salvati nelle versioni precedenti vengono messi automaticamente in “Senza categoria”.</p></details>
+    <details><summary>Categorie nei Preferiti</summary><p>Quando salvi un articolo puoi scegliere una categoria già presente, come Neurologia o Cardiologia, oppure creare una categoria personalizzata. I Preferiti vengono raggruppati per categoria. Gli articoli già salvati nelle versioni precedenti vengono messi automaticamente in “Senza categoria”. Nella barra di ricerca dei Preferiti, quando cerchi una parola, la trovi evidenziata in giallo nel titolo degli articoli trovati.</p></details>
     <details><summary>Glossario di tutti i pulsanti</summary><ul>
       <li><b>MedRicerca</b> (il titolo in alto) — riporta alla home e azzera la ricerca in corso.</li>
       <li><b>⋮</b> — apre Installa app, Guida, Impostazioni, Info e crediti, Tema Chiaro/Scuro.</li>
@@ -262,16 +259,16 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">5.4</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">5.2.8</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser; ripiego online su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
-      <div class="row"><span>Autore</span><b>App Creata da Miki by Claude e ChatGPT</b></div>
+      <div class="row"><span>Autore</span><b>App Creata da Miki by Claude</b></div>
       <p class="disc" style="text-align:left;color:var(--ink)"><b>Solo a scopo informativo, non sostituisce il parere del medico.</b> Trovare uno studio tra i risultati non significa che il trattamento sia efficace, sicuro o adatto a te: per l'interpretazione clinica, rivolgiti a un medico o farmacista.</p>
     </div>
   </section>
   <p class="disc">Solo a scopo informativo, non sostituisce il parere del medico.</p>
-  <p class="disc"><b>App Creata da Miki by Claude e ChatGPT</b></p>
+  <p class="disc"><b>App Creata da Miki by Claude</b></p>
 </main>
 <nav>
   <button data-v="search" class="on"><span>🔎</span>Cerca</button>
@@ -285,9 +282,10 @@ details ul{padding-left:20px}
 
 
 <dialog id="appMsgDlg" class="app-dialog"><div class="app-dialog-body"><div class="app-dialog-brand"><span class="logo">M</span><strong>MedRicerca</strong></div><p id="appMsgText" class="app-dialog-message"></p><div id="appMsgInputWrap" hidden><input id="appMsgInput" class="app-dialog-input" type="text" maxlength="40"></div><div class="app-dialog-actions"><button id="appMsgCancel" type="button">Annulla</button><button id="appMsgOk" class="primary" type="button">OK</button></div></div></dialog>
-<dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" id="compareClose">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
+<dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" onclick="document.getElementById('compareDlg').close()">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
+<dialog id="favNoteDlg"><div class="dl note-editor"><div class="top"><h2 class="t">Nota personale</h2><button class="x" id="favNoteCancel" type="button">✕ Annulla</button></div><p class="cat-help">Scrivi una nota personale da conservare insieme a questo articolo.</p><textarea id="favNoteText" maxlength="2000" placeholder="La mia nota…"></textarea><div class="acts"><button id="favNoteDelete" type="button">🗑️ Cancella nota</button><button id="favNoteSave" type="button" class="fill">💾 Salva nota</button></div></div></dialog>
 <dialog id="favCatDlg"><div class="dl"><div class="top"><h2 class="t">Salva nei Preferiti</h2><button class="x" id="favCatCancel" type="button">✕ Annulla</button></div><p class="cat-help">Scegli una categoria per organizzare questo articolo. Puoi usare una categoria esistente oppure crearne una nuova.</p><div id="favCatList" class="cat-list"></div><div class="cat-new"><input id="favCatNew" type="text" maxlength="40" placeholder="Nuova categoria…"><button id="favCatAdd" class="go" type="button">Crea</button></div></div></dialog>
-<dialog id="folderDlg"><div class="dl"><div class="top"><h2 class="t">Gestisci cartelle</h2><button class="x" id="folderClose" type="button">✕ Chiudi</button></div><p class="manage-help">Crea, rinomina o elimina le cartelle. Prima di ogni modifica irreversibile MedRicerca chiederà conferma.</p><div id="folderList" class="cat-list"></div><div class="cat-new"><input id="folderNew" type="text" maxlength="40" placeholder="Nuova cartella…"><button id="folderAdd" class="go" type="button">Crea</button></div></div></dialog>
+<dialog id="folderDlg"><div class="dl"><div class="top"><div class="folder-manager-title"><h2 class="t">Gestisci cartelle</h2><div class="folder-manager-tools"><button class="folder-tool fill" id="folderImport" type="button" title="Importa dati" aria-label="Importa dati">📥 <span>Importa dati</span></button><button class="folder-tool" id="folderExport" type="button" title="Esporta dati" aria-label="Esporta dati">📤 <span>Esporta dati</span></button></div></div><button class="x" id="folderClose" type="button">✕ Chiudi</button></div><p class="manage-help">Crea, rinomina o elimina le cartelle. Usa le frecce ↑ e ↓ per cambiarne l’ordine in modo semplice anche da smartphone. “Senza categoria” rimane sempre in cima. Prima di ogni modifica irreversibile MedRicerca chiederà conferma.</p><div id="folderList" class="cat-list"></div><div class="cat-new"><input id="folderNew" type="text" maxlength="40" placeholder="Nuova cartella…"><button id="folderAdd" class="go" type="button">Crea</button></div></div></dialog>
 <dialog id="moveFavDlg"><div class="dl"><div class="top"><h2 class="t">Sposta articolo</h2><button class="x" id="moveFavCancel" type="button">✕ Annulla</button></div><p class="manage-help">Scegli la cartella di destinazione.</p><div id="moveFavList" class="folder-grid"></div></div></dialog>
 <script>
 "use strict";
@@ -326,6 +324,18 @@ function withTimeout(factory,ms=20000){
   const main=Promise.resolve().then(()=>factory(ctrl.signal)).finally(()=>clearTimeout(t));
   const to=new Promise((_,j)=>ctrl.signal.addEventListener('abort',()=>j(new Error('Tempo scaduto'))));
   return Promise.race([main,to]);
+}
+// Evidenzia in modo sicuro le occorrenze di "term" dentro una stringa già passata per esc().
+// Lavora sull'HTML già escapato: cerca il termine escapato e lo avvolge in <mark>.
+function highlightEscaped(escapedText,term){
+  const t=String(term||'').trim();
+  if(!t)return escapedText;
+  const tEsc=esc(t);
+  if(!tEsc)return escapedText;
+  // Regex case-insensitive, con escaping dei metacaratteri
+  const safe=tEsc.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  try{return escapedText.replace(new RegExp(safe,'gi'),m=>`<mark>${m}</mark>`);}
+  catch{return escapedText;}
 }
 
 /* ============ Cache traduzioni (IndexedDB) ============ */
@@ -436,24 +446,30 @@ const compareKeys=new Set();
 const DEFAULT_FAV_CATS=['Senza categoria','Generale','Neurologia','Cardiologia','Oncologia','Endocrinologia','Gastroenterologia','Pneumologia','Farmacologia'];
 const FOLDER_COLORS=['#0b5d6b','#2e7d32','#6a1b9a','#ad1457','#ef6c00','#1565c0','#00838f','#7b5e00','#455a64','#c62828'];
 function folderColor(name){let h=0;for(const ch of String(name||''))h=(h*31+ch.charCodeAt(0))>>>0;return FOLDER_COLORS[h%FOLDER_COLORS.length];}
-function moveFolder(name,dir){
-  const cats=favCats(),i=cats.indexOf(name);
-  if(i<0)return;const j=i+dir;if(j<0||j>=cats.length)return;
-  appConfirm(`Spostare la cartella "${name}" più in ${dir<0?'alto':'basso'}?`,{okText:'Sposta'}).then(ok=>{
-    if(!ok)return;
-    [cats[i],cats[j]]=[cats[j],cats[i]];
-    saveFavCats(cats);drawFavs();drawFolderManager();
-  });
-}
 function favCats(){
   let a=ls.get('mr_fav_cats',DEFAULT_FAV_CATS);
   if(!Array.isArray(a))a=[...DEFAULT_FAV_CATS];
   a=[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))];
   if(!a.length)a=[...DEFAULT_FAV_CATS];
-  if(!a.some(x=>x.toLocaleLowerCase('it-IT')==='senza categoria'))a.unshift('Senza categoria');
+  const idx=a.findIndex(x=>x.toLocaleLowerCase('it-IT')==='senza categoria');
+  if(idx<0)a.unshift('Senza categoria');
+  else if(idx>0){const sc=a.splice(idx,1)[0];a.unshift(sc);}
   return a;
 }
-function saveFavCats(a){return ls.set('mr_fav_cats',[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))]);}
+function saveFavCats(a){
+  const clean=[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))];
+  const idx=clean.findIndex(x=>x.toLocaleLowerCase('it-IT')==='senza categoria');
+  if(idx<0)clean.unshift('Senza categoria'); else if(idx>0){const sc=clean.splice(idx,1)[0];clean.unshift(sc);}
+  return ls.set('mr_fav_cats',clean);
+}
+function reorderFolder(name,targetName){
+  if(name==='Senza categoria'||targetName==='Senza categoria'||name===targetName)return;
+  const cats=favCats(), from=cats.indexOf(name), to=cats.indexOf(targetName);
+  if(from<0||to<0)return;
+  const [moved]=cats.splice(from,1);
+  cats.splice(cats.indexOf(targetName)+(from<to?1:0),0,moved);
+  saveFavCats(cats); drawFavs(); drawFolderManager();
+}
 function favs(){
   const a=ls.get('mr_fav',[]);
   if(!Array.isArray(a))return [];
@@ -476,7 +492,8 @@ function appPrompt(message,defaultValue=''){return new Promise(resolve=>{const d
 function addFolder(name){const v=String(name||'').trim().slice(0,40);if(!v)return false;const cats=favCats();if(cats.some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){appAlert('Esiste già una cartella con questo nome.');return false;}cats.push(v);if(!saveFavCats(cats)){appAlert('Impossibile creare la cartella.');return false;}return true;}
 async function renameFolder(oldName){if(oldName==='Senza categoria'){await appAlert('La cartella “Senza categoria” è obbligatoria e non può essere rinominata.');return;}const next=await appPrompt(`Rinomina la cartella “${oldName}”`,oldName);if(next===null)return;const v=next.trim().slice(0,40);if(!v||v===oldName)return;if(favCats().some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){await appAlert('Esiste già una cartella con questo nome.');return;}if(!await appConfirm(`Rinominare la cartella “${oldName}” in “${v}”?`,{okText:'Rinomina'}))return;const cats=favCats().map(c=>c===oldName?v:c);saveFavCats(cats);const a=favs().map(x=>(x.category||'Senza categoria')===oldName?{...x,category:v}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
 async function deleteFolder(name){if(name==='Senza categoria'){await appAlert('La cartella “Senza categoria” non può essere eliminata.');return;}const n=folderCount(name);const msg=n?`Eliminare la cartella “${name}”?\n\nI ${n} articoli contenuti verranno spostati in “Senza categoria”.`:`Eliminare la cartella “${name}”?`;if(!await appConfirm(msg,{danger:true,okText:'Elimina'}))return;saveFavCats(favCats().filter(c=>c!==name));const a=favs().map(x=>(x.category||'Senza categoria')===name?{...x,category:'Senza categoria'}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
-function drawFolderManager(){const cats=favCats();$('#folderList').innerHTML=cats.map((c,i)=>`<div class="cat-option" style="border-left:5px solid ${folderColor(c)};display:flex;align-items:center;justify-content:space-between;gap:8px"><span>📁 <b>${esc(c)}</b><small class="meta">${folderCount(c)} articoli</small></span><span class="fav-cat-actions">${c!=='Senza categoria'?`<button type="button" data-folder-up="${esc(c)}" ${i===0?'disabled':''}>⬆️</button><button type="button" data-folder-down="${esc(c)}" ${i===cats.length-1?'disabled':''}>⬇️</button>`:''}<button type="button" data-folder-rename="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>🗑️</button></span></div>`).join('');}
+function moveFolder(name,direction){if(name==='Senza categoria')return;const cats=favCats(),i=cats.indexOf(name);if(i<1)return;const j=direction==='up'?i-1:i+1;if(j<1||j>=cats.length)return;[cats[i],cats[j]]=[cats[j],cats[i]];saveFavCats(cats);drawFavs();drawFolderManager();}
+function drawFolderManager(){const cats=favCats();$('#folderList').innerHTML=cats.map((c,i)=>{const fixed=c==='Senza categoria';const canUp=!fixed&&i>1;const canDown=!fixed&&i<cats.length-1;return `<div class="cat-option folder-manager-item" style="border-left:5px solid ${folderColor(c)};display:flex;align-items:center;justify-content:space-between;gap:8px"><span>☰ 📁 <b>${esc(c)}</b><small class="meta">${folderCount(c)} articoli</small></span><span class="fav-cat-actions"><button type="button" data-folder-up="${esc(c)}" ${canUp?'':'disabled'} aria-label="Sposta ${esc(c)} in alto" title="Sposta su">↑</button><button type="button" data-folder-down="${esc(c)}" ${canDown?'':'disabled'} aria-label="Sposta ${esc(c)} in basso" title="Sposta giù">↓</button><button type="button" data-folder-rename="${esc(c)}" ${fixed?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(c)}" ${fixed?'disabled':''}>🗑️</button></span></div>`;}).join('');}
 function openFolderManager(){drawFolderManager();$('#folderNew').value='';$('#folderDlg').showModal();}
 let moveFavKey=null;
 function openMoveFav(key){moveFavKey=key;const item=favs().find(x=>x.key===key);if(!item)return;$('#moveFavList').innerHTML=favCats().map(c=>`<button type="button" class="folder-chip${(item.category||'Senza categoria')===c?' on':''}" data-move-to="${esc(c)}" style="--folder-color:${folderColor(c)}">📁 <b>${esc(c)}</b><small>${folderCount(c)} articoli</small></button>`).join('');$('#moveFavDlg').showModal();}
@@ -658,8 +675,10 @@ function drawTabs(){
   const onlyAbs=$('#fab').checked;
   $('#tabs').innerHTML=Object.entries(st.res).map(([id,r])=>{const n=r.loading||r.err?0:(onlyAbs&&r.canAbs!==false?r.items.filter(i=>i.abstract).length:r.items.length);return `<button data-t="${id}" class="${id===st.tab?'on':''}">${esc(r.name)}<b>${r.loading?'…':r.err?'!':n}</b></button>`;}).join('');
 }
-function card(it){
-  return `<article class="card" data-k="${esc(it.key)}"><button class="ttl" data-open="${esc(it.key)}"><h3>${esc(it.title)}${it.oa?'<span class="badge">Open Access</span>':''}${it.studyType?'<span class="etype">'+esc(it.studyType)+'</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button><label class="pick"><input type="checkbox" data-pick="${esc(it.key)}" ${compareKeys.has(it.key)?'checked':''}> Seleziona per confronto</label></article>`;
+// highlight: termine da evidenziare nel titolo (usato nei Preferiti). Se assente, comportamento identico a prima.
+function card(it,highlight){
+  const h=highlight?highlightEscaped(esc(it.title),highlight):esc(it.title);
+  return `<article class="card" data-k="${esc(it.key)}"><button class="ttl" data-open="${esc(it.key)}"><h3>${h}${it.oa?'<span class="badge">Open Access</span>':''}${it.studyType?'<span class="etype">'+esc(it.studyType)+'</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button><label class="pick"><input type="checkbox" data-pick="${esc(it.key)}" ${compareKeys.has(it.key)?'checked':''}> Seleziona per confronto</label></article>`;
 }
 function updateCompareBar(){
   const b=$('#comparebar');if(!b)return;
@@ -669,16 +688,12 @@ function updateCompareBar(){
 function compareItems(){return [...compareKeys].map(k=>st.items[k]||favs().find(x=>x.key===k)).filter(Boolean).slice(0,4);}
 function openCompare(){
   const a=compareItems();if(a.length<2){showToast('Seleziona almeno 2 studi per confrontarli.',{warn:true});return;}
-  pushModalHistory('compare');
   const rows=[['Fonte',x=>x.src],['Anno',x=>x.year||'—'],['Tipo di evidenza',x=>x.studyType||'Non determinato'],['Autori',x=>x.authors||'—'],['Open access',x=>x.oa?'Sì':'No'],['DOI',x=>x.doi||'—'],['Abstract',x=>x.abstract?'Disponibile':'Non disponibile']];
   $('#compareTitle').textContent=`Confronto di ${a.length} studi`;
   $('#compareTable').innerHTML=rows.map(([label,fn])=>`<tr><th>${esc(label)}</th>${a.map(x=>`<td>${esc(fn(x))}</td>`).join('')}</tr>`).join('');
   $('#compareHeads').innerHTML='<th>Campo</th>'+a.map(x=>`<th class="compare-study-head"><button type="button" class="compare-study-link" data-compare-open="${esc(x.key)}" title="Apri lo studio">${esc((x.title||'').slice(0,90))}</button><div class="compare-open-hint">Apri studio ↗</div></th>`).join('');
   $('#compareDlg').showModal();
 }
-$('#compareClose').onclick=closeCompare;
-$('#compareDlg').addEventListener('click',e=>{if(e.target.id==='compareDlg')closeCompare();});
-$('#compareDlg').addEventListener('cancel',e=>{e.preventDefault();closeCompare();});
 
 function drawRes(){
   const r=st.res[st.tab];if(!r)return;
@@ -686,7 +701,7 @@ function drawRes(){
   if(r.err){$('#res').innerHTML=`<p class="msg err">${esc(r.name)} non ha risposto (${esc(r.err)}). Le altre fonti restano disponibili.</p><p class="msg"><button class="go" style="padding:10px 22px" data-retry="${esc(st.tab)}">Riprova</button></p>`;return;}
   const onlyAbs=$('#fab').checked&&(r.canAbs!==false);
   const items=onlyAbs?r.items.filter(i=>i.abstract):r.items;
-  $('#res').innerHTML=items.length?items.map(card).join(''):(r.items.length?'<p class="msg">Nessun risultato con abstract disponibile. Prova a togliere il filtro "Solo con abstract".</p>':'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>');updateCompareBar();
+  $('#res').innerHTML=items.length?items.map(it=>card(it)).join(''):(r.items.length?'<p class="msg">Nessun risultato con abstract disponibile. Prova a togliere il filtro "Solo con abstract".</p>':'<p class="msg">Nessun risultato. Prova un termine più generico o togli i filtri.</p>');updateCompareBar();
 }
 function drawAlso(en){
   const q=enc(en);
@@ -739,31 +754,27 @@ function printArticle(mode='print') {
     <h2>Abstract${tr?' · Traduzione italiana':''}</h2>
     <div class="print-abstract">${esc(abstract)}</div>
     ${tr?'<div class="print-note">Traduzione automatica: verifica i termini medici sul testo originale.</div>':''}
-    <div class="print-footer">MedRicerca · Documento generato dalla scheda dello studio. Solo a scopo informativo, non sostituisce il parere del medico.</div>`;
+    <div class="print-footer">MedRicerca 5.2.8 · Documento generato dalla scheda dello studio. Solo a scopo informativo, non sostituisce il parere del medico.</div>`;
   const cleanup=()=>{window.removeEventListener('afterprint',cleanup);setTimeout(()=>{$('#printArea').innerHTML='';},250);};
   window.addEventListener('afterprint',cleanup);
   window.print();
 }
 let detailReqId=0;
-// Il tasto Indietro di Android deve chiudere il dettaglio o il confronto aperti, non uscire dalla PWA.
-// Inseriamo una voce di cronologia solo mentre una di queste due finestre è aperta.
-let modalHistoryOpen=null; // null | 'detail' | 'compare'
+let detailHistoryOpen=false;
+// Cronologia interna della PWA: la Home è il punto di riferimento.
+// Il tasto Indietro di Android, da qualunque schermata interna, torna sempre alla Home.
 if(!history.state || history.state.medricerca!=='home') history.replaceState({medricerca:'home'},'',location.href);
-function pushModalHistory(which){
-  if(modalHistoryOpen) history.replaceState({medricerca:which},'',location.href);
-  else { history.pushState({medricerca:which},'',location.href); modalHistoryOpen=which; }
+function closeDetail(){
+  if(!$('#dlg').open)return;
+  $('#dlg').close();
+  detailHistoryOpen=false;
+  history.replaceState({medricerca:'home'},'',location.href);
 }
-function closeModalViaHistory(dlgSel){
-  if(!$(dlgSel).open)return;
-  if(modalHistoryOpen){ history.back(); }
-  else { $(dlgSel).close(); }
-}
-function closeDetail(){closeModalViaHistory('#dlg');}
-function closeCompare(){closeModalViaHistory('#compareDlg');}
 async function openItem(key){
   const item=st.items[key]||favs().find(f=>f.key===key);if(!item)return;
   cur=item;showTr=false;paint();
-  pushModalHistory('detail');
+  if(detailHistoryOpen) history.replaceState({medricerca:'detail',key:item.key},'',location.href);
+  else { history.pushState({medricerca:'detail',key:item.key},'',location.href); detailHistoryOpen=true; }
   $('#dlg').showModal();fitZoom();
   const myReq=++detailReqId; // evita che una risposta in ritardo sporchi un articolo aperto dopo
   if(item.pmid&&!item.abstract&&!item.abstractTried){
@@ -791,14 +802,14 @@ function paint(){
   ${tr?'<p class="note">Traduzione automatica: verifica i termini medici sul testo originale.</p>':''}
   ${it.trErr?`<p class="note">${esc(it.trErr)}</p>`:''}
   <div class="acts">
-    <button class="fill" id="btr">${showTr?'Mostra originale':'Traduci in italiano'}</button>
+    <button class="fill" id="btr">${showTr?'↔️ Mostra originale':'🌐 Traduci in italiano'}</button>
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
     <button id="bsh">🔗 Condividi</button>
     <button id="bprint">🖨️ Stampa</button>
     <button id="bpdf">📄 Salva PDF</button>
-    <button id="bris">📥 Esporta .ris</button>
-    <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">🌐 Apri fonte</a>
-    ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">🏷️ DOI</a>`:''}
+    <button id="bris">💾 Esporta .ris</button>
+    <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">🔗 Apri fonte</a>
+    ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">🔗 DOI</a>`:''}
     <button id="bcl">✕ Chiudi</button>
   </div>`;
 }
@@ -825,11 +836,13 @@ $('#dl').addEventListener('click',async e=>{
 $('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDetail();});
 $('#dlg').addEventListener('cancel',e=>{e.preventDefault();closeDetail();});
 window.addEventListener('popstate',e=>{
-  if(modalHistoryOpen){
-    const which=modalHistoryOpen;modalHistoryOpen=null;
-    if(which==='detail'&&$('#dlg').open)$('#dlg').close();
-    if(which==='compare'&&$('#compareDlg').open)$('#compareDlg').close();
-  }
+  // Su Android/browser: da qualsiasi schermata interna il Back porta alla Home.
+  detailHistoryOpen=false;
+  ['#dlg','#folderDlg','#moveFavDlg','#favCatDlg','#compareDlg','#dlg-ios','#settingsDlg','#infoDlg'].forEach(sel=>{
+    const d=$(sel); if(d&&d.open) d.close();
+  });
+  show('search',false);
+  history.replaceState({medricerca:'home'},'',location.href);
 });
 $('#dlg-ios').addEventListener('click',e=>{if(e.target.id==='dlg-ios'||e.target.closest('[data-close]'))$('#dlg-ios').close();});
 // Pinch-to-zoom: il testo del dettaglio si rimpagina sulla larghezza visibile
@@ -845,13 +858,30 @@ function fitZoom(){
 if(window.visualViewport){visualViewport.addEventListener('resize',fitZoom);visualViewport.addEventListener('scroll',fitZoom);}
 
 /* ============ Preferiti / cronologia / dati ============ */
+let favNoteKey=null;
+function openFavNote(key){const item=favs().find(x=>x.key===key);if(!item)return;favNoteKey=key;$('#favNoteText').value=item.note||'';$('#favNoteDlg').showModal();setTimeout(()=>$('#favNoteText').focus(),40);}
+function closeFavNote(){favNoteKey=null;if($('#favNoteDlg').open)$('#favNoteDlg').close();}
+function saveFavNote(){if(!favNoteKey)return;const value=$('#favNoteText').value.trim();const a=favs();const item=a.find(x=>x.key===favNoteKey);if(!item)return;if(value)item.note=value;else delete item.note;ls.set('mr_fav',a);closeFavNote();drawFavs();}
+function favMatches(it,q){
+  if(!q)return true;
+  const hay=[it.title,it.authors,it.journal,it.year,it.abstract,it.src,it.doi,it.note].filter(Boolean).join(' ').toLocaleLowerCase('it-IT');
+  return hay.includes(q.toLocaleLowerCase('it-IT'));
+}
 function drawFavs(){
   const a=favs();a.forEach(i=>st.items[i.key]=st.items[i.key]||i);
-  if(!a.length){$('#favs').innerHTML='<div class="acts"><button class="fill" id="manageFolders">📁 Gestisci cartelle</button></div><p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';return;}
-  const groups={};a.forEach(i=>{const c=i.category||'Senza categoria';(groups[c]??=[]).push(i);});
+  const top='<div class="folder-top-actions"><div class="top-main"><button class="fill" id="manageFolders" type="button">📁 Gestisci cartelle</button></div><div class="top-secondary"><button id="favImport" type="button">📥 Importa dati</button><button id="favExport" type="button">📤 Esporta dati</button></div></div>';
+  const q=String(st.favQuery||'').trim();
+  const filtered=a.filter(i=>favMatches(i,q));
+  const search=`<div class="fav-search"><input id="favSearch" type="search" value="${esc(q)}" placeholder="🔎 Cerca nei Preferiti…" aria-label="Cerca nei Preferiti"><button type="button" class="clear" id="favSearchClear" ${q?'':'hidden'}>✕</button></div>${q?`<div class="fav-search-count">${filtered.length} ${filtered.length===1?'articolo trovato':'articoli trovati'}</div>`:''}`;
+  if(!a.length){$('#favs').innerHTML=top+search+'<p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';return;}
+  if(!filtered.length){$('#favs').innerHTML=top+search+'<p class="msg">Nessun articolo corrisponde alla ricerca.</p>';return;}
+  const groups={};filtered.forEach(i=>{const c=i.category||'Senza categoria';(groups[c]??=[]).push(i);});
   const order=favCats();const names=[...order.filter(c=>groups[c]),...Object.keys(groups).filter(c=>!order.includes(c))];
-  $('#favs').innerHTML='<div class="acts"><button class="fill" id="manageFolders">📁 Gestisci cartelle</button></div>'+names.map(cat=>{const items=groups[cat]||[];const col=folderColor(cat);return `<section><div class="fav-cat-head" style="--cat-color:${col}"><div class="fav-cat-name">📁 ${esc(cat)} <span class="meta">(${items.length})</span></div><div class="fav-cat-actions"><button type="button" data-folder-rename="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>🗑️</button></div></div>${items.map(i=>card(i)+`<div class="fav-item-actions"><button type="button" data-move-fav="${esc(i.key)}">📂 Sposta</button><button type="button" data-remove-fav="${esc(i.key)}">🗑️ Rimuovi</button></div>`).join('')}</section>`;}).join('');
+  // Passa la parola cercata a card() per evidenziarla nel titolo. Se non c'è ricerca, highlight è '' e il comportamento è invariato.
+  const hl=q||'';
+  $('#favs').innerHTML=top+search+names.map(cat=>{const items=groups[cat]||[];const col=folderColor(cat);return `<section class="fav-folder-section" data-folder-section="${esc(cat)}"><div class="fav-cat-head" style="--cat-color:${col}"><div class="fav-cat-name"><span class="folder-toggle" aria-hidden="true">▶</span> 📁 ${esc(cat)} <span class="meta">(${items.length})</span></div><div class="fav-cat-actions"><button type="button" data-folder-rename="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>🗑️</button></div></div><div class="fav-folder-content">${items.map(i=>card(i,hl)+`${i.note?`<div class="fav-note"><b>📝 Nota:</b> ${esc(i.note)}</div>`:''}<div class="fav-item-actions"><button type="button" data-note-fav="${esc(i.key)}">📝 ${i.note?'Modifica nota':'Aggiungi nota'}</button><button type="button" data-move-fav="${esc(i.key)}">📂 Sposta</button><button type="button" data-remove-fav="${esc(i.key)}">🗑️ Rimuovi</button></div>`).join('')}</div></section>`;}).join('');
 }
+
 let hsel=null; // null = modalità normale, Set = modalità selezione
 function drawHist(){
   const h=ls.get('mr_hist',[]);
@@ -862,28 +892,50 @@ function drawHist(){
   const rows=h.map((x,i)=>`<button class="card hrow${hsel&&hsel.has(i)?' sel':''}" data-h="${i}">${hsel?`<span class="ck">${hsel.has(i)?'☑':'☐'}</span>`:''}<div><h3>${esc(x.q)}</h3><div class="meta">${esc(x.m)} · ${new Date(x.t).toLocaleString('it-IT')}</div></div></button>`).join('');
   $('#hist').innerHTML=bar+rows;
 }
-$('#exp').onclick=()=>{
-  const b=new Blob([JSON.stringify({v:1,fav:favs(),hist:ls.get('mr_hist',[])},null,1)],{type:'application/json'});
+function exportMedRicercaData(){
+  const payload={
+    v:2,
+    app:'MedRicerca',
+    exportedAt:new Date().toISOString(),
+    fav:favs(),
+    favCats:favCats(),
+    hist:ls.get('mr_hist',[]),
+    cfg:ls.get('mr_cfg',null)
+  };
+  const b=new Blob([JSON.stringify(payload,null,1)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='medricerca-dati.json';a.click();
-};
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+$('#exp').onclick=exportMedRicercaData;
 $('#imp').onclick=()=>$('#file').click();
+$('#folderExport').onclick=exportMedRicercaData;
+$('#folderImport').onclick=()=>$('#file').click();
 function validFav(x){return x&&typeof x==='object'&&typeof x.key==='string'&&typeof x.title==='string';}
 function validHist(x){return x&&typeof x==='object'&&typeof x.q==='string';}
 $('#file').onchange=async e=>{
   try{
-    const d=JSON.parse(await e.target.files[0].text());
+    const file=e.target.files&&e.target.files[0];
+    if(!file) return;
+    const d=JSON.parse(await file.text());
     const fav=Array.isArray(d.fav)?d.fav.filter(validFav).map(x=>({...x,category:x.category||'Senza categoria'})).slice(0,500):null;
     const hist=Array.isArray(d.hist)?d.hist.filter(validHist).slice(0,200):null;
-    if(fav===null&&hist===null)throw 0;
+    const cats=Array.isArray(d.favCats)?d.favCats.filter(x=>typeof x==='string').map(x=>x.trim().slice(0,40)).filter(Boolean).slice(0,50):null;
+    if(fav===null&&hist===null&&cats===null)throw 0;
     let ok=true;
+    if(cats!==null)saveFavCats(cats);
     if(fav!==null)ok=ls.set('mr_fav',fav)&&ok;
     if(hist!==null)ok=ls.set('mr_hist',hist)&&ok;
-    drawFavs();drawHist();
-    await appAlert(ok?'Dati importati.':'Dati importati, ma il salvataggio potrebbe non essere completo (memoria del browser piena o non disponibile).');
+    if(d.cfg&&typeof d.cfg==='object')ok=ls.set('mr_cfg',{...CFG0,...d.cfg})&&ok;
+    cfg={...CFG0,...ls.get('mr_cfg',{})};
+    applyCfg();
+    drawFavs();drawHist();drawFolderManager();
+    await appAlert(ok?'Dati importati correttamente.':'Dati importati, ma il salvataggio potrebbe non essere completo (memoria del browser piena o non disponibile).');
   }
   catch{await appAlert('File non valido: scegli un export di MedRicerca.');}
+  finally{e.target.value='';}
 };
 
+$('#favNoteSave').onclick=saveFavNote;$('#favNoteDelete').onclick=()=>{if(favNoteKey){const a=favs();const item=a.find(x=>x.key===favNoteKey);if(item)delete item.note;ls.set('mr_fav',a);}closeFavNote();drawFavs();};$('#favNoteCancel').onclick=closeFavNote;$('#favNoteDlg').addEventListener('cancel',e=>{e.preventDefault();closeFavNote();});$('#favNoteDlg').addEventListener('click',e=>{if(e.target.id==='favNoteDlg')closeFavNote();});
 $('#favCatList').addEventListener('click',e=>{const b=e.target.closest('[data-fav-cat]');if(b)finishFavCategory(b.dataset.favCat);});
 $('#favCatAdd').onclick=()=>finishFavCategory($('#favCatNew').value);
 $('#favCatNew').addEventListener('keydown',e=>{if(e.key==='Enter')finishFavCategory(e.target.value);if(e.key==='Escape')cancelFavCategory();});
@@ -893,13 +945,13 @@ $('#favCatDlg').addEventListener('click',e=>{if(e.target.id==='favCatDlg')cancel
 $('#folderClose').onclick=()=>$('#folderDlg').close();
 $('#folderAdd').onclick=()=>{if(addFolder($('#folderNew').value)){ $('#folderNew').value='';drawFolderManager();drawFavs(); }};
 $('#folderNew').addEventListener('keydown',e=>{if(e.key==='Enter')$('#folderAdd').click();if(e.key==='Escape')$('#folderDlg').close();});
-$('#folderList').addEventListener('click',async e=>{const u=e.target.closest('[data-folder-up]');const dn=e.target.closest('[data-folder-down]');const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(u)moveFolder(u.dataset.folderUp,-1);if(dn)moveFolder(dn.dataset.folderDown,1);if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
+$('#folderList').addEventListener('click',async e=>{const up=e.target.closest('[data-folder-up]');const down=e.target.closest('[data-folder-down]');const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(up){moveFolder(up.dataset.folderUp,'up');return;}if(down){moveFolder(down.dataset.folderDown,'down');return;}if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
 $('#folderDlg').addEventListener('click',e=>{if(e.target.id==='folderDlg')$('#folderDlg').close();});
 $('#moveFavCancel').onclick=()=>{$('#moveFavDlg').close();moveFavKey=null;};
 $('#moveFavList').addEventListener('click',async e=>{const b=e.target.closest('[data-move-to]');if(b)await moveFavTo(b.dataset.moveTo);});
 $('#moveFavDlg').addEventListener('click',e=>{if(e.target.id==='moveFavDlg'){e.preventDefault();$('#moveFavDlg').close();moveFavKey=null;}});
-$('#favs').addEventListener('click',async e=>{if(e.target.closest('#manageFolders')){openFolderManager();return;}const m=e.target.closest('[data-move-fav]');if(m){openMoveFav(m.dataset.moveFav);return;}const rm=e.target.closest('[data-remove-fav]');if(rm){const it=favs().find(x=>x.key===rm.dataset.removeFav);if(it&&await appConfirm('Rimuovere questo articolo dai Preferiti?',{danger:true,okText:'Rimuovi'})){ls.set('mr_fav',favs().filter(x=>x.key!==it.key));drawFavs();}return;}const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
-
+$('#favs').addEventListener('input',e=>{if(e.target.id==='favSearch'){st.favQuery=e.target.value;drawFavs();const q=$('#favSearch');if(q){q.focus();q.setSelectionRange(q.value.length,q.value.length);}}});
+$('#favs').addEventListener('click',async e=>{if(e.target.closest('#manageFolders')){openFolderManager();return;}if(e.target.closest('#favImport')){$('#file').click();return;}if(e.target.closest('#favExport')){exportMedRicercaData();return;}if(e.target.closest('#favSearchClear')){st.favQuery='';drawFavs();return;}const head=e.target.closest('.fav-cat-head');if(head&&!e.target.closest('.fav-cat-actions')){const sec=head.closest('.fav-folder-section');sec?.classList.toggle('open');const t=head.querySelector('.folder-toggle');if(t)t.textContent=sec?.classList.contains('open')?'▼':'▶';return;}const note=e.target.closest('[data-note-fav]');if(note){openFavNote(note.dataset.noteFav);return;}const m=e.target.closest('[data-move-fav]');if(m){openMoveFav(m.dataset.moveFav);return;}const rm=e.target.closest('[data-remove-fav]');if(rm){const it=favs().find(x=>x.key===rm.dataset.removeFav);if(it&&await appConfirm('Rimuovere questo articolo dai Preferiti?',{danger:true,okText:'Rimuovi'})){ls.set('mr_fav',favs().filter(x=>x.key!==it.key));drawFavs();}return;}const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
 
 /* ============ Eventi ============ */
 $('#go').onclick=doSearch;
@@ -928,7 +980,7 @@ document.addEventListener('click',async e=>{
   if(hid==='hdel'&&hsel&&hsel.size){ls.set('mr_hist',ls.get('mr_hist',[]).filter((_,i)=>!hsel.has(i)));hsel=null;drawHist();}
   if(hid==='clh'&&await appConfirm('Cancellare tutta la cronologia?',{danger:true,okText:'Cancella'})){ls.set('mr_hist',[]);hsel=null;drawHist();}
 });
-function show(v){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='fav')drawFavs();if(v==='hist'){hsel=null;drawHist();}scrollTo(0,0);}
+function show(v,manageHistory=true){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='fav')drawFavs();if(v==='hist'){hsel=null;drawHist();}scrollTo(0,0);if(manageHistory){if(v==='search'){history.replaceState({medricerca:'home'},'',location.href);}else{history.pushState({medricerca:'view',view:v},'',location.href);}}}
 document.querySelector('nav').onclick=e=>{
   const b=e.target.closest('button');if(!b)return;
   show(b.dataset.v);
