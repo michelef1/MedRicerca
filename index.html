@@ -63,12 +63,7 @@ main{max-width:760px;margin:-46px auto 0;padding:0 14px;position:relative}
 [data-theme=dark] .tabs button.on{color:#06211d}
 .tabs b{margin-left:6px;opacity:.75}
 .compare-study-head{min-width:220px;vertical-align:top}.compare-study-link{display:block;width:100%;padding:0;border:0;background:transparent;color:var(--pri);font:inherit;font-weight:800;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px}.compare-study-link:hover{opacity:.78}.compare-study-link:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}.compare-open-hint{font-size:.72rem;font-weight:600;color:var(--mut);margin-top:5px}
-.comparebar{position:sticky;top:8px;z-index:4;display:flex;align-items:center;gap:8px;justify-content:space-between;
-  background:linear-gradient(135deg,color-mix(in srgb,#7a1f3d 12%,var(--card)),color-mix(in srgb,#f2994a 16%,var(--card)));
-  border:1.5px solid #f2994a;border-radius:16px;padding:9px 11px;margin:4px 0 10px;box-shadow:var(--sh)}
-.comparebar span{color:var(--ink)}
-.comparebar #comparego{background:linear-gradient(135deg,#7a1f3d,#d9534f,#f2994a);border:0;color:#fff}
-.comparebar #compareclear{border:1.5px solid #d9534f;color:#d9534f;background:transparent}
+.comparebar{position:sticky;top:8px;z-index:4;display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--card);border:1.5px solid var(--acc);border-radius:16px;padding:9px 11px;margin:4px 0 10px;box-shadow:var(--sh)}
 .comparebar .smallgo{padding:8px 13px}.comparebar .x{padding:6px 10px}.pick{display:flex;align-items:center;gap:7px;margin-top:9px;font-size:.82rem;color:var(--mut)}.pick input{accent-color:var(--pri);width:18px;height:18px}.etype{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 7px;font-size:.7rem;margin-left:4px;color:var(--pri);background:color-mix(in srgb,var(--pri) 7%,var(--card))}.source-note{margin:0 0 8px;padding:8px 10px;border-radius:12px;background:color-mix(in srgb,var(--pri) 7%,var(--card));color:var(--mut);font-size:.78rem}
 .card{background:var(--card);border-radius:16px;box-shadow:var(--sh);padding:14px 16px;margin:10px 0;display:block;width:100%;text-align:left}
 .card h3{font-size:1rem;line-height:1.35;margin-bottom:4px}
@@ -94,24 +89,36 @@ dialog::backdrop{background:rgba(5,25,30,.55)}
 .acts button,.acts a{border:1.5px solid var(--pri);color:var(--pri);border-radius:999px;padding:7px 14px;font-size:.88rem;text-decoration:none}
 .acts .fill{background:var(--pri);color:#fff}
 [data-theme=dark] .acts .fill{color:#06211d}
-.ctable{border-collapse:collapse;width:100%;min-width:680px;font-size:.84rem}.ctable th,.ctable td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.ctable th{background:color-mix(in srgb,var(--pri) 8%,var(--card));position:sticky;top:0}.ctable th:first-child{left:0;z-index:1;min-width:120px}.note{font-size:.78rem;color:var(--warn);margin-top:6px}.fav-cat{font-size:.95rem;margin:18px 0 6px;color:var(--pri);display:flex;align-items:center;gap:7px}.fav-cat:first-child{margin-top:6px}.fav-cat::before{content:"📁"}.cat-list{display:grid;gap:7px;margin:10px 0}.cat-option{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:.92rem}.cat-option:hover,.cat-option.sel{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 9%,var(--card))}.cat-new{display:flex;gap:8px;margin-top:10px}.cat-new input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px}.cat-help{font-size:.8rem;color:var(--mut);margin:4px 0 10px}
-.fav-cat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 6px;padding:8px 10px;border-radius:14px;background:color-mix(in srgb,var(--cat-color) 12%,var(--card));border-left:5px solid var(--cat-color);cursor:pointer}
-.centerrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
-.chev{display:inline-block;width:.9em;color:var(--mut)}
-.fav-cat-head:first-child{margin-top:6px}.fav-cat-name{display:flex;align-items:center;gap:8px;min-width:0;font-size:.95rem;color:var(--ink);font-weight:800}.fav-cat-name .meta{font-weight:500;color:var(--mut)}.fav-cat-actions{display:flex;gap:5px;flex-wrap:wrap}.fav-cat-actions button{border:1px solid color-mix(in srgb,var(--cat-color) 35%,var(--line));background:var(--card);color:var(--ink);border-radius:9px;padding:6px 8px;font-size:.78rem}.fav-cat-actions button:hover{background:color-mix(in srgb,var(--cat-color) 9%,var(--card))}.fav-item-actions{display:flex;gap:6px;margin:4px 0 10px}.fav-item-actions button{font-size:.75rem;padding:5px 8px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px}.folder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}.folder-chip{border:1.5px solid var(--line);border-left:5px solid var(--folder-color);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;text-align:left}.folder-chip.on{outline:2px solid var(--folder-color);background:color-mix(in srgb,var(--folder-color) 10%,var(--card))}.folder-chip small{display:block;color:var(--mut);margin-top:2px}.manage-help{font-size:.82rem;color:var(--mut);margin:4px 0 10px}.cat-new .go{white-space:nowrap}
+.ctable{border-collapse:collapse;width:100%;min-width:680px;font-size:.84rem}.ctable th,.ctable td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}.ctable th{background:color-mix(in srgb,var(--pri) 8%,var(--card));position:sticky;top:0}.ctable th:first-child{left:0;z-index:1;min-width:120px}.note{font-size:.78rem;color:var(--warn);margin-top:6px}.fav-cat{font-size:.95rem;margin:18px 0 6px;color:var(--pri);display:flex;align-items:center;gap:7px}.fav-cat:first-child{margin-top:6px}.fav-cat::before{content:"📁"}.cat-list{display:grid;gap:7px;margin:10px 0}.cat-option{display:block;width:100%;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px;font-size:.92rem}.cat-option:hover,.cat-option.sel{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 9%,var(--card))}.cat-new{display:flex;gap:8px;margin-top:10px}.cat-new input{flex:1;min-width:0;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:10px 12px}.cat-help{font-size:.8rem;color:var(--mut);margin:4px 0 10px}.folder-top-actions{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;width:100%;margin:0 0 14px}.folder-top-actions .top-main{display:flex;justify-content:center;width:100%}.folder-top-actions .top-secondary{display:flex;justify-content:center;align-items:center;gap:8px;width:100%}.folder-top-actions button{min-height:40px;border-radius:999px;padding:8px 14px;font-size:.86rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:6px;box-shadow:0 2px 7px rgba(0,0,0,.08)}.folder-top-actions .fill{background:var(--pri);color:#fff;border:1.5px solid var(--pri)}.folder-top-actions button:not(.fill){background:var(--card);color:var(--pri);border:1.5px solid var(--pri)}[data-theme=dark] .folder-top-actions .fill{color:#06211d}@media(max-width:520px){.folder-top-actions{gap:7px}.folder-top-actions .top-secondary{gap:6px}.folder-top-actions button{padding:8px 11px;font-size:.8rem}}.folder-manager-title{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;flex:1}.folder-manager-title .t{margin:0;text-align:center}.folder-manager-tools{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}.folder-tool{border:1.5px solid var(--pri);background:var(--card);color:var(--pri);border-radius:999px;padding:8px 13px;font-size:.84rem;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;box-shadow:0 2px 7px rgba(0,0,0,.08)}.folder-tool.fill{background:var(--pri);color:#fff}.folder-tool:active{transform:scale(.98)}[data-theme=dark] .folder-tool.fill{color:#06211d}@media(max-width:520px){.folder-manager-tools{gap:6px}.folder-tool{padding:8px 10px;font-size:.8rem}.folder-manager-tools .folder-tool span{white-space:nowrap}}
+.fav-cat-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:18px 0 6px;padding:8px 10px;border-radius:14px;background:color-mix(in srgb,var(--cat-color) 12%,var(--card));border-left:5px solid var(--cat-color)}
+.fav-cat-head:first-child{margin-top:6px}.fav-folder-content{display:none}.fav-folder-section.open .fav-folder-content{display:block}.fav-cat-head{cursor:pointer}.fav-cat-head:active{transform:scale(.995)}.fav-cat-name{display:flex;align-items:center;gap:8px;min-width:0;font-size:.95rem;color:var(--ink);font-weight:800}.fav-cat-name .meta{font-weight:500;color:var(--mut)}.fav-cat-actions{display:flex;gap:5px;flex-wrap:wrap}.fav-cat-actions button{border:1px solid color-mix(in srgb,var(--cat-color) 35%,var(--line));background:var(--card);color:var(--ink);border-radius:9px;padding:6px 8px;font-size:.78rem}.fav-cat-actions button:hover{background:color-mix(in srgb,var(--cat-color) 9%,var(--card))}
+.fav-article-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:10px 0 10px;padding-top:9px;border-top:1px solid color-mix(in srgb,var(--cat-color) 22%,var(--line))}
+.fav-article-actions .label{font-size:.72rem;font-weight:800;color:var(--mut);margin-right:2px}
+.fav-article-actions button{font-size:.76rem;padding:6px 10px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;font-weight:700}
+.fav-article-actions button:hover{background:var(--bg)}
+.fav-article-actions button.speaking{border-color:var(--pri);background:color-mix(in srgb,var(--pri) 12%,var(--card));color:var(--pri)}
+.fav-note{margin:0 0 12px;padding:9px 11px;border-radius:12px;background:color-mix(in srgb,var(--cat-color) 8%,var(--card));border-left:5px solid var(--cat-color);font-size:.82rem;color:var(--ink);white-space:pre-wrap}
+.fav-note b{color:var(--pri)}
+.fav-note-empty{opacity:.95}
+.muted-note{color:var(--mut)}
+.fav-note-actions{display:flex;justify-content:flex-start;margin-top:8px}
+.fav-note-actions button{font-size:.76rem;padding:6px 10px;border:1px solid var(--cat-color);background:color-mix(in srgb,var(--cat-color) 7%,var(--card));color:var(--ink);border-radius:9px;font-weight:700}
+.fav-highlight{background:#ffeb3b;color:#111;padding:0 2px;border-radius:3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.fav-search{display:flex;align-items:center;gap:8px;margin:4px 0 14px}.fav-search input{flex:1;min-width:0;border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:11px 16px;font-size:.95rem}.fav-search input:focus{border-color:var(--acc);outline:0}.fav-search .clear{border:1.5px solid var(--line);background:var(--card);color:var(--mut);border-radius:999px;padding:8px 11px;font-size:.82rem}.fav-search-count{text-align:center;color:var(--mut);font-size:.78rem;margin:-7px 0 8px}
+.note-editor textarea{width:100%;min-height:150px;resize:vertical;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:12px;font:inherit;line-height:1.45}.note-editor .acts{justify-content:flex-end;margin-top:12px}
+.folder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin:10px 0}.folder-chip{border:1.5px solid var(--line);border-left:5px solid var(--folder-color);background:var(--card);color:var(--ink);border-radius:12px;padding:9px;text-align:left}.folder-chip.on{outline:2px solid var(--folder-color);background:color-mix(in srgb,var(--folder-color) 10%,var(--card))}.folder-chip small{display:block;color:var(--mut);margin-top:2px}.manage-help{font-size:.82rem;color:var(--mut);margin:4px 0 10px}.cat-new .go{white-space:nowrap}
 h2.t{font-size:1.1rem;margin:4px 0 8px}
 .app-dialog{max-width:420px;width:calc(100% - 28px);margin:auto;border-radius:22px;padding:0;background:var(--card);color:var(--ink);box-shadow:0 18px 55px rgba(0,0,0,.28);overflow:hidden}.app-dialog::backdrop{background:rgba(5,25,30,.62)}.app-dialog-body{padding:20px 20px 18px}.app-dialog-brand{display:flex;align-items:center;gap:10px;margin-bottom:12px}.app-dialog-brand .logo{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:var(--pri);color:#fff;font-weight:900;font-size:17px}.app-dialog-brand strong{font-size:1rem;letter-spacing:.1px}.app-dialog-message{font-size:.95rem;line-height:1.48;margin:0 0 16px;color:var(--ink);white-space:pre-wrap}.app-dialog-input{width:100%;box-sizing:border-box;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:11px 12px;font:inherit;outline:none}.app-dialog-input:focus{border-color:var(--pri);box-shadow:0 0 0 3px color-mix(in srgb,var(--pri) 14%,transparent)}.app-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.app-dialog-actions button{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:11px;padding:9px 14px;font-weight:700}.app-dialog-actions .primary{background:var(--pri);border-color:var(--pri);color:#fff}.app-dialog-actions .danger{background:var(--warn);border-color:var(--warn);color:#fff}[data-theme=dark] .app-dialog-actions .primary{color:#06211d}
 .row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
 .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
-.x{border:1.5px solid var(--pri);color:var(--pri);background:color-mix(in srgb,var(--pri) 10%,var(--card));font-weight:700;border-radius:999px;padding:6px 14px;font-size:.88rem;white-space:nowrap}
+.x{border:1.5px solid var(--pri);background:var(--pri);color:#fff;border-radius:999px;padding:7px 14px;font-size:.88rem;font-weight:800;white-space:nowrap;box-shadow:0 2px 7px rgba(0,0,0,.12)}.x:active{transform:scale(.98)}
 .dl,.dl *{overflow-wrap:anywhere}
 dialog.zoomed{max-width:none;width:100%;border-radius:0}
 @media(min-width:900px){
- main{max-width:760px}
- header{padding-left:max(18px,calc(50% - 380px));padding-right:max(18px,calc(50% - 380px))}
- #menu,#mnu{right:max(14px,calc(50% - 380px))}
- #res,#favs,#hist{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:0 14px;align-items:start}
- #res>.msg,#favs>.msg,#hist>.msg,#hist>.acts{grid-column:1/-1}
+ main{max-width:720px}
+ header{padding-left:calc(50% - 346px);padding-right:calc(50% - 346px)}
+ #menu,#mnu{right:calc(50% - 346px)}
+ #res,#favs,#hist{display:block}
  dialog{border-radius:24px;margin:auto;max-height:86vh}
  .dl{max-height:86vh}
  nav{justify-content:center}
@@ -167,14 +174,14 @@ details ul{padding-left:20px}
 <header>
   <h1><button id="home" class="ttl" aria-label="Torna alla home">MedRicerca</button></h1>
   <p>Ricerca e confronto nella letteratura medica</p>
-  <button id="menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">⋮</button>
+  <button id="menu" aria-label="Menu" aria-haspopup="true" aria-expanded="false">☰</button>
   <div id="mnu" hidden><button id="mi" hidden>⬇️ Installa app</button><button data-go="guide">📖 Guida</button><button data-go="set">⚙️ Impostazioni</button><button data-go="info">ⓘ Info e crediti</button><button id="qt">◐ <span id="qt-lbl">Tema Scuro</span></button></div>
   <svg class="ecg" viewBox="0 0 400 34" preserveAspectRatio="none" aria-hidden="true"><path d="M0 20 H90 L102 20 L110 4 L122 32 L132 12 L140 20 H230 L242 20 L250 6 L262 30 L272 14 L280 20 H400"/></svg>
 </header>
 <main>
   <section id="v-search" class="view on">
     <div class="box">
-      <div class="sbar"><input id="q" type="search" placeholder="Es. pramipexolo, Parkinson, ipertensione…" enterkeyhint="search" autocomplete="off"><button class="go" id="go">Cerca</button></div>
+      <div class="sbar"><input id="q" type="search" placeholder="ES: Norvasc, ipertensione ecc" enterkeyhint="search" autocomplete="off"><button class="go" id="go">Cerca</button></div>
       <div class="seg" id="mode"><button data-m="tutto" class="on">Tutto</button><button data-m="farmaco">Farmaco</button><button data-m="malattia">Malattia</button></div>
       <div class="en">Cerco come <input id="en" placeholder="termine inglese (modificabile)" aria-label="Termine inglese"></div>
       <div class="meta" id="enhint" hidden></div>
@@ -208,10 +215,11 @@ details ul{padding-left:20px}
       <li><b>Meta-analisi</b> — un'analisi che unisce i dati di più studi (spesso più RCT) sullo stesso argomento, per ottenere una stima complessiva più solida di quella di un singolo studio.</li>
     </ul></details>
     <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo.</p></details>
+    <details><summary>Ascoltare un articolo (Text-to-Speech)</summary><p>Nel dettaglio di un articolo, e nei Preferiti, trovi il pulsante <b>🔊 Ascolta</b>. Legge ad alta voce titolo e abstract usando la voce installata sul tuo dispositivo. Se stai leggendo l'originale, legge in inglese; se stai leggendo la traduzione italiana, legge in italiano. Durante la lettura il pulsante diventa <b>⏹️ Ferma</b> per interrompere. Il Text-to-Speech è integrato nel browser: non serve internet, non serve nessun servizio esterno, e non viene inviato nulla a nessuno. Su alcuni browser o dispositivi le voci disponibili possono essere poche o assenti.</p></details>
     <details><summary>Confrontare gli studi</summary><p>Nei risultati puoi selezionare fino a 4 studi. Apparirà il pulsante <b>Confronta</b>, che mette a confronto titolo, fonte, anno, tipo di evidenza, autori, accesso aperto, DOI e abstract disponibile. Il confronto descrive i dati disponibili: non stabilisce quale studio sia “migliore”.</p></details>
     <details><summary>Privacy della traduzione</summary><p>MedRicerca prova prima la traduzione integrata nel browser. Se non è disponibile, può usare MyMemory come servizio esterno: in quel caso il testo da tradurre viene inviato a quel servizio. Puoi sempre leggere il testo originale senza tradurlo.</p></details>
     <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Stampa</b> apre la versione ottimizzata per la stampa. <b>Salva PDF</b> apre la stampa del dispositivo, da cui puoi scegliere “Salva come PDF”. <b>Salva</b> aggiunge ai Preferiti. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
-    <details><summary>Categorie nei Preferiti</summary><p>Quando salvi un articolo puoi scegliere una categoria già presente, come Neurologia o Cardiologia, oppure creare una categoria personalizzata. I Preferiti vengono raggruppati per categoria. Gli articoli già salvati nelle versioni precedenti vengono messi automaticamente in “Senza categoria”.</p></details>
+    <details><summary>Categorie nei Preferiti</summary><p>Quando salvi un articolo puoi scegliere una categoria già presente, come Neurologia o Cardiologia, oppure creare una categoria personalizzata. I Preferiti vengono raggruppati per categoria. Gli articoli già salvati nelle versioni precedenti vengono messi automaticamente in “Senza categoria”. Su ogni articolo trovi a sinistra due pulsanti per l'articolo (<b>📂 Sposta</b>, <b>🗑️ Rimuovi</b>) e sotto un riquadro dedicato alla tua nota personale, con il pulsante <b>📝 Aggiungi nota</b> o <b>📝 Modifica nota</b>. La ricerca nei Preferiti evidenzia in giallo la parola cercata <b>solo nel titolo</b>, e solo se la parola ha almeno 3 caratteri.</p></details>
     <details><summary>Glossario di tutti i pulsanti</summary><ul>
       <li><b>MedRicerca</b> (il titolo in alto) — riporta alla home e azzera la ricerca in corso.</li>
       <li><b>⋮</b> — apre Installa app, Guida, Impostazioni, Info e crediti, Tema Chiaro/Scuro.</li>
@@ -222,6 +230,7 @@ details ul{padding-left:20px}
       <li><b>Solo open access / Solo con abstract</b> — nascondono i risultati a pagamento o senza riassunto.</li>
       <li><b>Riprova</b> — su una fonte che ha dato errore, ripete solo quella ricerca.</li>
       <li><b>Traduci in italiano / Mostra originale</b> — traduce o torna al testo inglese dell'abstract.</li>
+      <li><b>🔊 Ascolta / ⏹️ Ferma</b> — legge ad alta voce titolo e abstract (o li interrompe).</li>
       <li><b>☆ Salva / ★ Nei preferiti</b> — aggiunge o toglie l'articolo dai Preferiti; quando lo salvi puoi scegliere o creare una categoria.</li>
       <li><b>Condividi</b> — invia il link con le tue app, oppure lo copia.</li>
       <li><b>Esporta .ris</b> — scarica la citazione per Zotero o Mendeley.</li>
@@ -236,7 +245,7 @@ details ul{padding-left:20px}
       <li><b>Ripristina impostazioni</b> — riporta tema, sfondo e dimensione del testo ai valori iniziali.</li>
     </ul></details>
     <details><summary>Le fonti e i loro limiti</summary><ul><li>PubMed e Europe PMC: articoli scientifici.</li><li>ClinicalTrials.gov: studi clinici.</li><li>openFDA: schede dei farmaci statunitensi.</li><li>Elenco AIFA dei farmaci autorizzati in Italia (licenza CC-BY 4.0): serve a riconoscere i nomi commerciali italiani e a ricavarne il principio attivo. È una copia salvata nell'app, aggiornata al 28/09/2026.</li><li>AIFA (farmaci) e SNLG (linee guida italiane) sono pubbliche e gratuite, ma senza una ricerca richiamabile da un link diretto: apri il loro sito e cerca lì.</li><li>Embase, Cochrane e Google Scholar sono a pagamento o senza accesso libero via app: trovi i link per aprirli sul loro sito in "Cerca anche su".</li></ul></details>
-    <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p><p><b>Tasto Indietro:</b> su Android chiude il dettaglio o il confronto aperti; se sei su Preferiti, Cronologia, Info, Impostazioni o Guida, ti riporta alla ricerca senza cancellarla, invece di uscire dall'app.</p><p><b>Cartelle nei Preferiti:</b> compaiono chiuse, con solo nome e numero di articoli; toccale per aprirle e vedere cosa contengono.</p><p><b>Modalità offline:</b> installata o meno, l'app resta utilizzabile senza connessione solo per l'interfaccia e per Preferiti, Cronologia e articoli già consultati. Una ricerca nuova, o una già fatta ma non ancora vista, richiede sempre una connessione a internet, perché interroga le banche dati in tempo reale.</p></details>
+    <details><summary>Se qualcosa non funziona</summary><p>Se una fonte mostra un errore (per esempio 503) è di solito un sovraccarico temporaneo: tocca Riprova. Se non trovi nulla con un nome commerciale, usa la modalità Farmaco o scrivi il principio attivo. Il titolo MedRicerca in alto riporta alla home e azzera la ricerca.</p><p><b>Modalità offline:</b> installata o meno, l'app resta utilizzabile senza connessione solo per l'interfaccia e per Preferiti, Cronologia e articoli già consultati. Una ricerca nuova, o una già fatta ma non ancora vista, richiede sempre una connessione a internet, perché interroga le banche dati in tempo reale.</p></details>
     <details><summary>Avvertenza</summary><p>Solo a scopo informativo, non sostituisce il parere del medico. Trovare uno studio tra i risultati non significa che il trattamento descritto sia efficace, sicuro o adatto a una persona specifica: per l'interpretazione clinica, rivolgersi sempre a un medico o farmacista.</p></details>
   </section>
   <dialog id="dlg-ios"><div class="dl">
@@ -264,10 +273,11 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">5.6</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">5.3.0</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser; ripiego online su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
+      <div class="row"><span>Sintesi vocale</span><span>Text-to-Speech del dispositivo (nessun servizio esterno)</span></div>
       <div class="row"><span>Autore</span><b>App Creata da Miki by Claude e ChatGPT</b></div>
       <p class="disc" style="text-align:left;color:var(--ink)"><b>Solo a scopo informativo, non sostituisce il parere del medico.</b> Trovare uno studio tra i risultati non significa che il trattamento sia efficace, sicuro o adatto a te: per l'interpretazione clinica, rivolgiti a un medico o farmacista.</p>
     </div>
@@ -287,9 +297,10 @@ details ul{padding-left:20px}
 
 
 <dialog id="appMsgDlg" class="app-dialog"><div class="app-dialog-body"><div class="app-dialog-brand"><span class="logo">M</span><strong>MedRicerca</strong></div><p id="appMsgText" class="app-dialog-message"></p><div id="appMsgInputWrap" hidden><input id="appMsgInput" class="app-dialog-input" type="text" maxlength="40"></div><div class="app-dialog-actions"><button id="appMsgCancel" type="button">Annulla</button><button id="appMsgOk" class="primary" type="button">OK</button></div></div></dialog>
-<dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" id="compareClose">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
+<dialog id="compareDlg"><div class="dl"><div class="top"><h2 id="compareTitle">Confronto</h2><button class="x" onclick="document.getElementById('compareDlg').close()">✕ Chiudi</button></div><p class="disc" style="text-align:left">Il confronto affianca i dati disponibili nelle fonti. Non stabilisce quale studio sia migliore o quale trattamento sia adatto a una persona.</p><div style="overflow:auto"><table class="ctable"><thead><tr id="compareHeads"></tr></thead><tbody id="compareTable"></tbody></table></div></div></dialog>
+<dialog id="favNoteDlg"><div class="dl note-editor"><div class="top"><h2 class="t">Nota personale</h2><button class="x" id="favNoteCancel" type="button">✕ Annulla</button></div><p class="cat-help">Scrivi una nota personale da conservare insieme a questo articolo.</p><textarea id="favNoteText" maxlength="2000" placeholder="La mia nota…"></textarea><div class="acts"><button id="favNoteDelete" type="button">🗑️ Cancella nota</button><button id="favNoteSave" type="button" class="fill">💾 Salva nota</button></div></div></dialog>
 <dialog id="favCatDlg"><div class="dl"><div class="top"><h2 class="t">Salva nei Preferiti</h2><button class="x" id="favCatCancel" type="button">✕ Annulla</button></div><p class="cat-help">Scegli una categoria per organizzare questo articolo. Puoi usare una categoria esistente oppure crearne una nuova.</p><div id="favCatList" class="cat-list"></div><div class="cat-new"><input id="favCatNew" type="text" maxlength="40" placeholder="Nuova categoria…"><button id="favCatAdd" class="go" type="button">Crea</button></div></div></dialog>
-<dialog id="folderDlg"><div class="dl"><div class="top"><h2 class="t">Gestisci cartelle</h2><button class="x" id="folderClose" type="button">✕ Chiudi</button></div><p class="manage-help">Crea, rinomina o elimina le cartelle. Prima di ogni modifica irreversibile MedRicerca chiederà conferma.</p><div id="folderList" class="cat-list"></div><div class="cat-new"><input id="folderNew" type="text" maxlength="40" placeholder="Nuova cartella…"><button id="folderAdd" class="go" type="button">Crea</button></div></div></dialog>
+<dialog id="folderDlg"><div class="dl"><div class="top"><div class="folder-manager-title"><h2 class="t">Gestisci cartelle</h2><div class="folder-manager-tools"><button class="folder-tool fill" id="folderImport" type="button" title="Importa dati" aria-label="Importa dati">📥 <span>Importa dati</span></button><button class="folder-tool" id="folderExport" type="button" title="Esporta dati" aria-label="Esporta dati">📤 <span>Esporta dati</span></button></div></div><button class="x" id="folderClose" type="button">✕ Chiudi</button></div><p class="manage-help">Crea, rinomina o elimina le cartelle. Usa le frecce ↑ e ↓ per cambiarne l’ordine in modo semplice anche da smartphone. “Senza categoria” rimane sempre in cima. Prima di ogni modifica irreversibile MedRicerca chiederà conferma.</p><div id="folderList" class="cat-list"></div><div class="cat-new"><input id="folderNew" type="text" maxlength="40" placeholder="Nuova cartella…"><button id="folderAdd" class="go" type="button">Crea</button></div></div></dialog>
 <dialog id="moveFavDlg"><div class="dl"><div class="top"><h2 class="t">Sposta articolo</h2><button class="x" id="moveFavCancel" type="button">✕ Annulla</button></div><p class="manage-help">Scegli la cartella di destinazione.</p><div id="moveFavList" class="folder-grid"></div></div></dialog>
 <script>
 "use strict";
@@ -328,6 +339,71 @@ function withTimeout(factory,ms=20000){
   const main=Promise.resolve().then(()=>factory(ctrl.signal)).finally(()=>clearTimeout(t));
   const to=new Promise((_,j)=>ctrl.signal.addEventListener('abort',()=>j(new Error('Tempo scaduto'))));
   return Promise.race([main,to]);
+}
+
+/* ============ Sintesi vocale (Text-to-Speech) ============ */
+// Legge ad alta voce titolo + abstract dell'articolo corrente, nella lingua
+// che l'utente sta vedendo (inglese per l'originale, italiano per la traduzione).
+// Usa l'API speechSynthesis del browser: nessun servizio esterno, nessun invio di dati.
+const tts={
+  currentKey:null,   // chiave dell'articolo in lettura (o null)
+  currentItem:null,  // riferimento all'articolo in lettura
+  lang:'',           // lingua in corso ('en-US' o 'it-IT')
+  supported:typeof window!=='undefined'&&'speechSynthesis'in window,
+  pickVoice(lang){
+    if(!this.supported)return null;
+    const v=window.speechSynthesis.getVoices()||[];
+    if(!v.length)return null;
+    // 1) voce che inizia esattamente con la lingua richiesta (es. "it-IT", "en-US")
+    let found=v.find(x=>x.lang&&x.lang.toLowerCase()===lang.toLowerCase());
+    if(found)return found;
+    // 2) voce che inizia con la lingua base (es. "it", "en")
+    const base=lang.slice(0,2).toLowerCase();
+    found=v.find(x=>x.lang&&x.lang.toLowerCase().startsWith(base));
+    return found||null;
+  },
+  stop(){
+    if(!this.supported)return;
+    try{window.speechSynthesis.cancel();}catch{}
+    this.currentKey=null;this.currentItem=null;this.lang='';
+  },
+  speak(item,{useTranslated=false}={}){
+    if(!this.supported){showToast('La sintesi vocale non è supportata su questo browser.',{warn:true});return;}
+    if(!item){return;}
+    // Se sta già leggendo questo stesso articolo, fermati (toggle)
+    if(this.currentKey===item.key){this.stop();refreshTtsButtons();return;}
+    // Altrimenti, ferma qualunque lettura in corso e comincia la nuova
+    this.stop();
+    const tr=useTranslated&&item.tr?item.tr:null;
+    const title=tr?tr.title:item.title;
+    const abs=tr?tr.abs:item.abstract;
+    if(!title&&!abs){showToast('Nessun testo da leggere.',{warn:true});return;}
+    const text=[title,abs].filter(Boolean).join('. ');
+    const lang=tr?'it-IT':'en-US';
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang=lang;
+    const v=this.pickVoice(lang);
+    if(v)u.voice=v;
+    u.onend=()=>{if(this.currentKey===item.key){this.stop();refreshTtsButtons();}};
+    u.onerror=()=>{if(this.currentKey===item.key){this.stop();refreshTtsButtons();}};
+    this.currentKey=item.key;this.currentItem=item;this.lang=lang;
+    try{window.speechSynthesis.speak(u);}catch{this.stop();}
+    refreshTtsButtons();
+  }
+};
+// Aggiorna il testo dei pulsanti "Ascolta/Ferma" ovunque compaiano
+function refreshTtsButtons(){
+  document.querySelectorAll('[data-tts]').forEach(b=>{
+    const k=b.getAttribute('data-tts');
+    const reading=tts.currentKey===k;
+    if(b.classList.contains('fav-tts')){b.classList.toggle('speaking',reading);}
+    if(b.id==='btts'){b.textContent=reading?'⏹️ Ferma':'🔊 Ascolta';}
+  });
+}
+// Se le voci non sono ancora caricate all'avvio, ricarica al primo evento
+if(tts.supported&&typeof window!=='undefined'){
+  try{window.speechSynthesis.onvoiceschanged=()=>{};}catch{}
+  window.addEventListener('beforeunload',()=>{try{window.speechSynthesis.cancel();}catch{}});
 }
 
 /* ============ Cache traduzioni (IndexedDB) ============ */
@@ -387,7 +463,7 @@ function enrichEvidence(items){return items.map(i=>{if(!i.studyType)i.studyType=
 
 /* ============ Fonti (stessa interfaccia: search(q,f,mode)) ============ */
 const EU='https://eutils.ncbi.nlm.nih.gov/entrez/eutils/';
-let ncbiQ=Promise.resolve();                       // max ~3 richieste/sec
+let ncbiQ=Promise.resolve();
 const ncbi=(u,signal)=>{const p=ncbiQ.then(()=>sleep(350)).then(()=>jget(u,1,signal));ncbiQ=p.catch(()=>{});return p;};
 const T_PM={review:'"review"[pt]',rct:'"randomized controlled trial"[pt]',meta:'"meta-analysis"[pt]'};
 const T_EP={review:'PUB_TYPE:"Review"',rct:'PUB_TYPE:"Randomized Controlled Trial"',meta:'PUB_TYPE:"Meta-Analysis"'};
@@ -399,7 +475,6 @@ const SOURCES=[
   if(f.year)u+=`&datetype=pdat&mindate=${f.year}&maxdate=${new Date().getFullYear()}`;
   const ids=(await ncbi(u,signal)).esearchresult.idlist;if(!ids.length)return[];
   const s=await ncbi(`${EU}esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`,signal);
-  // Abstract in blocco per tutti gli id, una sola chiamata: serve anche al filtro "Solo con abstract"
   let abs={};
   try{
     await ncbiQ;await sleep(350);
@@ -433,29 +508,27 @@ const SOURCES=[
 ];
 
 /* ============ Stato ============ */
-const st={mode:'tutto',tab:null,res:{},items:{},enManual:false,q:'',sid:0};
+const st={mode:'tutto',tab:null,res:{},items:{},enManual:false,q:'',sid:0,favQuery:''};
 const compareKeys=new Set();
 const DEFAULT_FAV_CATS=['Senza categoria','Generale','Neurologia','Cardiologia','Oncologia','Endocrinologia','Gastroenterologia','Pneumologia','Farmacologia'];
 const FOLDER_COLORS=['#0b5d6b','#2e7d32','#6a1b9a','#ad1457','#ef6c00','#1565c0','#00838f','#7b5e00','#455a64','#c62828'];
 function folderColor(name){let h=0;for(const ch of String(name||''))h=(h*31+ch.charCodeAt(0))>>>0;return FOLDER_COLORS[h%FOLDER_COLORS.length];}
-function moveFolder(name,dir){
-  const cats=favCats(),i=cats.indexOf(name);
-  if(i<0)return;const j=i+dir;if(j<0||j>=cats.length)return;
-  appConfirm(`Spostare la cartella "${name}" più in ${dir<0?'alto':'basso'}?`,{okText:'Sposta'}).then(ok=>{
-    if(!ok)return;
-    [cats[i],cats[j]]=[cats[j],cats[i]];
-    saveFavCats(cats);drawFavs();drawFolderManager();
-  });
-}
 function favCats(){
   let a=ls.get('mr_fav_cats',DEFAULT_FAV_CATS);
   if(!Array.isArray(a))a=[...DEFAULT_FAV_CATS];
   a=[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))];
   if(!a.length)a=[...DEFAULT_FAV_CATS];
-  if(!a.some(x=>x.toLocaleLowerCase('it-IT')==='senza categoria'))a.unshift('Senza categoria');
+  const idx=a.findIndex(x=>x.toLocaleLowerCase('it-IT')==='senza categoria');
+  if(idx<0)a.unshift('Senza categoria');
+  else if(idx>0){const sc=a.splice(idx,1)[0];a.unshift(sc);}
   return a;
 }
-function saveFavCats(a){return ls.set('mr_fav_cats',[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))]);}
+function saveFavCats(a){
+  const clean=[...new Set(a.map(x=>String(x||'').trim()).filter(Boolean))];
+  const idx=clean.findIndex(x=>x.toLocaleLowerCase('it-IT')==='senza categoria');
+  if(idx<0)clean.unshift('Senza categoria'); else if(idx>0){const sc=clean.splice(idx,1)[0];clean.unshift(sc);}
+  return ls.set('mr_fav_cats',clean);
+}
 function favs(){
   const a=ls.get('mr_fav',[]);
   if(!Array.isArray(a))return [];
@@ -478,21 +551,19 @@ function appPrompt(message,defaultValue=''){return new Promise(resolve=>{const d
 function addFolder(name){const v=String(name||'').trim().slice(0,40);if(!v)return false;const cats=favCats();if(cats.some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){appAlert('Esiste già una cartella con questo nome.');return false;}cats.push(v);if(!saveFavCats(cats)){appAlert('Impossibile creare la cartella.');return false;}return true;}
 async function renameFolder(oldName){if(oldName==='Senza categoria'){await appAlert('La cartella “Senza categoria” è obbligatoria e non può essere rinominata.');return;}const next=await appPrompt(`Rinomina la cartella “${oldName}”`,oldName);if(next===null)return;const v=next.trim().slice(0,40);if(!v||v===oldName)return;if(favCats().some(c=>c.toLocaleLowerCase('it-IT')===v.toLocaleLowerCase('it-IT'))){await appAlert('Esiste già una cartella con questo nome.');return;}if(!await appConfirm(`Rinominare la cartella “${oldName}” in “${v}”?`,{okText:'Rinomina'}))return;const cats=favCats().map(c=>c===oldName?v:c);saveFavCats(cats);const a=favs().map(x=>(x.category||'Senza categoria')===oldName?{...x,category:v}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
 async function deleteFolder(name){if(name==='Senza categoria'){await appAlert('La cartella “Senza categoria” non può essere eliminata.');return;}const n=folderCount(name);const msg=n?`Eliminare la cartella “${name}”?\n\nI ${n} articoli contenuti verranno spostati in “Senza categoria”.`:`Eliminare la cartella “${name}”?`;if(!await appConfirm(msg,{danger:true,okText:'Elimina'}))return;saveFavCats(favCats().filter(c=>c!==name));const a=favs().map(x=>(x.category||'Senza categoria')===name?{...x,category:'Senza categoria'}:x);ls.set('mr_fav',a);drawFavs();drawFolderManager();}
-function drawFolderManager(){const cats=favCats();$('#folderList').innerHTML=cats.map((c,i)=>`<div class="cat-option" style="border-left:5px solid ${folderColor(c)};display:flex;align-items:center;justify-content:space-between;gap:8px"><span>📁 <b>${esc(c)}</b><small class="meta">${folderCount(c)} articoli</small></span><span class="fav-cat-actions">${c!=='Senza categoria'?`<button type="button" data-folder-up="${esc(c)}" ${i===0?'disabled':''}>▲</button><button type="button" data-folder-down="${esc(c)}" ${i===cats.length-1?'disabled':''}>▼</button>`:''}<button type="button" data-folder-rename="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(c)}" ${c==='Senza categoria'?'disabled':''}>🗑️</button></span></div>`).join('');}
+function moveFolder(name,direction){if(name==='Senza categoria')return;const cats=favCats(),i=cats.indexOf(name);if(i<1)return;const j=direction==='up'?i-1:i+1;if(j<1||j>=cats.length)return;[cats[i],cats[j]]=[cats[j],cats[i]];saveFavCats(cats);drawFavs();drawFolderManager();}
+function drawFolderManager(){const cats=favCats();$('#folderList').innerHTML=cats.map((c,i)=>{const fixed=c==='Senza categoria';const canUp=!fixed&&i>1;const canDown=!fixed&&i<cats.length-1;return `<div class="cat-option folder-manager-item" style="border-left:5px solid ${folderColor(c)};display:flex;align-items:center;justify-content:space-between;gap:8px"><span>☰ 📁 <b>${esc(c)}</b><small class="meta">${folderCount(c)} articoli</small></span><span class="fav-cat-actions"><button type="button" data-folder-up="${esc(c)}" ${canUp?'':'disabled'} aria-label="Sposta ${esc(c)} in alto" title="Sposta su">↑</button><button type="button" data-folder-down="${esc(c)}" ${canDown?'':'disabled'} aria-label="Sposta ${esc(c)} in basso" title="Sposta giù">↓</button><button type="button" data-folder-rename="${esc(c)}" ${fixed?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(c)}" ${fixed?'disabled':''}>🗑️</button></span></div>`;}).join('');}
 function openFolderManager(){drawFolderManager();$('#folderNew').value='';$('#folderDlg').showModal();}
 let moveFavKey=null;
 function openMoveFav(key){moveFavKey=key;const item=favs().find(x=>x.key===key);if(!item)return;$('#moveFavList').innerHTML=favCats().map(c=>`<button type="button" class="folder-chip${(item.category||'Senza categoria')===c?' on':''}" data-move-to="${esc(c)}" style="--folder-color:${folderColor(c)}">📁 <b>${esc(c)}</b><small>${folderCount(c)} articoli</small></button>`).join('');$('#moveFavDlg').showModal();}
 async function moveFavTo(cat){if(!moveFavKey)return;const a=favs();const item=a.find(x=>x.key===moveFavKey);if(!item)return;const old=item.category||'Senza categoria';if(old===cat){$('#moveFavDlg').close();moveFavKey=null;return;}if(!await appConfirm(`Spostare questo articolo da “${old}” a “${cat}”?`,{okText:'Sposta'}))return;item.category=cat;ls.set('mr_fav',a);$('#moveFavDlg').close();moveFavKey=null;drawFavs();}
 
 /* ============ Ricerca ============ */
-// Marchio o nome italiano → principio attivo (RxNorm). Null se non trovato.
-// Nomi commerciali italiani comuni -> principio attivo in inglese (RxNorm è americano e non li conosce)
 const IT_BRANDS={moment:'ibuprofen',brufen:'ibuprofen',nurofen:'ibuprofen',tachipirina:'paracetamol',efferalgan:'paracetamol',aspirina:'aspirin',cardioaspirin:'aspirin',oki:'ketoprofen',voltaren:'diclofenac',novalgina:'metamizole',buscopan:'hyoscine butylbromide',augmentin:'amoxicillin clavulanate',zimox:'amoxicillin',bentelan:'betamethasone',deltacortene:'prednisone',lasix:'furosemide',norvasc:'amlodipine',zestril:'lisinopril',triatec:'ramipril',tenormin:'atenolol',lipitor:'atorvastatin',sortis:'atorvastatin',crestor:'rosuvastatin',zocor:'simvastatin',glucophage:'metformin',xanax:'alprazolam',tavor:'lorazepam',valium:'diazepam',lexotan:'bromazepam',seroquel:'quetiapine',zoloft:'sertraline',prozac:'fluoxetine',cipralex:'escitalopram',mirapexin:'pramipexole',sinemet:'levodopa carbidopa',nexium:'esomeprazole',antra:'omeprazole',lansox:'lansoprazole',plasil:'metoclopramide',imodium:'loperamide',muscoril:'thiocolchicoside',eutirox:'levothyroxine',coumadin:'warfarin',xarelto:'rivaroxaban',eliquis:'apixaban',plavix:'clopidogrel',zyrtec:'cetirizine',aerius:'desloratadine',ventolin:'salbutamol',dulcolax:'bisacodyl',fluimucil:'acetylcysteine',diflucan:'fluconazole',zovirax:'aciclovir',spasmomen:'otilonium bromide'};
 const plain=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function lev(a,b){const m=[...Array(b.length+1)].map((_,i)=>[i]);for(let j=0;j<=a.length;j++)m[0][j]=j;for(let i=1;i<=b.length;i++)for(let j=1;j<=a.length;j++)m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(b[i-1]===a[j-1]?0:1));return m[b.length][a.length];}
 const sim=(a,b)=>1-lev(a,b)/Math.max(a.length,b.length,1);
 function brandLookup(raw){for(const t of plain(raw).split(/[^a-z]+/).filter(Boolean)){if(IT_BRANDS[t])return IT_BRANDS[t];}return null;}
-// Elenco AIFA (nome commerciale -> principio attivo), file farmaci-it.json caricato solo al bisogno
 let aifaDb=null,aifaLoading=null;
 function loadAifa(){
   if(aifaDb)return Promise.resolve(aifaDb);
@@ -504,9 +575,6 @@ function aifaLookup(db,raw){
   for(let n=Math.min(3,toks.length);n>=1;n--){const k=toks.slice(0,n).join(' ');if(db.k[k]!==undefined)return db.p[db.k[k]];}
   return null;
 }
-// Italiano -> nome inglese tramite RxNorm, scartando i riconoscimenti che non somigliano a ciò che ho scritto
-// verify=true controlla che la risposta di RxNorm somigli davvero al nome scritto (serve per i nomi grezzi non confermati);
-// verify=false salta il controllo, per i nomi già confermati dall'elenco AIFA, risparmiando una richiesta
 async function rxEnglish(n,signal,verify=true){
   try{
     const r=await jget(`https://rxnav.nlm.nih.gov/REST/approximateTerm.json?term=${enc(n)}&maxEntries=1`,1,signal);
@@ -522,7 +590,6 @@ async function rxEnglish(n,signal,verify=true){
     return g?g.name.toLowerCase():null;
   }catch{return null;}
 }
-// Restituisce {en, it}: en = termine inglese (se trovato), it = principio attivo italiano (se trovato nell'elenco AIFA)
 async function normDrug(n,signal){
   const known=brandLookup(n);if(known)return{en:known};
   const db=await loadAifa();
@@ -558,7 +625,6 @@ function openCSelMenu(btn){
   if(r.bottom+6>maxT)menu.style.top=Math.max(8,r.top-menu.offsetHeight-6)+'px';
   return menu;
 }
-// Tastiera: frecce per muoversi tra le opzioni, Invio per scegliere (già nativo sui <button>), Esc per chiudere
 document.addEventListener('keydown',e=>{
   const btn=e.target.closest('.csel-btn');
   if(btn){
@@ -579,7 +645,6 @@ document.addEventListener('keydown',e=>{
     else if(e.key==='Escape'){e.preventDefault();const trg=opt.closest('.csel').querySelector('.csel-btn');closeAllCSel();trg.focus();}
   }
 });
-// Se il focus esce dal menu (es. con Tab), il menu si chiude da solo
 document.addEventListener('focusout',e=>{
   const root=e.target.closest('.csel');if(!root)return;
   const next=e.relatedTarget;
@@ -599,7 +664,6 @@ document.addEventListener('click',async e=>{
   closeAllCSel();
 });
 function currentFilters(){return {year:filterVal.fy,type:filterVal.ft,sort:filterVal.fs,oa:$('#fo').checked};}
-// Rilancia la ricerca con i filtri correnti, senza ritradurre né toccare la cronologia
 function reSearch(){
   if(!st.q)return;
   if(!navigator.onLine){showToast('Sei offline: aggiornare i filtri richiede una connessione a internet.',{warn:true,ms:4500});return;}
@@ -623,7 +687,6 @@ async function doSearch(){
       const src=(dn&&dn.it)||raw;
       try{en=await withTimeout(signal=>translate(src,'it','en',signal),15000);}catch{en=src;}
       if(!en||/^\W*$/.test(en))en=src;
-      // Guardia: una traduzione molto più lunga dell'originale è quasi sempre un falso match di MyMemory
       const wc=s=>s.trim().split(/\s+/).length;
       if(wc(en)>wc(src)+1||en.length>src.length*2+5)en=src;
     }
@@ -648,20 +711,31 @@ function runSrc(s,en,f){
   st.res[s.id]={name:s.name,loading:true,items:[],canAbs:s.canAbs!==false};drawTabs();drawRes();
   withTimeout(signal=>s.search(en,f,signal)).then(items=>{if(sid!==st.sid)return;items=enrichEvidence(items);items.forEach(i=>st.items[i.key]=i);st.res[s.id]={name:s.name,items,canAbs:s.canAbs!==false};}).catch(e=>{if(sid!==st.sid)return;st.res[s.id]={name:s.name,items:[],err:e.message};}).finally(()=>{if(sid===st.sid){drawTabs();drawRes();}});
 }
-// Home: azzera ricerca, risultati e ricerche ancora in corso
 function goHome(){
   st.sid++;st.res={};st.items={};compareKeys.clear();updateCompareBar();st.tab=null;st.q='';st.enManual=false;
   $('#q').value='';$('#en').value='';$('#tabs').innerHTML='';$('#also').innerHTML='';
   $('#res').innerHTML='<p class="msg">Scrivi un farmaco o una malattia, anche in italiano: la ricerca parte sulle banche dati in inglese.</p>';
   if($('#dlg').open)$('#dlg').close();
-  navigateTo('search');
+  show('search');
 }
 function drawTabs(){
   const onlyAbs=$('#fab').checked;
   $('#tabs').innerHTML=Object.entries(st.res).map(([id,r])=>{const n=r.loading||r.err?0:(onlyAbs&&r.canAbs!==false?r.items.filter(i=>i.abstract).length:r.items.length);return `<button data-t="${id}" class="${id===st.tab?'on':''}">${esc(r.name)}<b>${r.loading?'…':r.err?'!':n}</b></button>`;}).join('');
 }
-function card(it){
-  return `<article class="card" data-k="${esc(it.key)}"><button class="ttl" data-open="${esc(it.key)}"><h3>${esc(it.title)}${it.oa?'<span class="badge">Open Access</span>':''}${it.studyType?'<span class="etype">'+esc(it.studyType)+'</span>':''}</h3><div class="meta">${esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '))}</div></button><label class="pick"><input type="checkbox" data-pick="${esc(it.key)}" ${compareKeys.has(it.key)?'checked':''}> Seleziona per confronto</label></article>`;
+function highlightFavText(value,q){
+  const text=String(value||'');
+  const needle=String(q||'').trim();
+  if(!needle||needle.length<3)return esc(text);
+  const re=new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');
+  let out='',last=0,m;
+  while((m=re.exec(text))){out+=esc(text.slice(last,m.index))+'<mark class="fav-highlight">'+esc(m[0])+'</mark>';last=m.index+m[0].length;}
+  return out+esc(text.slice(last));
+}
+function card(it,favQuery=''){
+  const q=String(favQuery||'').trim();
+  const title=highlightFavText(it.title,q);
+  const meta=esc([it.authors,it.journal,it.year].filter(Boolean).join(' · '));
+  return `<article class="card" data-k="${esc(it.key)}"><button class="ttl" data-open="${esc(it.key)}"><h3>${title}${it.oa?'<span class="badge">Open Access</span>':''}${it.studyType?'<span class="etype">'+esc(it.studyType)+'</span>':''}</h3><div class="meta">${meta}</div></button><label class="pick"><input type="checkbox" data-pick="${esc(it.key)}" ${compareKeys.has(it.key)?'checked':''}> Seleziona per confronto</label></article>`;
 }
 function updateCompareBar(){
   const b=$('#comparebar');if(!b)return;
@@ -671,16 +745,12 @@ function updateCompareBar(){
 function compareItems(){return [...compareKeys].map(k=>st.items[k]||favs().find(x=>x.key===k)).filter(Boolean).slice(0,4);}
 function openCompare(){
   const a=compareItems();if(a.length<2){showToast('Seleziona almeno 2 studi per confrontarli.',{warn:true});return;}
-  navTo('compare');
   const rows=[['Fonte',x=>x.src],['Anno',x=>x.year||'—'],['Tipo di evidenza',x=>x.studyType||'Non determinato'],['Autori',x=>x.authors||'—'],['Open access',x=>x.oa?'Sì':'No'],['DOI',x=>x.doi||'—'],['Abstract',x=>x.abstract?'Disponibile':'Non disponibile']];
   $('#compareTitle').textContent=`Confronto di ${a.length} studi`;
   $('#compareTable').innerHTML=rows.map(([label,fn])=>`<tr><th>${esc(label)}</th>${a.map(x=>`<td>${esc(fn(x))}</td>`).join('')}</tr>`).join('');
   $('#compareHeads').innerHTML='<th>Campo</th>'+a.map(x=>`<th class="compare-study-head"><button type="button" class="compare-study-link" data-compare-open="${esc(x.key)}" title="Apri lo studio">${esc((x.title||'').slice(0,90))}</button><div class="compare-open-hint">Apri studio ↗</div></th>`).join('');
   $('#compareDlg').showModal();
 }
-$('#compareClose').onclick=closeCompare;
-$('#compareDlg').addEventListener('click',e=>{if(e.target.id==='compareDlg')closeCompare();});
-$('#compareDlg').addEventListener('cancel',e=>{e.preventDefault();closeCompare();});
 
 function drawRes(){
   const r=st.res[st.tab];if(!r)return;
@@ -747,30 +817,22 @@ function printArticle(mode='print') {
   window.print();
 }
 let detailReqId=0;
-// Il tasto Indietro di Android deve navigare dentro l'app (dettaglio/confronto -> schermata -> home) invece di uscire dalla PWA.
-let navKind='home'; // 'home' | 'view' | 'detail' | 'compare'
+let detailHistoryOpen=false;
 if(!history.state || history.state.medricerca!=='home') history.replaceState({medricerca:'home'},'',location.href);
-function navTo(kind,which){
-  const state=which?{medricerca:kind,which}:{medricerca:kind};
-  if(kind==='home'||(kind==='view'&&navKind==='view')) history.replaceState(state,'',location.href);
-  else history.pushState(state,'',location.href);
-  navKind=kind;
+function closeDetail(){
+  if(!$('#dlg').open)return;
+  if(tts.currentKey){tts.stop();refreshTtsButtons();}
+  $('#dlg').close();
+  detailHistoryOpen=false;
+  history.replaceState({medricerca:'home'},'',location.href);
 }
-// Passa a una sezione dell'app (barra in basso, menu ⋮, pulsanti Chiudi) tenendo la cronologia in sincronia
-function navigateTo(v){navTo(v==='search'?'home':'view',v);show(v);}
-function closeModalViaHistory(dlgSel){
-  if(!$(dlgSel).open)return;
-  if(navKind==='detail'||navKind==='compare'){ history.back(); }
-  else { $(dlgSel).close(); }
-}
-function closeDetail(){closeModalViaHistory('#dlg');}
-function closeCompare(){closeModalViaHistory('#compareDlg');}
 async function openItem(key){
   const item=st.items[key]||favs().find(f=>f.key===key);if(!item)return;
   cur=item;showTr=false;paint();
-  navTo('detail');
+  if(detailHistoryOpen) history.replaceState({medricerca:'detail',key:item.key},'',location.href);
+  else { history.pushState({medricerca:'detail',key:item.key},'',location.href); detailHistoryOpen=true; }
   $('#dlg').showModal();fitZoom();
-  const myReq=++detailReqId; // evita che una risposta in ritardo sporchi un articolo aperto dopo
+  const myReq=++detailReqId;
   if(item.pmid&&!item.abstract&&!item.abstractTried){
     try{
       await ncbiQ;await sleep(350);
@@ -790,20 +852,22 @@ async function openItem(key){
 function paint(){
   if(!cur)return;
   const it=cur;const tr=showTr&&it.tr;
+  const reading=tts.currentKey===it.key;
   $('#dl').innerHTML=`<h2>${esc(tr?tr.title:it.title)}</h2>
   <div class="meta">${esc([it.src,it.authors,it.journal,it.year].filter(Boolean).join(' · '))}${it.oa?'<span class="badge">Open Access</span>':''}</div>
   <div class="abs">${esc(tr?tr.abs:(it.abstract||(it.pmid?'Carico l’abstract…':'Abstract non disponibile.')))}</div>
   ${tr?'<p class="note">Traduzione automatica: verifica i termini medici sul testo originale.</p>':''}
   ${it.trErr?`<p class="note">${esc(it.trErr)}</p>`:''}
   <div class="acts">
-    <button class="fill" id="btr">${showTr?'Mostra originale':'Traduci in italiano'}</button>
+    <button class="fill" id="btr">${showTr?'↔️ Mostra originale':'🌐 Traduci in italiano'}</button>
+    <button id="btts" data-tts="${esc(it.key)}">${reading?'⏹️ Ferma':'🔊 Ascolta'}</button>
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
     <button id="bsh">🔗 Condividi</button>
     <button id="bprint">🖨️ Stampa</button>
     <button id="bpdf">📄 Salva PDF</button>
-    <button id="bris">📥 Esporta .ris</button>
-    <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">🌐 Apri fonte</a>
-    ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">🏷️ DOI</a>`:''}
+    <button id="bris">💾 Esporta .ris</button>
+    <a href="${esc(safeUrl(it.url))}" target="_blank" rel="noopener noreferrer">🔗 Apri fonte</a>
+    ${it.doi?`<a href="${esc(safeUrl('https://doi.org/'+it.doi))}" target="_blank" rel="noopener noreferrer">🔗 DOI</a>`:''}
     <button id="bcl">✕ Chiudi</button>
   </div>`;
 }
@@ -814,6 +878,7 @@ $('#dl').addEventListener('click',async e=>{
   if(id==='bprint')printArticle('print');
   if(id==='bpdf')printArticle('pdf');
   if(id==='bris')exportRis(cur);
+  if(id==='btts'){tts.speak(cur,{useTranslated:showTr});return;}
   if(id==='bfav'){await toggleFav(cur);paint();drawFavs();}
   if(id==='btr'){
     if(showTr){showTr=false;return paint();}
@@ -830,15 +895,15 @@ $('#dl').addEventListener('click',async e=>{
 $('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDetail();});
 $('#dlg').addEventListener('cancel',e=>{e.preventDefault();closeDetail();});
 window.addEventListener('popstate',e=>{
-  const st=e.state||{medricerca:'home'};
-  navKind=st.medricerca;
-  if($('#dlg').open)$('#dlg').close();
-  if($('#compareDlg').open)$('#compareDlg').close();
-  if(st.medricerca==='home')show('search');
-  else if(st.medricerca==='view')show(st.which||'fav');
+  detailHistoryOpen=false;
+  if(tts.currentKey){tts.stop();refreshTtsButtons();}
+  ['#dlg','#folderDlg','#moveFavDlg','#favCatDlg','#compareDlg','#dlg-ios','#favNoteDlg'].forEach(sel=>{
+    const d=$(sel); if(d&&d.open) d.close();
+  });
+  show('search',false);
+  history.replaceState({medricerca:'home'},'',location.href);
 });
 $('#dlg-ios').addEventListener('click',e=>{if(e.target.id==='dlg-ios'||e.target.closest('[data-close]'))$('#dlg-ios').close();});
-// Pinch-to-zoom: il testo del dettaglio si rimpagina sulla larghezza visibile
 function fitZoom(){
   const vv=window.visualViewport,d=$('#dlg'),dl=$('#dl');if(!vv||!d.open)return;
   const s=vv.scale,lw=document.documentElement.clientWidth;
@@ -851,20 +916,43 @@ function fitZoom(){
 if(window.visualViewport){visualViewport.addEventListener('resize',fitZoom);visualViewport.addEventListener('scroll',fitZoom);}
 
 /* ============ Preferiti / cronologia / dati ============ */
-let favExpanded=new Set();
-function favTopButtons(){return '<div class="acts"><button class="fill" id="manageFolders">📁 Gestisci cartelle</button></div><div class="centerrow"><button id="exp2">Esporta dati</button><button id="imp2">Importa dati</button><input type="file" id="file2" accept="application/json" hidden></div>';}
+let favNoteKey=null;
+function openFavNote(key){const item=favs().find(x=>x.key===key);if(!item)return;favNoteKey=key;$('#favNoteText').value=item.note||'';$('#favNoteDlg').showModal();setTimeout(()=>$('#favNoteText').focus(),40);}
+function closeFavNote(){favNoteKey=null;if($('#favNoteDlg').open)$('#favNoteDlg').close();}
+function saveFavNote(){if(!favNoteKey)return;const value=$('#favNoteText').value.trim();const a=favs();const item=a.find(x=>x.key===favNoteKey);if(!item)return;if(value)item.note=value;else delete item.note;ls.set('mr_fav',a);closeFavNote();drawFavs();}
+function favMatches(it,q){
+  if(!q)return true;
+  const hay=[it.title,it.authors,it.journal,it.year,it.abstract,it.src,it.doi,it.note].filter(Boolean).join(' ').toLocaleLowerCase('it-IT');
+  return hay.includes(q.toLocaleLowerCase('it-IT'));
+}
 function drawFavs(){
   const a=favs();a.forEach(i=>st.items[i.key]=st.items[i.key]||i);
-  if(!a.length){$('#favs').innerHTML=favTopButtons()+'<p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';wireFavDataButtons();return;}
-  const groups={};a.forEach(i=>{const c=i.category||'Senza categoria';(groups[c]??=[]).push(i);});
+  const top='<div class="folder-top-actions"><div class="top-main"><button class="fill" id="manageFolders" type="button">📁 Gestisci cartelle</button></div><div class="top-secondary"><button id="favImport" type="button">📥 Importa dati</button><button id="favExport" type="button">📤 Esporta dati</button></div></div>';
+  const q=String(st.favQuery||'').trim();
+  const filtered=a.filter(i=>favMatches(i,q));
+  const search=`<div class="fav-search"><input id="favSearch" type="search" value="${esc(q)}" placeholder="🔎 Cerca nei Preferiti…" aria-label="Cerca nei Preferiti"><button type="button" class="clear" id="favSearchClear" ${q?'':'hidden'}>✕</button></div>${q?`<div class="fav-search-count">${filtered.length} ${filtered.length===1?'articolo trovato':'articoli trovati'}</div>`:''}`;
+  if(!a.length){$('#favs').innerHTML=top+search+'<p class="msg">Nessun preferito. Apri un risultato e tocca “Salva”.</p>';return;}
+  if(!filtered.length){$('#favs').innerHTML=top+search+'<p class="msg">Nessun articolo corrisponde alla ricerca.</p>';return;}
+  const groups={};filtered.forEach(i=>{const c=i.category||'Senza categoria';(groups[c]??=[]).push(i);});
   const order=favCats();const names=[...order.filter(c=>groups[c]),...Object.keys(groups).filter(c=>!order.includes(c))];
-  $('#favs').innerHTML=favTopButtons()+names.map(cat=>{
-    const items=groups[cat]||[];const col=folderColor(cat);const open=favExpanded.has(cat);
-    return `<section><div class="fav-cat-head" data-cat-toggle="${esc(cat)}" style="--cat-color:${col}"><div class="fav-cat-name"><span class="chev">${open?'▾':'▸'}</span> 📁 ${esc(cat)} <span class="meta">(${items.length})</span></div><div class="fav-cat-actions"><button type="button" data-folder-rename="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>🗑️</button></div></div><div class="fav-cat-body" ${open?'':'hidden'}>${items.map(i=>card(i)+`<div class="fav-item-actions"><button type="button" data-move-fav="${esc(i.key)}">📂 Sposta</button><button type="button" data-remove-fav="${esc(i.key)}">🗑️ Rimuovi</button></div>`).join('')}</div></section>`;
+  $('#favs').innerHTML=top+search+names.map(cat=>{
+    const items=groups[cat]||[];const col=folderColor(cat);
+    return `<section class="fav-folder-section" data-folder-section="${esc(cat)}" style="--cat-color:${col}">
+      <div class="fav-cat-head">
+        <div class="fav-cat-name"><span class="folder-toggle" aria-hidden="true">▶</span> 📁 ${esc(cat)} <span class="meta">(${items.length})</span></div>
+        <div class="fav-cat-actions"><button type="button" data-folder-rename="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>✏️</button><button type="button" data-folder-delete="${esc(cat)}" ${cat==='Senza categoria'?'disabled':''}>🗑️</button></div>
+      </div>
+      <div class="fav-folder-content">${items.map(i=>{
+        const noteBlock=`<div class="fav-note${i.note?'':' fav-note-empty'}"><b>📝 Nota:</b> ${i.note?highlightFavText(i.note,q):'<span class="muted-note">Nessuna nota personale</span>'}<div class="fav-note-actions"><button type="button" data-note-fav="${esc(i.key)}">📝 ${i.note?'Modifica nota':'Aggiungi nota'}</button></div></div>`;
+        const reading=tts.currentKey===i.key;
+        return card(i,q)+`<div class="fav-article-actions"><span class="label">Articolo:</span><button type="button" class="fav-tts${reading?' speaking':''}" data-tts="${esc(i.key)}">${reading?'⏹️ Ferma':'🔊 Ascolta'}</button><button type="button" data-move-fav="${esc(i.key)}">📂 Sposta</button><button type="button" data-remove-fav="${esc(i.key)}">🗑️ Rimuovi</button></div>`+noteBlock;
+      }).join('')}</div>
+    </section>`;
   }).join('');
-  wireFavDataButtons();
+  refreshTtsButtons();
 }
-let hsel=null; // null = modalità normale, Set = modalità selezione
+
+let hsel=null;
 function drawHist(){
   const h=ls.get('mr_hist',[]);
   if(!h.length){hsel=null;$('#hist').innerHTML='<p class="msg">Le ricerche fatte compariranno qui.</p>';return;}
@@ -874,37 +962,50 @@ function drawHist(){
   const rows=h.map((x,i)=>`<button class="card hrow${hsel&&hsel.has(i)?' sel':''}" data-h="${i}">${hsel?`<span class="ck">${hsel.has(i)?'☑':'☐'}</span>`:''}<div><h3>${esc(x.q)}</h3><div class="meta">${esc(x.m)} · ${new Date(x.t).toLocaleString('it-IT')}</div></div></button>`).join('');
   $('#hist').innerHTML=bar+rows;
 }
-function exportData(){
-  const b=new Blob([JSON.stringify({v:1,fav:favs(),hist:ls.get('mr_hist',[])},null,1)],{type:'application/json'});
+function exportMedRicercaData(){
+  const payload={
+    v:2,
+    app:'MedRicerca',
+    exportedAt:new Date().toISOString(),
+    fav:favs(),
+    favCats:favCats(),
+    hist:ls.get('mr_hist',[]),
+    cfg:ls.get('mr_cfg',null)
+  };
+  const b=new Blob([JSON.stringify(payload,null,1)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='medricerca-dati.json';a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
+$('#exp').onclick=exportMedRicercaData;
+$('#imp').onclick=()=>$('#file').click();
+$('#folderExport').onclick=exportMedRicercaData;
+$('#folderImport').onclick=()=>$('#file').click();
 function validFav(x){return x&&typeof x==='object'&&typeof x.key==='string'&&typeof x.title==='string';}
 function validHist(x){return x&&typeof x==='object'&&typeof x.q==='string';}
-async function importDataFile(file){
+$('#file').onchange=async e=>{
   try{
+    const file=e.target.files&&e.target.files[0];
+    if(!file) return;
     const d=JSON.parse(await file.text());
     const fav=Array.isArray(d.fav)?d.fav.filter(validFav).map(x=>({...x,category:x.category||'Senza categoria'})).slice(0,500):null;
     const hist=Array.isArray(d.hist)?d.hist.filter(validHist).slice(0,200):null;
-    if(fav===null&&hist===null)throw 0;
+    const cats=Array.isArray(d.favCats)?d.favCats.filter(x=>typeof x==='string').map(x=>x.trim().slice(0,40)).filter(Boolean).slice(0,50):null;
+    if(fav===null&&hist===null&&cats===null)throw 0;
     let ok=true;
+    if(cats!==null)saveFavCats(cats);
     if(fav!==null)ok=ls.set('mr_fav',fav)&&ok;
     if(hist!==null)ok=ls.set('mr_hist',hist)&&ok;
-    drawFavs();drawHist();
-    await appAlert(ok?'Dati importati.':'Dati importati, ma il salvataggio potrebbe non essere completo (memoria del browser piena o non disponibile).');
+    if(d.cfg&&typeof d.cfg==='object')ok=ls.set('mr_cfg',{...CFG0,...d.cfg})&&ok;
+    cfg={...CFG0,...ls.get('mr_cfg',{})};
+    applyCfg();
+    drawFavs();drawHist();drawFolderManager();
+    await appAlert(ok?'Dati importati correttamente.':'Dati importati, ma il salvataggio potrebbe non essere completo (memoria del browser piena o non disponibile).');
   }
   catch{await appAlert('File non valido: scegli un export di MedRicerca.');}
-}
-$('#exp').onclick=exportData;
-$('#imp').onclick=()=>$('#file').click();
-$('#file').onchange=e=>{if(e.target.files[0])importDataFile(e.target.files[0]);e.target.value='';};
-function wireFavDataButtons(){
-  const e2=$('#exp2'),i2=$('#imp2'),f2=$('#file2');
-  if(!e2)return;
-  e2.onclick=exportData;
-  i2.onclick=()=>f2.click();
-  f2.onchange=e=>{if(e.target.files[0])importDataFile(e.target.files[0]);e.target.value='';};
-}
+  finally{e.target.value='';}
+};
 
+$('#favNoteSave').onclick=saveFavNote;$('#favNoteDelete').onclick=()=>{if(favNoteKey){const a=favs();const item=a.find(x=>x.key===favNoteKey);if(item)delete item.note;ls.set('mr_fav',a);}closeFavNote();drawFavs();};$('#favNoteCancel').onclick=closeFavNote;$('#favNoteDlg').addEventListener('cancel',e=>{e.preventDefault();closeFavNote();});$('#favNoteDlg').addEventListener('click',e=>{if(e.target.id==='favNoteDlg')closeFavNote();});
 $('#favCatList').addEventListener('click',e=>{const b=e.target.closest('[data-fav-cat]');if(b)finishFavCategory(b.dataset.favCat);});
 $('#favCatAdd').onclick=()=>finishFavCategory($('#favCatNew').value);
 $('#favCatNew').addEventListener('keydown',e=>{if(e.key==='Enter')finishFavCategory(e.target.value);if(e.key==='Escape')cancelFavCategory();});
@@ -914,21 +1015,26 @@ $('#favCatDlg').addEventListener('click',e=>{if(e.target.id==='favCatDlg')cancel
 $('#folderClose').onclick=()=>$('#folderDlg').close();
 $('#folderAdd').onclick=()=>{if(addFolder($('#folderNew').value)){ $('#folderNew').value='';drawFolderManager();drawFavs(); }};
 $('#folderNew').addEventListener('keydown',e=>{if(e.key==='Enter')$('#folderAdd').click();if(e.key==='Escape')$('#folderDlg').close();});
-$('#folderList').addEventListener('click',async e=>{const u=e.target.closest('[data-folder-up]');const dn=e.target.closest('[data-folder-down]');const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(u)moveFolder(u.dataset.folderUp,-1);if(dn)moveFolder(dn.dataset.folderDown,1);if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
+$('#folderList').addEventListener('click',async e=>{const up=e.target.closest('[data-folder-up]');const down=e.target.closest('[data-folder-down]');const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(up){moveFolder(up.dataset.folderUp,'up');return;}if(down){moveFolder(down.dataset.folderDown,'down');return;}if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);});
 $('#folderDlg').addEventListener('click',e=>{if(e.target.id==='folderDlg')$('#folderDlg').close();});
 $('#moveFavCancel').onclick=()=>{$('#moveFavDlg').close();moveFavKey=null;};
 $('#moveFavList').addEventListener('click',async e=>{const b=e.target.closest('[data-move-to]');if(b)await moveFavTo(b.dataset.moveTo);});
 $('#moveFavDlg').addEventListener('click',e=>{if(e.target.id==='moveFavDlg'){e.preventDefault();$('#moveFavDlg').close();moveFavKey=null;}});
+$('#favs').addEventListener('input',e=>{if(e.target.id==='favSearch'){st.favQuery=e.target.value;drawFavs();const q=$('#favSearch');if(q){q.focus();q.setSelectionRange(q.value.length,q.value.length);}}});
 $('#favs').addEventListener('click',async e=>{
   if(e.target.closest('#manageFolders')){openFolderManager();return;}
+  if(e.target.closest('#favImport')){$('#file').click();return;}
+  if(e.target.closest('#favExport')){exportMedRicercaData();return;}
+  if(e.target.closest('#favSearchClear')){st.favQuery='';drawFavs();return;}
+  const ttsBtn=e.target.closest('[data-tts]');
+  if(ttsBtn){const it=favs().find(x=>x.key===ttsBtn.dataset.tts)||st.items[ttsBtn.dataset.tts];if(it)tts.speak(it,{useTranslated:false});return;}
+  const head=e.target.closest('.fav-cat-head');
+  if(head&&!e.target.closest('.fav-cat-actions')){const sec=head.closest('.fav-folder-section');sec?.classList.toggle('open');const t=head.querySelector('.folder-toggle');if(t)t.textContent=sec?.classList.contains('open')?'▼':'▶';return;}
+  const note=e.target.closest('[data-note-fav]');if(note){openFavNote(note.dataset.noteFav);return;}
   const m=e.target.closest('[data-move-fav]');if(m){openMoveFav(m.dataset.moveFav);return;}
   const rm=e.target.closest('[data-remove-fav]');if(rm){const it=favs().find(x=>x.key===rm.dataset.removeFav);if(it&&await appConfirm('Rimuovere questo articolo dai Preferiti?',{danger:true,okText:'Rimuovi'})){ls.set('mr_fav',favs().filter(x=>x.key!==it.key));drawFavs();}return;}
-  const r=e.target.closest('[data-folder-rename]');if(r){await renameFolder(r.dataset.folderRename);return;}
-  const d=e.target.closest('[data-folder-delete]');if(d){await deleteFolder(d.dataset.folderDelete);return;}
-  const t=e.target.closest('[data-cat-toggle]');
-  if(t){const cat=t.dataset.catToggle;if(favExpanded.has(cat))favExpanded.delete(cat);else favExpanded.add(cat);drawFavs();}
+  const r=e.target.closest('[data-folder-rename]');const d=e.target.closest('[data-folder-delete]');if(r)await renameFolder(r.dataset.folderRename);if(d)await deleteFolder(d.dataset.folderDelete);
 });
-
 
 /* ============ Eventi ============ */
 $('#go').onclick=doSearch;
@@ -944,12 +1050,12 @@ $('#mode').onclick=e=>{const m=e.target.dataset.m;if(!m||m===st.mode)return;st.m
 $('#tabs').onclick=e=>{const b=e.target.closest('[data-t]');if(!b)return;st.tab=b.dataset.t;drawTabs();drawRes();};
 document.addEventListener('click',async e=>{
   const rt=e.target.closest('[data-retry]');if(rt){const s=SOURCES.find(x=>x.id===rt.dataset.retry);if(s)runSrc(s,st.q,st.f);return;}
-  if(e.target.closest('[data-close]')){navigateTo('search');return;}
+  if(e.target.closest('[data-close]')){show('search');return;}
   const pick=e.target.closest('[data-pick]');if(pick){const k=pick.dataset.pick;if(pick.checked){if(compareKeys.size>=4){pick.checked=false;showToast('Puoi confrontare al massimo 4 studi.',{warn:true});return;}compareKeys.add(k);}else compareKeys.delete(k);updateCompareBar();return;}
   const cop=e.target.closest('[data-compare-open]');if(cop){const k=cop.dataset.compareOpen;$('#compareDlg').close();openItem(k);return;}
   const op=e.target.closest('[data-open]');if(op)return openItem(op.dataset.open);
   const h=e.target.closest('[data-h]');if(h&&hsel){const i=+h.dataset.h;hsel.has(i)?hsel.delete(i):hsel.add(i);drawHist();return;}
-  if(h){const x=ls.get('mr_hist',[])[+h.dataset.h];$('#q').value=x.q;st.mode=x.m;[...$('#mode').children].forEach(b=>b.classList.toggle('on',b.dataset.m===x.m));st.enManual=false;$('#en').value='';navigateTo('search');doSearch();}
+  if(h){const x=ls.get('mr_hist',[])[+h.dataset.h];$('#q').value=x.q;st.mode=x.m;[...$('#mode').children].forEach(b=>b.classList.toggle('on',b.dataset.m===x.m));st.enManual=false;$('#en').value='';show('search');doSearch();}
   const hid=e.target.id;
   if(hid==='hsl'){hsel=new Set();drawHist();}
   if(hid==='hcan'){hsel=null;drawHist();}
@@ -957,10 +1063,10 @@ document.addEventListener('click',async e=>{
   if(hid==='hdel'&&hsel&&hsel.size){ls.set('mr_hist',ls.get('mr_hist',[]).filter((_,i)=>!hsel.has(i)));hsel=null;drawHist();}
   if(hid==='clh'&&await appConfirm('Cancellare tutta la cronologia?',{danger:true,okText:'Cancella'})){ls.set('mr_hist',[]);hsel=null;drawHist();}
 });
-function show(v){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='fav')drawFavs();if(v==='hist'){hsel=null;drawHist();}scrollTo(0,0);}
+function show(v,manageHistory=true){document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));if(v==='fav')drawFavs();if(v==='hist'){hsel=null;drawHist();}scrollTo(0,0);if(manageHistory){if(v==='search'){history.replaceState({medricerca:'home'},'',location.href);}else{history.pushState({medricerca:'view',view:v},'',location.href);}}}
 document.querySelector('nav').onclick=e=>{
   const b=e.target.closest('button');if(!b)return;
-  navigateTo(b.dataset.v);
+  show(b.dataset.v);
   if(b.dataset.v==='search'){
     const q=$('#q');q.focus();q.classList.remove('hl');void q.offsetWidth;q.classList.add('hl');
     setTimeout(()=>q.classList.remove('hl'),1300);
@@ -1022,17 +1128,15 @@ mnu.onclick=async e=>{
     else if(iOS){$('#dlg-ios').showModal();}
     return;
   }
-  if(b.dataset.go)navigateTo(b.dataset.go);
+  if(b.dataset.go)show(b.dataset.go);
   if(b.id==='qt'){cfg.theme=isDark()?'light':'dark';saveCfg();}
 };
 document.addEventListener('click',()=>{mnu.hidden=true;});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){mnu.hidden=true;closeAllCSel();}});
 applyCfg();
 
-// Avviso semplice, riusabile: persist=true resta finché non lo chiudo io (es. durante un'attesa)
 function showToast(msg,{persist=false,warn=false,ms=3500}={}){
   const t=$('#toast');
-  // Un <dialog> aperto disegna sopra tutto il resto della pagina: se è aperto, l'avviso va spostato lì dentro, altrimenti resterebbe nascosto
   const openDlg=$('#dlg').open?$('#dlg'):($('#dlg-ios').open?$('#dlg-ios'):null);
   const host=openDlg||document.body;
   if(t.parentElement!==host)host.appendChild(t);
