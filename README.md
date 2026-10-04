@@ -6,7 +6,7 @@
 
 **PWA gratuita · Nessuna registrazione · Nessun backend · Nessuna pubblicità**
 
-[![Versione](https://img.shields.io/badge/versione-5.3-22c2a0?style=flat-square)](#)
+[![Versione](https://img.shields.io/badge/versione-5.7-22c2a0?style=flat-square)](#)
 [![PWA](https://img.shields.io/badge/PWA-installabile-0b5d6b?style=flat-square)](#)
 [![Licenza](https://img.shields.io/badge/licenza-uso%20personale-lightgrey?style=flat-square)](#)
 
@@ -37,7 +37,9 @@ Nasce per rispondere a un problema semplice: la letteratura medica è quasi tutt
 | 🏷️ **Tipo di evidenza** | Un'etichetta indicativa (RCT, Review, Meta-analisi, Osservazionale...) riconosciuta dai dati disponibili, quando possibile |
 | 🈺 **Abstract tradotti** | Traduci titolo e riassunto di ogni articolo con un tocco |
 | 🎚️ **Filtri avanzati** | Anno, tipo di studio, open access, presenza di abstract, ordinamento |
-| 📁 **Preferiti in cartelle** | Organizza gli articoli salvati in cartelle personalizzate (es. Neurologia, Cardiologia): crea, rinomina, elimina o sposta un articolo da una cartella all'altra |
+| 📁 **Preferiti in cartelle** | Organizza gli articoli salvati in cartelle personalizzate (es. Neurologia, Cardiologia): crea, rinomina, elimina, riordina o sposta un articolo da una cartella all'altra |
+| 📝 **Note personali** | Aggiungi una nota privata a ogni articolo salvato, modificabile o cancellabile in ogni momento |
+| 🔎 **Cerca nei Preferiti** | Trova rapidamente un articolo salvato cercando tra titolo, autori, rivista e note, con i risultati evidenziati |
 | 🖨️ **Stampa e Salva PDF** | Ogni articolo si può stampare o salvare come PDF in una versione impaginata e leggibile |
 | 📤 **Esportazione** | Condividi un articolo o scaricalo in formato `.ris` per Zotero/Mendeley |
 | 🎨 **Personalizzazione** | Temi a gradiente, tema chiaro/scuro, dimensione del testo |
