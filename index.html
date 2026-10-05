@@ -205,7 +205,7 @@ details ul{padding-left:20px}
       <li><b>RCT</b> (Randomized Controlled Trial, studio randomizzato controllato) — uno studio in cui i partecipanti vengono divisi a caso tra chi riceve il trattamento e chi riceve un confronto (placebo o altra cura), per misurarne l'effetto reale. È tra i disegni di studio più affidabili.</li>
       <li><b>Meta-analisi</b> — un'analisi che unisce i dati di più studi (spesso più RCT) sullo stesso argomento, per ottenere una stima complessiva più solida di quella di un singolo studio.</li>
     </ul></details>
-    <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo.</p></details>
+    <details><summary>Leggere e tradurre</summary><p>Tocca un risultato per aprire il dettaglio. “Traduci in italiano” traduce titolo e abstract; “Mostra originale” torna al testo inglese. La traduzione è automatica: per i termini medici fidati del testo originale. Puoi ingrandire con due dita e il testo si adatta allo schermo. <b>Ascolta</b> legge ad alta voce titolo e abstract, in italiano se hai attivato la traduzione, altrimenti nella lingua originale; tocca <b>Ferma</b> per interrompere. Usa la voce di sintesi del tuo telefono, quindi funziona anche senza connessione se la voce è installata.</p></details>
     <details><summary>Confrontare gli studi</summary><p>Nei risultati puoi selezionare fino a 4 studi. Apparirà il pulsante <b>Confronta</b>, che mette a confronto titolo, fonte, anno, tipo di evidenza, autori, accesso aperto, DOI e abstract disponibile. Il confronto descrive i dati disponibili: non stabilisce quale studio sia “migliore”.</p></details>
     <details><summary>Privacy della traduzione</summary><p>MedRicerca prova prima la traduzione integrata nel browser. Se non è disponibile, può usare MyMemory come servizio esterno: in quel caso il testo da tradurre viene inviato a quel servizio. Puoi sempre leggere il testo originale senza tradurlo.</p></details>
     <details><summary>Condividere, Preferiti e Cronologia</summary><p><b>Condividi</b> invia il link dell'articolo con le tue app, oppure lo copia. <b>Stampa</b> apre la versione ottimizzata per la stampa. <b>Salva PDF</b> apre la stampa del dispositivo, da cui puoi scegliere “Salva come PDF”. <b>Salva</b> aggiunge ai Preferiti, dove puoi anche scrivergli una nota personale, modificabile o cancellabile quando vuoi. In Preferiti, le cartelle compaiono chiuse: toccale per aprirle, e usa la ricerca in alto per trovare subito un articolo salvato, anche dentro le note. <b>Esporta .ris</b> scarica la citazione in un formato che puoi importare in Zotero o Mendeley. Nella Cronologia puoi rilanciare una ricerca, oppure premere Seleziona per eliminarne solo alcune. Dalle Info puoi esportare e importare i tuoi dati.</p></details>
@@ -220,6 +220,7 @@ details ul{padding-left:20px}
       <li><b>Solo open access / Solo con abstract</b> — nascondono i risultati a pagamento o senza riassunto.</li>
       <li><b>Riprova</b> — su una fonte che ha dato errore, ripete solo quella ricerca.</li>
       <li><b>Traduci in italiano / Mostra originale</b> — traduce o torna al testo inglese dell'abstract.</li>
+      <li><b>🔊 Ascolta / ⏹️ Ferma</b> — legge ad alta voce titolo e abstract dell'articolo aperto, anche da Preferiti.</li>
       <li><b>☆ Salva / ★ Nei preferiti</b> — aggiunge o toglie l'articolo dai Preferiti; quando lo salvi puoi scegliere o creare una categoria.</li>
       <li><b>Condividi</b> — invia il link con le tue app, oppure lo copia.</li>
       <li><b>Esporta .ris</b> — scarica la citazione per Zotero o Mendeley.</li>
@@ -262,7 +263,7 @@ details ul{padding-left:20px}
   <section id="v-info" class="view">
     <div class="box">
       <div class="top"><h2 class="t">Info</h2><button class="x" data-close aria-label="Chiudi">✕ Chiudi</button></div>
-      <div class="row"><span>Versione</span><b id="app-version">5.7</b></div>
+      <div class="row"><span>Versione</span><b id="app-version">5.10</b></div>
       <div class="row"><span>Fonti</span><span>PubMed, Europe PMC, ClinicalTrials.gov, openFDA, RxNorm</span></div>
       <div class="row"><span>Traduzione</span><span>Browser; ripiego online su MyMemory</span></div>
       <div class="row"><span>Nomi dei farmaci</span><span>AIFA, Anagrafica farmaci (CC-BY 4.0), aggiornata al 28/09/2026</span></div>
@@ -755,10 +756,60 @@ function printArticle(mode='print') {
     <h2>Abstract${tr?' · Traduzione italiana':''}</h2>
     <div class="print-abstract">${esc(abstract)}</div>
     ${tr?'<div class="print-note">Traduzione automatica: verifica i termini medici sul testo originale.</div>':''}
-    <div class="print-footer">MedRicerca 5.2.10 · Documento generato dalla scheda dello studio. Solo a scopo informativo, non sostituisce il parere del medico.</div>`;
+    <div class="print-footer">Documento generato dalla scheda dello studio. Solo a scopo informativo, non sostituisce il parere del medico.</div>`;
   const cleanup=()=>{window.removeEventListener('afterprint',cleanup);setTimeout(()=>{$('#printArea').innerHTML='';},250);};
   window.addEventListener('afterprint',cleanup);
   window.print();
+}
+// ============ Lettura ad alta voce (Web Speech API del browser, nessun dato esce dal dispositivo) ============
+const ttsOk='speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+let ttsOn=false,ttsRun=0,ttsKeep=[];
+function ttsChunks(text,max=220){
+  // Frasi brevi in coda: evita lo stop dopo ~15 secondi di alcuni motori vocali Android/Chrome
+  const parts=String(text||'').replace(/\n+/g,'\u0001').replace(/([.!?;:])\s+/g,'$1\u0001').split('\u0001').map(x=>x.trim()).filter(Boolean);
+  const out=[];let buf='';
+  const flush=()=>{if(buf){out.push(buf);buf='';}};
+  for(let p of parts){
+    while(p.length>max){let i=p.lastIndexOf(', ',max);if(i<60)i=p.lastIndexOf(' ',max);if(i<60)i=max;flush();out.push(p.slice(0,i+1).trim());p=p.slice(i+1).trim();}
+    if(buf&&buf.length+1+p.length>max)flush();
+    buf=buf?buf+' '+p:p;
+  }
+  flush();return out;
+}
+function ttsLang(text){
+  const it=(String(text).match(/\b(della|delle|degli|nel|nella|nei|con|per|che|sono|dei|uno|una)\b/gi)||[]).length;
+  const en=(String(text).match(/\b(the|and|of|with|was|were|in|for|that|this)\b/gi)||[]).length;
+  return it>en?'it-IT':'en-US';
+}
+function ttsVoice(lang){
+  const norm=x=>String(x||'').toLowerCase().replace('_','-');
+  const all=speechSynthesis.getVoices().filter(v=>norm(v.lang).startsWith(lang.slice(0,2).toLowerCase()));
+  return all.find(v=>norm(v.lang)===norm(lang))||all[0]||null;
+}
+function ttsLabel(){const b=$('#btts');if(b)b.textContent=ttsOn?'⏹️ Ferma':'🔊 Ascolta';}
+function ttsStop(){ttsRun++;ttsKeep=[];if(ttsOk)speechSynthesis.cancel();if(ttsOn){ttsOn=false;ttsLabel();}}
+function ttsToggle(){
+  if(!ttsOk)return;
+  if(ttsOn){ttsStop();return;}
+  if(!cur)return;
+  const tr=showTr&&cur.tr;
+  const title=(tr?tr.title:cur.title)||'';
+  const abs=(tr?tr.abs:cur.abstract)||'';
+  if(!abs||/^Abstract non disponibile/i.test(abs)){showToast('Abstract non disponibile: non c’è nulla da leggere.',{warn:true});return;}
+  const lang=tr?'it-IT':ttsLang(abs);
+  const chunks=[...ttsChunks(title),...ttsChunks(abs)];
+  if(!chunks.length)return;
+  const run=++ttsRun;
+  speechSynthesis.cancel();
+  const voice=ttsVoice(lang);
+  ttsOn=true;ttsLabel();
+  ttsKeep=chunks.map((t,i)=>{
+    const u=new SpeechSynthesisUtterance(t);u.lang=lang;if(voice)u.voice=voice;
+    u.onend=()=>{if(run===ttsRun&&i===chunks.length-1){ttsOn=false;ttsKeep=[];ttsLabel();}};
+    u.onerror=e=>{if(run!==ttsRun)return;if(e&&(e.error==='interrupted'||e.error==='canceled'))return;ttsStop();showToast('Lettura non riuscita: controlla che il telefono abbia una voce di sintesi vocale installata.',{warn:true});};
+    return u;
+  });
+  ttsKeep.forEach(u=>speechSynthesis.speak(u));
 }
 let detailReqId=0;
 // Il tasto Indietro di Android naviga dentro l'app un passo alla volta: dettaglio/confronto -> schermata -> home.
@@ -780,6 +831,7 @@ function closeDetail(){closeModalViaHistory('#dlg');}
 function closeCompare(){closeModalViaHistory('#compareDlg');}
 async function openItem(key){
   const item=st.items[key]||favs().find(f=>f.key===key);if(!item)return;
+  ttsStop();
   cur=item;showTr=false;paint();
   navTo('detail');
   $('#dlg').showModal();fitZoom();
@@ -810,6 +862,7 @@ function paint(){
   ${it.trErr?`<p class="note">${esc(it.trErr)}</p>`:''}
   <div class="acts">
     <button class="fill" id="btr">${showTr?'↔️ Mostra originale':'🌐 Traduci in italiano'}</button>
+    ${ttsOk?`<button id="btts">${ttsOn?'⏹️ Ferma':'🔊 Ascolta'}</button>`:''}
     <button id="bfav">${isFav(it.key)?'★ Nei preferiti':'☆ Salva'}</button>
     <button id="bsh">🔗 Condividi</button>
     <button id="bprint">🖨️ Stampa</button>
@@ -824,11 +877,13 @@ $('#dl').addEventListener('click',async e=>{
   const id=e.target.id;
   if(id==='bcl')closeDetail();
   if(id==='bsh')shareItem(e.target);
+  if(id==='btts')ttsToggle();
   if(id==='bprint')printArticle('print');
   if(id==='bpdf')printArticle('pdf');
   if(id==='bris')exportRis(cur);
   if(id==='bfav'){await toggleFav(cur);paint();drawFavs();}
   if(id==='btr'){
+    ttsStop();
     if(showTr){showTr=false;return paint();}
     if(cur.tr){showTr=true;return paint();}
     const item=cur;
@@ -840,6 +895,7 @@ $('#dl').addEventListener('click',async e=>{
     if(cur===item)paint();
   }
 });
+$('#dlg').addEventListener('close',ttsStop);
 $('#dlg').addEventListener('click',e=>{if(e.target.id==='dlg')closeDetail();});
 $('#dlg').addEventListener('cancel',e=>{e.preventDefault();closeDetail();});
 window.addEventListener('popstate',e=>{

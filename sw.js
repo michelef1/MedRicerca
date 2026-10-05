@@ -1,4 +1,4 @@
-const CACHE = 'medricerca-v5.7';
+const CACHE = 'medricerca-v5.10';
 const SHELL = [
   './', './index.html', './manifest.json', './farmaci-it.json',
   './icons/icon-192.png', './icons/icon-512.png',
